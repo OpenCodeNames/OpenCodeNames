@@ -3,6 +3,18 @@
   <groupId>OpenCodeNames</groupId>
   <artifactId>OpenCodeNames</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+  <dependencies>
+        <dependency>
+            <groupId>com.jfoenix</groupId>
+            <artifactId>jfoenix</artifactId>
+            <version>8.0.3</version>
+        </dependency>
+        <dependency>
+            <groupId>de.jensd</groupId>
+            <artifactId>fontawesomefx</artifactId>
+            <version>8.9</version>
+		</dependency>
+</dependencies>
   <build>
     <sourceDirectory>src</sourceDirectory>
     <plugins>
@@ -13,6 +25,26 @@
           <source>1.8</source>
           <target>1.8</target>
         </configuration>
+      </plugin>
+      <plugin>
+       <groupId>org.codehaus.mojo</groupId>
+       <artifactId>exec-maven-plugin</artifactId>
+       <version>1.1.1</version>
+       <executions>
+        <execution>
+         <phase>test</phase>
+         <goals>
+          <goal>java</goal>
+         </goals>
+         <configuration>
+          <mainClass>io.codenames.Main</mainClass>
+          <arguments>
+           <argument>myArg1</argument>
+           <argument>myArg2</argument>
+          </arguments>
+         </configuration>
+        </execution>
+       </executions>
       </plugin>
     </plugins>
   </build>

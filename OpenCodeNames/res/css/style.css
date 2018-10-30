@@ -1,0 +1,25 @@
+.MainPane{
+	-fx-background-image: url("../image/bg.jpg");
+	-fx-background-size: stretch;
+	-fx-background-color:#EEEEEE;
+}
+
+.Board{
+	-fx-background-image: url("../image/board.png");
+	-fx-background-size: stretch;
+}
+
+.jfx-button {
+     -jfx-button-type: RAISED;
+     -fx-background-color: white;
+     -fx-text-fill: black;
+     -fx-background-radius:0em;
+}
+
+.ScoreBoard{
+	-fx-background-color:#000000;
+	-fx-border-color:#EAEAEA;
+	-fx-border-width:5;
+	-fx-border-radius:5;
+	-fx-border-style:solid;
+}
