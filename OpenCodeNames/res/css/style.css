@@ -23,3 +23,10 @@
 	-fx-border-radius:5;
 	-fx-border-style:solid;
 }
+
+.PlayerProfile {
+	-fx-border-style:solid;
+	-fx-border-color:#EAEAEA;
+	-fx-border-width:5;
+	-fx-border-radius:7;
+}
