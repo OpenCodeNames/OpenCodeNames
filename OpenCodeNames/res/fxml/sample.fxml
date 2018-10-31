@@ -1,21 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" styleClass="MainPane" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <AnchorPane layoutX="32.0" layoutY="70.0" prefHeight="500.0" prefWidth="690.0" styleClass="Board" />
+      <AnchorPane layoutX="32.0" layoutY="70.0" prefHeight="500.0" prefWidth="690.0" styleClass="Board">
+         <children>
+            <JFXButton focusTraversable="false" layoutX="51.0" layoutY="74.0" prefHeight="66.0" prefWidth="107.0" text="Button">
+               <styleClass>
+                  <String fx:value="card-Red" />
+                  <String fx:value="card" />
+               </styleClass>
+            </JFXButton>
+            <JFXButton focusTraversable="false" layoutX="172.0" layoutY="74.0" prefHeight="66.0" prefWidth="107.0" text="Button">
+               <styleClass>
+                  <String fx:value="card" />
+                  <String fx:value="card-Death" />
+               </styleClass>
+            </JFXButton>
+            <JFXButton focusTraversable="false" layoutX="292.0" layoutY="74.0" prefHeight="66.0" prefWidth="107.0" text="Button">
+               <styleClass>
+                  <String fx:value="card" />
+                  <String fx:value="card-Neutral" />
+               </styleClass>
+            </JFXButton>
+            <JFXButton focusTraversable="false" layoutX="413.0" layoutY="74.0" prefHeight="66.0" prefWidth="107.0" text="Button">
+               <styleClass>
+                  <String fx:value="card" />
+                  <String fx:value="card-Blue" />
+               </styleClass>
+            </JFXButton>
+            <JFXButton focusTraversable="false" layoutX="533.0" layoutY="74.0" prefHeight="66.0" prefWidth="107.0" text="Button">
+               <styleClass>
+                  <String fx:value="card" />
+                  <String fx:value="card-Neutral" />
+               </styleClass>
+            </JFXButton>
+         </children>
+         <effect>
+            <DropShadow />
+         </effect></AnchorPane>
       <ScrollPane layoutX="729.0" layoutY="320.0" prefHeight="200.0" prefWidth="225.0">
          <content>
             <VBox prefHeight="200.0" prefWidth="210.0">
                <children>
-                  <Label layoutX="10.0" layoutY="10.0" prefHeight="50.0" prefWidth="222.0" text="This is a message for testing bla bla bla bla bla" textOverrun="CLIP" wrapText="true" VBox.vgrow="ALWAYS">
+                  <Label layoutX="10.0" layoutY="10.0" prefHeight="47.0" prefWidth="206.0" text="This is a message for testing " textOverrun="CLIP" wrapText="true" VBox.vgrow="SOMETIMES">
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </padding>
@@ -26,9 +66,60 @@
                </children>
             </VBox>
          </content>
+         <effect>
+            <DropShadow />
+         </effect>
       </ScrollPane>
       <JFXButton layoutX="902.0" layoutY="532.0" styleClass="jfx-button" text="Button" />
       <TextField layoutX="730.0" layoutY="532.0" prefWidth="168.0" />
-      <AnchorPane layoutX="729.0" layoutY="79.0" prefHeight="137.0" prefWidth="225.0" styleClass="ScoreBoard" />
+      <HBox layoutX="729.0" layoutY="78.0" prefHeight="164.0" prefWidth="225.0" styleClass="ScoreBoard">
+         <children>
+            <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="125.0" text="Red" textAlignment="CENTER" textFill="RED">
+                     <font>
+                        <Font name="System Bold Italic" size="25.0" />
+                     </font>
+                  </Label>
+                  <Separator prefWidth="200.0" />
+                  <Label alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="66.0" prefWidth="107.0" text="0/8" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="35.0" />
+                     </font>
+                  </Label>
+                  <Separator prefWidth="200.0" />
+                  <Label alignment="CENTER" layoutX="10.0" layoutY="118.0" prefHeight="42.0" prefWidth="107.0" text="Turn Ends in" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="10.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+            <VBox layoutX="15.0" layoutY="15.0" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="125.0" text="Blue" textAlignment="CENTER" textFill="BLUE">
+                     <font>
+                        <Font name="System Bold Italic" size="25.0" />
+                     </font>
+                  </Label>
+                  <Separator prefWidth="200.0" />
+                  <Label alignment="CENTER" prefHeight="66.0" prefWidth="107.0" text="0/8" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="35.0" />
+                     </font>
+                  </Label>
+                  <Separator prefWidth="200.0" />
+                  <Label alignment="CENTER" layoutX="10.0" layoutY="49.0" prefHeight="0.0" prefWidth="107.0" text="0:30" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="30.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+         </children>
+         <effect>
+            <DropShadow />
+         </effect>
+      </HBox>
    </children>
 </AnchorPane>
