@@ -38,7 +38,6 @@
 .card-Death {
      -fx-background-image: url("../image/cardDeathBg.PNG");
      -fx-text-fill: white;
-     -fx-text-
      -fx-background-size: cover;
 }
 
@@ -46,7 +45,7 @@
      -jfx-button-type: RAISED;
      -fx-font-size:18;
      -fx-background-radius: 14;
-     -fx-font-weight: bold
+     -fx-font-weight: bold;
 }
 
 

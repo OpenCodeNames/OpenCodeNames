@@ -7,6 +7,7 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -46,12 +47,15 @@
                   <String fx:value="card-Neutral" />
                </styleClass>
             </JFXButton>
-         </children></AnchorPane>
+         </children>
+         <effect>
+            <DropShadow />
+         </effect></AnchorPane>
       <ScrollPane layoutX="729.0" layoutY="320.0" prefHeight="200.0" prefWidth="225.0">
          <content>
             <VBox prefHeight="200.0" prefWidth="210.0">
                <children>
-                  <Label layoutX="10.0" layoutY="10.0" prefHeight="26.0" prefWidth="210.0" text="This is a message for testing " textOverrun="CLIP" wrapText="true" VBox.vgrow="ALWAYS">
+                  <Label layoutX="10.0" layoutY="10.0" prefHeight="47.0" prefWidth="206.0" text="This is a message for testing " textOverrun="CLIP" wrapText="true" VBox.vgrow="SOMETIMES">
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </padding>
@@ -62,10 +66,13 @@
                </children>
             </VBox>
          </content>
+         <effect>
+            <DropShadow />
+         </effect>
       </ScrollPane>
       <JFXButton layoutX="902.0" layoutY="532.0" styleClass="jfx-button" text="Button" />
       <TextField layoutX="730.0" layoutY="532.0" prefWidth="168.0" />
-      <HBox layoutX="729.0" layoutY="78.0" prefHeight="125.0" prefWidth="225.0" styleClass="ScoreBoard">
+      <HBox layoutX="729.0" layoutY="78.0" prefHeight="164.0" prefWidth="225.0" styleClass="ScoreBoard">
          <children>
             <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                <children>
@@ -81,6 +88,11 @@
                      </font>
                   </Label>
                   <Separator prefWidth="200.0" />
+                  <Label alignment="CENTER" layoutX="10.0" layoutY="118.0" prefHeight="42.0" prefWidth="107.0" text="Tern Ends in" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="10.0" />
+                     </font>
+                  </Label>
                </children>
             </VBox>
             <VBox layoutX="15.0" layoutY="15.0" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
@@ -97,9 +109,17 @@
                      </font>
                   </Label>
                   <Separator prefWidth="200.0" />
+                  <Label alignment="CENTER" layoutX="10.0" layoutY="49.0" prefHeight="0.0" prefWidth="107.0" text="0:30" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="30.0" />
+                     </font>
+                  </Label>
                </children>
             </VBox>
          </children>
+         <effect>
+            <DropShadow />
+         </effect>
       </HBox>
    </children>
 </AnchorPane>
