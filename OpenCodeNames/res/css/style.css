@@ -13,8 +13,43 @@
      -jfx-button-type: RAISED;
      -fx-background-color: white;
      -fx-text-fill: black;
-     -fx-background-radius:0em;
+     -fx-background-radius:5;
 }
+
+.card-Red {
+     -fx-background-image: url("../image/cardRedBg.PNG");
+     -fx-text-fill: black;
+     -fx-background-size: cover;
+
+}
+
+.card-Blue {
+     -fx-background-image: url("../image/cardBlueBg.PNG");
+     -fx-text-fill: black;
+     -fx-background-size: cover;
+}
+
+.card-Neutral {
+     -fx-background-image: url("../image/cardBg.PNG");
+     -fx-text-fill: black;
+     -fx-background-size: cover;
+}
+
+.card-Death {
+     -fx-background-image: url("../image/cardDeathBg.PNG");
+     -fx-text-fill: white;
+     -fx-text-
+     -fx-background-size: cover;
+}
+
+.card {
+     -jfx-button-type: RAISED;
+     -fx-font-size:18;
+     -fx-background-radius: 14;
+     -fx-font-weight: bold
+}
+
+
 
 .ScoreBoard{
 	-fx-background-color:#000000;
