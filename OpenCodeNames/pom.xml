@@ -15,37 +15,49 @@
             <version>8.9</version>
 		</dependency>
 </dependencies>
-  <build>
-    <sourceDirectory>src</sourceDirectory>
-    <plugins>
-      <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.7.0</version>
-        <configuration>
-          <source>1.8</source>
-          <target>1.8</target>
-        </configuration>
-      </plugin>
-      <plugin>
-       <groupId>org.codehaus.mojo</groupId>
-       <artifactId>exec-maven-plugin</artifactId>
-       <version>1.1.1</version>
-       <executions>
-        <execution>
-         <phase>test</phase>
-         <goals>
-          <goal>java</goal>
-         </goals>
-         <configuration>
-          <mainClass>io.codenames.Main</mainClass>
-          <arguments>
-           <argument>myArg1</argument>
-           <argument>myArg2</argument>
-          </arguments>
-         </configuration>
-        </execution>
-       </executions>
-      </plugin>
+	<build>
+    	<sourceDirectory>src</sourceDirectory>
+		<resources>
+			<resource>
+			   <directory>res</directory>
+			</resource>
+		</resources>
+        <directory>${project.basedir}/target</directory>
+
+	<plugins>
+		<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-compiler-plugin</artifactId>
+			<version>3.1</version>
+			<configuration>
+			    <source>1.8</source>
+			    <target>1.8</target>
+			</configuration>
+		</plugin>
+	    <plugin>
+	      <artifactId>maven-compiler-plugin</artifactId>
+	      <version>3.7.0</version>
+	      <configuration>
+	        <source>1.8</source>
+	        <target>1.8</target>
+	      </configuration>
+	    </plugin>
+		<plugin>
+			<groupId>org.codehaus.mojo</groupId>
+			<artifactId>exec-maven-plugin</artifactId>
+			<version>1.1.1</version>
+			<executions>
+			 <execution>
+			  <phase>test</phase>
+			  <goals>
+			   <goal>java</goal>
+			  </goals>
+			  <configuration>
+			   <mainClass>io.codenames.Main</mainClass>
+			  </configuration>
+			 </execution>
+			</executions>
+		</plugin>
     </plugins>
   </build>
 </project>
