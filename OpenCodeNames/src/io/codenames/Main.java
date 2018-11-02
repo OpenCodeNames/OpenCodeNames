@@ -1,5 +1,6 @@
 package io.codenames;
 
+import io.codenames.controllers.ViewController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,13 +11,17 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/sample.fxml"));
-        primaryStage.setTitle("CodeName");
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/LoginView.fxml"));
+        primaryStage.setTitle("CodeNames");
         Scene main = new Scene(root, 1000, 600);
         main.getStylesheets().add("/css/style.css");
-        primaryStage.setScene(main);
+
+    	ViewController viewcontroller = ViewController.getInstance(main);
+    	primaryStage.setScene(main);
         primaryStage.setResizable(false);
         primaryStage.show();
+    	
+    	
     }
 
 
