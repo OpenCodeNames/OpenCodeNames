@@ -17,26 +17,26 @@
 }
 
 .card-Red {
-     -fx-background-image: url("../image/cardRedBg.PNG");
+     -fx-background-image: url("../image/cardRedBg.png");
      -fx-text-fill: black;
      -fx-background-size: cover;
 
 }
 
 .card-Blue {
-     -fx-background-image: url("../image/cardBlueBg.PNG");
+     -fx-background-image: url("../image/cardBlueBg.png");
      -fx-text-fill: black;
      -fx-background-size: cover;
 }
 
 .card-Neutral {
-     -fx-background-image: url("../image/cardBg.PNG");
+     -fx-background-image: url("../image/cardBg.png");
      -fx-text-fill: black;
      -fx-background-size: cover;
 }
 
 .card-Death {
-     -fx-background-image: url("../image/cardDeathBg.PNG");
+     -fx-background-image: url("../image/cardDeathBg.png");
      -fx-text-fill: white;
      -fx-background-size: cover;
 }
