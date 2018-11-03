@@ -10,7 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 
-public class PlayerStatisticViewController implements Initializable {
+public class MenuViewController implements Initializable {
 	
 	@FXML 
 	protected void playerStatsAction(ActionEvent event) {

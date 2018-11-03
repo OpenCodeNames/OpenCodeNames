@@ -4,7 +4,7 @@
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" styleClass="MainPane" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.codenames.controllers.PlayerStatisticViewController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" styleClass="MainPane" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.codenames.controllers.MenuViewController">
    <children>
       <JFXButton layoutX="41.0" layoutY="142.0" prefHeight="60.0" prefWidth="256.0" styleClass="mainMenuButton" text="Join Game" />
       <Separator layoutX="338.0" layoutY="63.0" orientation="VERTICAL" prefHeight="506.0" prefWidth="0.0" />
