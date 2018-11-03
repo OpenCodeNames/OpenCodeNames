@@ -70,3 +70,10 @@
     -fx-text-fill:#e0a414;
     -fx-font-size:34px;
 }
+
+.backButton{
+    -fx-background-color: radial-gradient(center 50% 70%, radius 37%, rgba(0,0,0,0.40), rgba(0,0,0,0));
+    -fx-text-fill:#e0a414;
+    -fx-font-size:25px;
+    -fx-text-alignment:left;
+}

@@ -24,5 +24,10 @@
             <Font size="29.0" />
          </font>
       </Label>
+      <JFXButton layoutX="40.0" layoutY="14.0" onAction="#backAction" prefHeight="59.0" prefWidth="106.0" styleClass="backButton" text="&lt;Back">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </JFXButton>
    </children>
 </AnchorPane>
