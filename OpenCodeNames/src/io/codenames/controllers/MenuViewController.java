@@ -26,6 +26,20 @@ public class MenuViewController implements Initializable {
 		}
 	}
 	
+	@FXML 
+	protected void createGameAction(ActionEvent event) {
+		try {
+				ViewController viewcontroller = ViewController.getInstance();
+				viewcontroller.addScreen("PlayerStats", FXMLLoader.load(getClass().getResource( "/fxml/CreateGame.fxml" )));
+				viewcontroller.activate("PlayerStats");
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}catch (RuntimeException e) {
+			e.printStackTrace();
+		}
+	}	
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		
