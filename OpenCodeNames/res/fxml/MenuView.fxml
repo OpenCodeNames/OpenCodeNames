@@ -8,7 +8,7 @@
    <children>
       <JFXButton layoutX="41.0" layoutY="142.0" onAction="#joinGameAction" prefHeight="60.0" prefWidth="256.0" styleClass="mainMenuButton" text="Join Game" />
       <Separator layoutX="338.0" layoutY="63.0" orientation="VERTICAL" prefHeight="506.0" prefWidth="0.0" />
-      <JFXButton layoutX="44.0" layoutY="229.0" prefHeight="60.0" prefWidth="256.0" styleClass="mainMenuButton" text="Create Game" />
+      <JFXButton layoutX="44.0" layoutY="229.0" onAction="#createGameAction" prefHeight="60.0" prefWidth="256.0" styleClass="mainMenuButton" text="Create Game" />
       <JFXButton layoutX="41.0" layoutY="325.0" onAction="#playerStatsAction" prefHeight="60.0" prefWidth="256.0" styleClass="mainMenuButton" text="Statistics" />
       <JFXButton layoutX="41.0" layoutY="411.0" prefHeight="60.0" prefWidth="256.0" styleClass="mainMenuButton" text="Quit" />
    </children>
