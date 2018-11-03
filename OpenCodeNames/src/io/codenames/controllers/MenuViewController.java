@@ -27,6 +27,20 @@ public class MenuViewController implements Initializable {
 	}
 	
 	@FXML 
+	protected void joinGameAction(ActionEvent event) {
+		try {
+				ViewController viewcontroller = ViewController.getInstance();
+				viewcontroller.addScreen("JoinGame", FXMLLoader.load(getClass().getResource( "/fxml/PlayerConnectView.fxml" )));
+				viewcontroller.activate("JoinGame");
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}catch (RuntimeException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@FXML
 	protected void createGameAction(ActionEvent event) {
 		try {
 				ViewController viewcontroller = ViewController.getInstance();
@@ -39,6 +53,7 @@ public class MenuViewController implements Initializable {
 			e.printStackTrace();
 		}
 	}	
+
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
