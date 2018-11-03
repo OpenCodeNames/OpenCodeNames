@@ -13,11 +13,11 @@ import javafx.fxml.Initializable;
 public class LoginViewController implements Initializable {
 	
 	@FXML 
-	private void handleLoginAction(ActionEvent event) {
+	protected void handleLoginAction(ActionEvent event) {
 		try {
 			ViewController viewcontroller = ViewController.getInstance();
-			viewcontroller.addScreen("Menue", FXMLLoader.load(getClass().getResource( "/fxml/MenueView.fxml" )));
-			viewcontroller.activate("Menue");
+			viewcontroller.addScreen("Menu", FXMLLoader.load(getClass().getResource( "/fxml/MenuView.fxml" )));
+			viewcontroller.activate("Menu");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}catch (RuntimeException e) {
