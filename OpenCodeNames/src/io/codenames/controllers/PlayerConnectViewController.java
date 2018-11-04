@@ -89,6 +89,25 @@ public class PlayerConnectViewController implements Initializable {
 	}
 	
 	/**
+	 * Action listener for join button
+	 * @param event
+	 */
+	
+	@FXML 
+	protected void joinGame(ActionEvent event) {
+		try {
+				ViewController viewcontroller = ViewController.getInstance();
+				viewcontroller.addScreen("GameView", FXMLLoader.load(getClass().getResource( "/fxml/GameView.fxml" )));
+				viewcontroller.activate("GameView");
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}catch (RuntimeException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
 	 * Initialize Player Connection View 
 	 */
 	@Override

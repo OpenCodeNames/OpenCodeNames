@@ -13,8 +13,8 @@
       <TableView fx:id="gamesTable" layoutX="314.0" layoutY="91.0" prefHeight="400.0" prefWidth="619.0">
          <columns>
             <TableColumn fx:id="creatorCol" prefWidth="202.0" text="Creator" />
-            <TableColumn fx:id="gameNameCol" prefWidth="284.0" text="Game Name" />
-            <TableColumn fx:id="seatAvailableCol" minWidth="0.0" prefWidth="132.0" text="Seats Available" />
+            <TableColumn fx:id="gameNameCol" prefWidth="302.0" text="Game Name" />
+            <TableColumn fx:id="seatAvailableCol" minWidth="0.0" prefWidth="114.0" text="Seats Available" />
          </columns>
       </TableView>
       <JFXButton fx:id="resetBtn" layoutX="112.0" layoutY="219.0" prefHeight="25.0" prefWidth="77.0" text="Reset">
@@ -22,12 +22,12 @@
             <FontAwesomeIconView glyphName="REFRESH" wrappingWidth="17.0" />
 	    </graphic>
 	  </JFXButton>
-      <JFXButton fx:id="joinbtn" layoutX="27.0" layoutY="219.0" prefHeight="25.0" prefWidth="77.0" text="Join" />
-      <Label fx:id="creatorLabel" layoutX="27.0" layoutY="91.0" prefHeight="25.0" prefWidth="163.0" text="Creator :" textFill="WHITE" />
-      <Label fx:id="creatorName" layoutX="27.0" layoutY="116.0" prefHeight="25.0" prefWidth="163.0" text="Test User" textFill="WHITE" />
-      <Label fx:id="gameLabel" layoutX="27.0" layoutY="151.0" prefHeight="25.0" prefWidth="163.0" text="Game Name :" textFill="WHITE" />
-      <Label fx:id="gameName" layoutX="27.0" layoutY="176.0" prefHeight="25.0" prefWidth="163.0" text="Test Game" textFill="WHITE" />
-      <JFXButton layoutX="2.0" layoutY="9.0" onAction="#backAction" prefHeight="59.0" prefWidth="128.0" styleClass="backButton" text="&lt;Back">
+      <JFXButton fx:id="joinbtn" layoutX="27.0" layoutY="219.0" onAction="#joinGame" prefHeight="25.0" prefWidth="77.0" text="Join" />
+      <Label fx:id="creatorLabel" layoutX="27.0" layoutY="91.0" prefHeight="25.0" prefWidth="123.0" text="Creator :" textFill="WHITE" />
+      <Label fx:id="creatorName" layoutX="27.0" layoutY="116.0" prefHeight="25.0" prefWidth="123.0" text="Test User" textFill="WHITE" />
+      <Label fx:id="gameLabel" layoutX="27.0" layoutY="151.0" prefHeight="25.0" prefWidth="123.0" text="Game Name :" textFill="WHITE" />
+      <Label fx:id="gameName" layoutX="27.0" layoutY="176.0" prefHeight="25.0" prefWidth="123.0" text="Test Game" textFill="WHITE" />
+      <JFXButton layoutX="2.0" layoutY="9.0" onAction="#backAction" prefHeight="59.0" prefWidth="106.0" styleClass="backButton" text="&lt;Back">
          <font>
             <Font size="22.0" />
          </font>
