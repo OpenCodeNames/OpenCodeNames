@@ -12,6 +12,10 @@ import javafx.fxml.Initializable;
 
 public class LoginViewController implements Initializable {
 	
+	/**
+	 * Action listener for login button
+	 * @param event
+	 */
 	@FXML 
 	protected void handleLoginAction(ActionEvent event) {
 		try {
