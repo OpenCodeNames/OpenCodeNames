@@ -12,6 +12,10 @@ import javafx.fxml.Initializable;
 
 public class MenuViewController implements Initializable {
 	
+	/**
+	 * Action listener for Statistic button
+	 * @param event
+	 */
 	@FXML 
 	protected void playerStatsAction(ActionEvent event) {
 		try {
@@ -26,6 +30,11 @@ public class MenuViewController implements Initializable {
 		}
 	}
 	
+	/**
+	 * Action listener for Join game button
+	 * @param event
+	 */
+	
 	@FXML 
 	protected void joinGameAction(ActionEvent event) {
 		try {
@@ -39,6 +48,11 @@ public class MenuViewController implements Initializable {
 			e.printStackTrace();
 		}
 	}
+	
+	/**
+	 * Action listener for Create Game button
+	 * @param event
+	 */
 
 	@FXML
 	protected void createGameAction(ActionEvent event) {

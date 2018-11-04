@@ -9,6 +9,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 
+/**
+ * Action listener for back button
+ * @param event
+ */
+
 public class PlayerStatsController implements Initializable{
 	@FXML 
 	protected void backAction(ActionEvent event) {

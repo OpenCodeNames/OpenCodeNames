@@ -11,6 +11,11 @@ import javafx.fxml.Initializable;
 
 public class CreateGameViewController implements Initializable{
 
+	/**
+	 * Action listener for Create game button
+	 * @param event
+	 */
+	
 	@FXML 
 	protected void gameAction(ActionEvent event) {
 		try {
@@ -24,6 +29,11 @@ public class CreateGameViewController implements Initializable{
 			e.printStackTrace();
 		}
 	}
+	
+	/**
+	 * Action listener for back button
+	 * @param event
+	 */
 	
 	@FXML 
 	protected void backAction(ActionEvent event) {
