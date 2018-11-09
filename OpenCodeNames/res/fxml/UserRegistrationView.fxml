@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" styleClass="MainPane" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.codenames.controllers.UserRegistrationViewController">
+   <children>
+      <JFXButton layoutX="65.0" layoutY="508.0" onAction="#registerAction" prefHeight="48.0" prefWidth="118.0" styleClass="jfx-button" text="Register">
+         <font>
+            <Font size="22.0" />
+         </font></JFXButton>
+      <TextField layoutX="65.0" layoutY="287.0" prefHeight="41.0" prefWidth="311.0" />
+      <TextField layoutX="65.0" layoutY="158.0" prefHeight="41.0" prefWidth="311.0" />
+      <Label layoutX="65.0" layoutY="97.0" prefHeight="43.0" prefWidth="311.0" text="User Name" textFill="#fcf7f7">
+         <font>
+            <Font size="29.0" />
+         </font>
+      </Label>
+      <Label layoutX="65.0" layoutY="228.0" prefHeight="43.0" prefWidth="311.0" text="Password" textFill="#fcf7f7">
+         <font>
+            <Font size="29.0" />
+         </font>
+      </Label>
+      <JFXButton layoutX="40.0" layoutY="14.0" onAction="#backAction" prefHeight="59.0" prefWidth="130.0" styleClass="backButton" text="&lt;Back">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </JFXButton>
+      <Label layoutX="65.0" layoutY="359.0" prefHeight="43.0" prefWidth="311.0" text="Confirm Password" textFill="#fcf7f7">
+         <font>
+            <Font size="29.0" />
+         </font>
+      </Label>
+      <TextField layoutX="65.0" layoutY="412.0" prefHeight="41.0" prefWidth="311.0" />
+   </children>
+</AnchorPane>

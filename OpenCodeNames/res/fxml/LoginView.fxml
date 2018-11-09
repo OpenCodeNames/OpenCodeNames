@@ -33,5 +33,10 @@
             <Image url="@../image/lgimage.png" />
          </image>
       </ImageView>
+      <JFXButton layoutX="692.0" layoutY="388.0" onAction="#handleRegistrationAction" prefHeight="48.0" prefWidth="118.0" styleClass="jfx-button" text="Register">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </JFXButton>
    </children>
 </AnchorPane>
