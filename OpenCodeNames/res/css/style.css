@@ -77,3 +77,7 @@
     -fx-font-size:25px;
     -fx-text-alignment:left;
 }
+
+.loadingPage{
+    -fx-background-color: url("../image/bg.jpg");
+}
