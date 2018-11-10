@@ -20,7 +20,7 @@ public class CreateGameViewController implements Initializable{
 	protected void gameAction(ActionEvent event) {
 		try {
 				ViewController viewcontroller = ViewController.getInstance();
-				viewcontroller.addScreen("GameView", FXMLLoader.load(getClass().getResource( "/fxml/GameView.fxml" )));
+				viewcontroller.addScreen("GameView", FXMLLoader.load(getClass().getResource( "/fxml/LoadingView.fxml" )));
 				viewcontroller.activate("GameView");
 		}
 		catch (IOException e) {
