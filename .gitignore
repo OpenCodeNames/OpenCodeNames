@@ -24,6 +24,6 @@ hs_err_pid*
 
 # Remove InteliJ Settings
 .idea/
-.iml
+*.iml
 
 target/
