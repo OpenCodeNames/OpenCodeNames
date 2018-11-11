@@ -6,7 +6,7 @@ public class Player {
 	private int cardsRevield;
 	private int correctReviels;
 	private int incorrectReviels;
-	
+
 	/**
 	 * Get player name
 	 * @return
@@ -14,7 +14,7 @@ public class Player {
 	public String getName() {
 		return name;
 	}
-	
+
 	/**
 	 * Set player name
 	 * @param name
@@ -22,15 +22,15 @@ public class Player {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	/**
-	 * Get Number of names played 
+	 * Get Number of names played
 	 * @return
 	 */
 	public int getNumGames() {
 		return numGames;
 	}
-	
+
 	/**
 	 * set number of games
 	 * @param numGames
@@ -38,14 +38,14 @@ public class Player {
 	protected void setNumGames(int numGames) {
 		this.numGames = numGames;
 	}
-	
+
 	/**
 	 * Increment number of games played
 	 */
 	public void playedGame() {
 		this.numGames++;
 	}
-	
+
 	/**
 	 * Get number of cards Revield
 	 * @return
@@ -53,7 +53,7 @@ public class Player {
 	public int getCardsRevield() {
 		return cardsRevield;
 	}
-	
+
 	/**
 	 * Set number of cards revield by a player
 	 * @param cardsRevield
@@ -61,7 +61,7 @@ public class Player {
 	protected void setCardsRevield(int cardsRevield) {
 		this.cardsRevield = cardsRevield;
 	}
-	
+
 	/**
 	 * Get correct reveals by player
 	 * @return
@@ -69,7 +69,7 @@ public class Player {
 	public int getCorrectReviels() {
 		return correctReviels;
 	}
-	
+
 	/**
 	 * Set correct cards revield
 	 * @param correctReviels
@@ -77,7 +77,7 @@ public class Player {
 	protected void setCorrectReviels(int correctReviels) {
 		this.correctReviels = correctReviels;
 	}
-	
+
 	/**
 	 * Get incorrect card reviels
 	 * @return
@@ -85,7 +85,7 @@ public class Player {
 	public int getIncorrectReviels() {
 		return incorrectReviels;
 	}
-	
+
 	/**
 	 * Set Incorrect Revels
 	 * @param incorrectReviels
@@ -93,6 +93,6 @@ public class Player {
 	protected void setIncorrectReviels(int incorrectReviels) {
 		this.incorrectReviels = incorrectReviels;
 	}
-	
-	
+
+
 }
