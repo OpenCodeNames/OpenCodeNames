@@ -1,5 +1,7 @@
 package io.codenames.serverinterfaces;
 
+import io.codenames.serverdata.Player;
+
 import java.rmi.*;
 
 public interface PlayersHandlerInterface extends Remote{
@@ -8,5 +10,5 @@ public interface PlayersHandlerInterface extends Remote{
 	
 	public boolean authenticate (String userName, String password) throws RemoteException;
 	
-	public PlayerInterface playerStatistic(String playerName) throws RemoteException;
+	public Player playerStatistic(String playerName) throws RemoteException;
 }
