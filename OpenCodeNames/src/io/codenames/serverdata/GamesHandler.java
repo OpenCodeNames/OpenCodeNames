@@ -26,4 +26,40 @@ public class GamesHandler extends UnicastRemoteObject implements GamesHandlerInt
         return single_instance; 
     }
 
+	@Override
+	public boolean createGame(String gameName, String createrName, int playerCount) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean joinGame(String gameName, String playerName) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public String getCodeNameOfCard(String gameName, int i) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean revealCard(String gameName, String playerName, int i) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean placeChatMessage(String gameName, String platerName, String message) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean placeHintMessage(String gameName, String playerName, String message) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }
