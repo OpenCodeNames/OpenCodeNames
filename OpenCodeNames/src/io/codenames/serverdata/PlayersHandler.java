@@ -2,10 +2,10 @@ package io.codenames.serverdata;
 
 import java.rmi.*;
 import java.rmi.server.*;
-import java.util.ArrayList;
+
 import java.util.HashMap;
 
-import io.codenames.serverinterfaces.PlayerInterface;
+
 import io.codenames.serverinterfaces.PlayersHandlerInterface;
 
 public class PlayersHandler extends UnicastRemoteObject implements PlayersHandlerInterface{
