@@ -28,6 +28,23 @@ public class LoginViewController implements Initializable {
 			e.printStackTrace();
 		}
 	}
+	
+	/**
+	 * Action listener for login button
+	 * @param event
+	 */
+	@FXML 
+	protected void handleRegistrationAction(ActionEvent event) {
+		try {
+			ViewController viewcontroller = ViewController.getInstance();
+			viewcontroller.addScreen("RegistrationView", FXMLLoader.load(getClass().getResource( "/fxml/UserRegistrationView.fxml" )));
+			viewcontroller.activate("RegistrationView");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}catch (RuntimeException e) {
+			e.printStackTrace();
+		}
+	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {

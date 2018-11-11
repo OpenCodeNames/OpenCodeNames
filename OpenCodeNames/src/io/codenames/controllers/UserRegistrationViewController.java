@@ -9,19 +9,19 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 
-public class CreateGameViewController implements Initializable{
+public class UserRegistrationViewController implements Initializable  {
 
 	/**
-	 * Action listener for Create game button
+	 * Action listener for User Registration button
 	 * @param event
 	 */
 	
 	@FXML 
-	protected void gameAction(ActionEvent event) {
+	protected void registerAction(ActionEvent event) {
 		try {
 				ViewController viewcontroller = ViewController.getInstance();
-				viewcontroller.addScreen("GameView", FXMLLoader.load(getClass().getResource( "/fxml/LoadingView.fxml" )));
-				viewcontroller.activate("GameView");
+				viewcontroller.addScreen("LoginView", FXMLLoader.load(getClass().getResource( "/fxml/LoginView.fxml" )));
+				viewcontroller.activate("LoginView");
 		}
 		catch (IOException e) {
 			e.printStackTrace();
@@ -29,6 +29,7 @@ public class CreateGameViewController implements Initializable{
 			e.printStackTrace();
 		}
 	}
+	
 	
 	/**
 	 * Action listener for back button
@@ -39,7 +40,7 @@ public class CreateGameViewController implements Initializable{
 	protected void backAction(ActionEvent event) {
 		try {
 				ViewController viewcontroller = ViewController.getInstance();
-				viewcontroller.addScreen("Back", FXMLLoader.load(getClass().getResource( "/fxml/MenuView.fxml" )));
+				viewcontroller.addScreen("Back", FXMLLoader.load(getClass().getResource( "/fxml/LoginView.fxml" )));
 				viewcontroller.activate("Back");
 		}
 		catch (IOException e) {
