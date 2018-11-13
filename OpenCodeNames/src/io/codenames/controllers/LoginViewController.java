@@ -72,9 +72,10 @@ public class LoginViewController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
         try{
             this.pref = Preferences.userNodeForPackage(io.codenames.Main.class);
-            playerhandler = (PlayersHandlerInterface) Naming.lookup("rmi://localhost/PlayersHandler");
+            playerhandler = (PlayersHandlerInterface) Naming.lookup("rmi://"+pref.get("rmiUri", "localhost")+"/PlayersHandler");
         }catch (Exception e){
             System.out.println(e.getMessage());
+            
         }
 	}
 }

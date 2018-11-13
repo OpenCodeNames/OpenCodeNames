@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.rmi.Naming;
 import java.util.ResourceBundle;
+import java.util.prefs.Preferences;
 
 import io.codenames.serverinterfaces.PlayersHandlerInterface;
 import javafx.event.ActionEvent;
@@ -17,7 +18,7 @@ import javax.swing.*;
 public class UserRegistrationViewController implements Initializable  {
 
 	private PlayersHandlerInterface playerhandler;
-
+	private Preferences pref;
 	@FXML
 	TextField userName;
 
@@ -77,7 +78,8 @@ public class UserRegistrationViewController implements Initializable  {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		try{
-			playerhandler = (PlayersHandlerInterface) Naming.lookup("rmi://localhost/PlayersHandler");
+			this.pref = Preferences.userNodeForPackage(io.codenames.Main.class);
+			playerhandler = (PlayersHandlerInterface) Naming.lookup("rmi://"+pref.get("rmiUri", "")+"/PlayersHandler");
 		}catch (Exception e){
 			System.out.println(e.getMessage());
 		}
