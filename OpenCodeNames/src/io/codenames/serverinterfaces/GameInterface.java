@@ -2,8 +2,6 @@ package io.codenames.serverinterfaces;
 
 import io.codenames.serverdata.Card;
 
-import java.util.HashMap;
-
 import java.rmi.*;
 
 public interface GameInterface extends Remote{
