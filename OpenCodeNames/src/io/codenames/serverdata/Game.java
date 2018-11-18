@@ -1,28 +1,39 @@
 package io.codenames.serverdata;
 
 import java.io.Serializable;
-import java.rmi.RemoteException;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.security.MessageDigest;
 
-
-import io.codenames.serverinterfaces.CardInterface;
 import io.codenames.serverinterfaces.GameInterface;
 
 public class Game  implements GameInterface, Serializable {
+    private String gameID;
     private String name;
     private String creator;
     private int seats;
     private int seatsAvailable;
 
+
     private CardFactory cardfactory= new CardFactory();
     private static ArrayList<Player> playerMap = new ArrayList<Player>();
 
     
-    public Game(String name, String creator, int seats) throws RemoteException {
-        this.name = name;
-        this.creator = creator;
-        setSeats(seats);
+    public Game(String name, String creator, int seats) {
+        try {
+            this.name = name;
+            this.creator = creator;
+            MessageDigest messageDigest = null;
+
+            messageDigest = MessageDigest.getInstance("MD5");
+            String gameIDToHash = name+creator+ Long.toString(System.currentTimeMillis());
+            messageDigest.update(gameIDToHash.getBytes());
+            this.gameID = new String(messageDigest.digest());
+            setSeats(seats);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
     }
     
     
@@ -30,7 +41,7 @@ public class Game  implements GameInterface, Serializable {
         return name;
     }
 
-
+    @Override
     public Card getCard(int i) {
         return cardfactory.getCard(i);
     }
@@ -61,6 +72,11 @@ public class Game  implements GameInterface, Serializable {
         setSeatsAvailable(seats);
     }
 
+
+    public String getGameID() {
+        return gameID;
+    }
+
     public int getSeatsAvailable() {
         return seatsAvailable;
     }
@@ -73,6 +89,28 @@ public class Game  implements GameInterface, Serializable {
         this.seatsAvailable = seatsAvailable;
     }
 
+    protected boolean addPlayer(Player player){
+        int seats = getSeatsAvailable();
+        if(seats>0){
+            this.playerMap.add(player);
+            setSeatsAvailable(seats-1);
+            return true;
+        }else{
+            return false;
+        }
 
+    }
+
+    protected boolean removePlayer(Player player){
+        int seats = getSeatsAvailable();
+        if(seats>0){
+            this.playerMap.remove(player);
+            setSeatsAvailable(seats-1);
+            return true;
+        }else{
+            return false;
+        }
+
+    }
 
 }

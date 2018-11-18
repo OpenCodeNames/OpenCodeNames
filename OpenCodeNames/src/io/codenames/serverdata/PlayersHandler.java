@@ -56,7 +56,7 @@ public class PlayersHandler extends UnicastRemoteObject implements PlayersHandle
     }
 
 
-    public Player playerStatistic(String playerName) throws RemoteException{
+    public Player getPlayer(String playerName) throws RemoteException{
         if(playerList.containsKey(playerName)) {
             return playerList.get(playerName);
         }else{
