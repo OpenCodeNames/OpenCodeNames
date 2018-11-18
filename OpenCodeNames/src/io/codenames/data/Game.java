@@ -8,12 +8,14 @@ public class Game {
 	private String creator;
 	private int seats;
 	private int seatsAvailable;
+	private String gameID;
 	
 	private static HashMap<Integer, Card> cardMap = new HashMap<>();
 	private static HashMap<Integer, Player> playerMap = new HashMap<>();
 	
 	
-	public Game(String name, String creator, int seats) {
+	public Game(String gameID, String name, String creator, int seats) {
+		this.gameID = gameID;
 		this.name = name;
 		this.creator = creator;
 		setSeats(seats);
