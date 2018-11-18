@@ -1,18 +1,16 @@
 package io.codenames.serverinterfaces;
 
+import io.codenames.serverdata.Game;
+
 import java.rmi.*;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 public interface GamesHandlerInterface extends Remote{
 
-	public boolean createGame(String gameName, String createrName, int playerCount) throws RemoteException;
-	
-	public boolean joinGame(String gameName, String playerName) throws RemoteException;
-	
-	public String getCodeNameOfCard(String gameName, int i) throws RemoteException;
-	
-	public boolean revealCard(String gameName, String playerName, int i) throws RemoteException;
-	
-	public boolean placeChatMessage(String gameName, String platerName, String message) throws RemoteException;
-	
-	public boolean placeHintMessage(String gameName, String playerName, String message) throws RemoteException;
+	String createGame(String gameName,String creatorName, int numPlayers) throws RemoteException;
+    boolean joinGameQueue(String gameID, String playerName) throws RemoteException;
+    boolean leaveGameQueue(String gameID, String playerName) throws RemoteException;
+    LinkedHashMap<String, HashMap<String,String>> getGames() throws RemoteException ;
+    boolean cardSelected(String gameID, int cardID, String playerName) throws RemoteException;
 }
