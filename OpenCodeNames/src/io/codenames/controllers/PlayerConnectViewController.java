@@ -2,12 +2,20 @@ package io.codenames.controllers;
 
 import java.io.IOException;
 import java.net.URL;
+import java.rmi.Naming;
+import java.rmi.RemoteException;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.ResourceBundle;
+import java.util.prefs.Preferences;
 
 import com.jfoenix.controls.JFXButton;
 
 import io.codenames.data.Game;
-import io.codenames.data.GameHandler;
+import io.codenames.serverinterfaces.GamesHandlerInterface;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,6 +26,11 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class PlayerConnectViewController implements Initializable {
+
+	private GamesHandlerInterface gamehandler;
+	private Preferences pref;
+	private ObservableList<Game> gameList = FXCollections.observableArrayList();
+
 	@FXML
 	private TableView<Game> gamesTable;
 	
@@ -53,7 +66,6 @@ public class PlayerConnectViewController implements Initializable {
 	
 	/**
 	 * action listener for table row select
-	 * @param oldSelection
 	 * @param newSelection
 	 */
 	public void handleGameSelected(Game newSelection) {
@@ -96,9 +108,9 @@ public class PlayerConnectViewController implements Initializable {
 	@FXML 
 	protected void joinGame(ActionEvent event) {
 		try {
-				ViewController viewcontroller = ViewController.getInstance();
-				viewcontroller.addScreen("GameView", FXMLLoader.load(getClass().getResource( "/fxml/GameView.fxml" )));
-				viewcontroller.activate("GameView");
+			ViewController viewcontroller = ViewController.getInstance();
+			viewcontroller.addScreen("GameLoader", FXMLLoader.load(getClass().getResource( "/fxml/LoadingView.fxml" )));
+			viewcontroller.activate("GameLoader");
 		}
 		catch (IOException e) {
 			e.printStackTrace();
@@ -106,7 +118,22 @@ public class PlayerConnectViewController implements Initializable {
 			e.printStackTrace();
 		}
 	}
-	
+
+	private void loadGameList(){
+		try {
+			LinkedHashMap<String, HashMap<String,String>> gameMap = gamehandler.getGames();
+			Iterator<HashMap<String,String>> it = gameMap.values().iterator();
+			while (it.hasNext())
+			{
+                HashMap<String,String> itGame = it.next();
+
+				gameList.add(new Game( itGame.get("gameID"), itGame.get("name"),itGame.get("creator"), Integer.parseInt(itGame.get("seats"))));
+			}
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
 	/**
 	 * Initialize Player Connection View 
 	 */
@@ -119,12 +146,19 @@ public class PlayerConnectViewController implements Initializable {
 		gameName.setVisible(false);
 		resetBtn.setVisible(false);
 
+		try{
+			this.pref = Preferences.userNodeForPackage(io.codenames.Main.class);
+			gamehandler = (GamesHandlerInterface) Naming.lookup("rmi://"+pref.get("rmiUri", "localhost")+"/GamesHandler");
+		}catch (Exception e){
+			System.out.println(e.getMessage());
+		}
+
 		gameNameCol.setCellValueFactory(new PropertyValueFactory<Game, String>("name"));
 		creatorCol.setCellValueFactory(new PropertyValueFactory<Game, String>("creator"));
-		seatAvailableCol.setCellValueFactory(new PropertyValueFactory<Game, String>("seatsAvailable"));
-		GameHandler gamehandler = GameHandler.getInstance();
+		seatAvailableCol.setCellValueFactory(new PropertyValueFactory<Game, String>("seats"));
 		
 		gamesTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> handleGameSelected((Game)newSelection));
-		gamesTable.setItems(gamehandler.getGamesList());
+        loadGameList();
+		gamesTable.setItems(gameList);
 	}
 }
