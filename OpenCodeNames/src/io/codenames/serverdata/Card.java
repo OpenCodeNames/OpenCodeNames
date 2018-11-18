@@ -1,7 +1,6 @@
 package io.codenames.serverdata;
 
 import java.io.Serializable;
-import java.rmi.server.UnicastRemoteObject;
 
 import io.codenames.serverinterfaces.CardInterface;
 
