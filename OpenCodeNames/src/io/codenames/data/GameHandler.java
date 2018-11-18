@@ -18,9 +18,7 @@ public class GameHandler {
 
 
 	public GameHandler() {
-		for(int i = 0; i<10; i++) {
-			gameList.add(i, new Game("Game "+i, "Player "+i , i*2));
-		}
+
 	}
 	
 
