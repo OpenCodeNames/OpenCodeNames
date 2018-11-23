@@ -64,6 +64,8 @@ public class PlayerConnectViewController implements Initializable {
 	@FXML 
 	private Label gameName;
 	
+	private String gameID;
+	
 	/**
 	 * action listener for table row select
 	 * @param newSelection
@@ -80,6 +82,7 @@ public class PlayerConnectViewController implements Initializable {
 		
 		creatorName.setText(newSelection.getCreator());
 		gameName.setText(newSelection.getName());
+		gameID = newSelection.getGameID();
 	}
 	
 	/**
@@ -108,6 +111,7 @@ public class PlayerConnectViewController implements Initializable {
 	@FXML 
 	protected void joinGame(ActionEvent event) {
 		try {
+			this.pref.put("gameID",gameID);
 			ViewController viewcontroller = ViewController.getInstance();
 			viewcontroller.addScreen("GameLoader", FXMLLoader.load(getClass().getResource( "/fxml/LoadingView.fxml" )));
 			viewcontroller.activate("GameLoader");
