@@ -1,5 +1,6 @@
 package io.codenames.serverdata;
 
+import io.codenames.clientinterfaces.ClientCommandInvokerInterface;
 import io.codenames.serverinterfaces.PlayerInterface;
 
 import java.io.Serializable;
@@ -10,11 +11,13 @@ public class Player implements PlayerInterface, Serializable {
     private String name;
     private String password;
     private int numGames = 0;
-    private int cardsReviled = 0;
+	private int cardsReviled = 0;
     private int correctReviles = 0;
     private int incorrectReviles = 0;
     private int deathCards = 0;
     private int gamesWon = 0;
+    
+    private ClientCommandInvokerInterface clientCallBackInterface;
 
     protected Player(String name, String password) {
         this.name = name;
@@ -129,6 +132,15 @@ public class Player implements PlayerInterface, Serializable {
 	protected void setGamesWon(int gamesWon) {
 		this.gamesWon = gamesWon;
 	}
+	
+    protected ClientCommandInvokerInterface getClientCallBackInterface() {
+		return clientCallBackInterface;
+	}
+
+	protected void setClientCallBackInterface(ClientCommandInvokerInterface clientCallBackInterface) {
+		this.clientCallBackInterface = clientCallBackInterface;
+	}
+ 
 
 
 }
