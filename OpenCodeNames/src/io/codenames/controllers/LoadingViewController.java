@@ -11,6 +11,9 @@ import java.rmi.RemoteException;
 import java.util.ResourceBundle;
 import java.util.prefs.Preferences;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 public class LoadingViewController implements Initializable {
 
 
@@ -36,6 +39,16 @@ public class LoadingViewController implements Initializable {
 			cci.setLoadScreen(this);
             this.pref = Preferences.userNodeForPackage(io.codenames.Main.class);
             gamehandler = (GamesHandlerInterface) Naming.lookup("rmi://"+pref.get("rmiUri", "localhost")+"/GamesHandler");
+            if(!gamehandler.joinGameQueue(this.pref.get("gameID", ""), this.pref.get("userName", ""), cci)){
+            	JOptionPane.showMessageDialog(new JFrame(), "Unable to Join game", "Error",
+                        JOptionPane.ERROR_MESSAGE);
+            	/**
+            	 * Return to Game List 
+            	 */
+            	ViewController viewcontroller = ViewController.getInstance();
+				viewcontroller.addScreen("JoinGame", FXMLLoader.load(getClass().getResource( "/fxml/PlayerConnectView.fxml" )));
+				viewcontroller.activate("JoinGame");
+            }
 
         } catch (RemoteException e) {
 			e.printStackTrace();
