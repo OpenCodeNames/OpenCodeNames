@@ -13,6 +13,8 @@ public class Player implements PlayerInterface, Serializable {
     private int cardsReviled = 0;
     private int correctReviles = 0;
     private int incorrectReviles = 0;
+    private int deathCards = 0;
+    private int gamesWon = 0;
 
     protected Player(String name, String password) {
         this.name = name;
@@ -95,6 +97,38 @@ public class Player implements PlayerInterface, Serializable {
     protected void setIncorrectReviles(int incorrectReviles) {
         this.incorrectReviles = incorrectReviles;
     }
+
+    /**
+     * Get Death Cards Revile's
+     * @param deathCards number of death card revile's
+     */
+	public int getDeathCards() {
+		return deathCards;
+	}
+
+	  /**
+     * Set Death Cards Revile's
+     * @param deathCards number of death card revile's
+     */
+	protected void setDeathCards(int deathCards) {
+		this.deathCards = deathCards;
+	}
+
+	/**
+	 * Get Number of Games Won
+	 * @return the gamesWon
+	 */
+	public int getGamesWon() {
+		return gamesWon;
+	}
+
+	/**
+	 * set Number of Games won
+	 * @param gamesWon the gamesWon to set
+	 */
+	protected void setGamesWon(int gamesWon) {
+		this.gamesWon = gamesWon;
+	}
 
 
 }
