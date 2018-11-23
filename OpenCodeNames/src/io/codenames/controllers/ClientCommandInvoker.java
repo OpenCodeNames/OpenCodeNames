@@ -4,17 +4,23 @@ import io.codenames.clientinterfaces.ClientCommandInvokerInterface;
 import io.codenames.serverinterfaces.GamesHandlerInterface;
 
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 
-public class ClientCommandInvoker implements ClientCommandInvokerInterface {
+public class ClientCommandInvoker  extends UnicastRemoteObject implements ClientCommandInvokerInterface {
 
-    private static ClientCommandInvoker single_instance = null;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private static ClientCommandInvoker single_instance = null;
 
     private LoadingViewController loadScreen;
 
     private GameViewController gameScreen;
 
 
-    private ClientCommandInvoker(){
+    private ClientCommandInvoker() throws RemoteException{
 
     }
 
