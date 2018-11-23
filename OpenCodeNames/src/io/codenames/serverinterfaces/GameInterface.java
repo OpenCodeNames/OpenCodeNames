@@ -18,7 +18,7 @@ public interface GameInterface extends Remote{
 	    Card getCard(int i);
 	    /**
 	     * Set Game Name
-	     * @return game name
+	     * @return game name 
 	     */
 	    void setName(String name);
 

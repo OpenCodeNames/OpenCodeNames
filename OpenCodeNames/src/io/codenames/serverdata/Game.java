@@ -1,7 +1,7 @@
 package io.codenames.serverdata;
 
 import java.io.Serializable;
-
+import java.rmi.RemoteException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.security.MessageDigest;
@@ -41,7 +41,7 @@ public class Game  implements GameInterface, Serializable {
         return name;
     }
 
-    @Override
+
     public Card getCard(int i) {
         return cardfactory.getCard(i);
     }
@@ -112,5 +112,22 @@ public class Game  implements GameInterface, Serializable {
         }
 
     }
+    
+    protected boolean startGame(){
+    	for (Player player: playerMap ) {
+    	   try {
+			if(!player.getClientCallBackInterface().startGame() ) {
+				   return false;
+			   }
+		} catch (RemoteException e) {
+			e.printStackTrace();
+			return false;
+		}
+    	}
+    	return true;
+    	
+    }
+    
+    
 
 }
