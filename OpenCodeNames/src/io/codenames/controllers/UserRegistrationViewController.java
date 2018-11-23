@@ -11,6 +11,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 import javax.swing.*;
@@ -23,10 +24,10 @@ public class UserRegistrationViewController implements Initializable  {
 	TextField userName;
 
 	@FXML
-	TextField userPass;
+	PasswordField userPass;
 
 	@FXML
-	TextField userConfirmPass;
+	PasswordField userConfirmPass;
 	/**
 	 * Action listener for User Registration button
 	 * @param event

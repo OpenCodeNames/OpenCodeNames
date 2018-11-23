@@ -12,6 +12,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 import javax.swing.*;
@@ -25,7 +26,7 @@ public class LoginViewController implements Initializable {
     private TextField userName;
 
     @FXML
-    private TextField userPass;
+    private PasswordField userPass;
 	/**
 	 * Action listener for login button
 	 * @param event
