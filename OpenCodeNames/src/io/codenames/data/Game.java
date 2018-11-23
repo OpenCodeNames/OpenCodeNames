@@ -15,7 +15,7 @@ public class Game {
 	
 	
 	public Game(String gameID, String name, String creator, int seats) {
-		this.gameID = gameID;
+		this.setGameID(gameID);
 		this.name = name;
 		this.creator = creator;
 		setSeats(seats);
@@ -76,6 +76,20 @@ public class Game {
 	
 	private void setSeatsAvailable(int seatsAvailable) {
 		this.seatsAvailable = seatsAvailable;
+	}
+
+	/**
+	 * @return the gameID
+	 */
+	public String getGameID() {
+		return gameID;
+	}
+
+	/**
+	 * @param gameID the gameID to set
+	 */
+	public void setGameID(String gameID) {
+		this.gameID = gameID;
 	}
 	
 	
