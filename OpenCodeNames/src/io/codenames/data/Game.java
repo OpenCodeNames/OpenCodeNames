@@ -88,7 +88,7 @@ public class Game {
 	/**
 	 * @param gameID the gameID to set
 	 */
-	public void setGameID(String gameID) {
+	protected void setGameID(String gameID) {
 		this.gameID = gameID;
 	}
 	
