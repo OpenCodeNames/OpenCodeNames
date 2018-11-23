@@ -65,7 +65,7 @@ public class GamesHandler extends UnicastRemoteObject implements GamesHandlerInt
             player.setClientCallBackInterface(client);
             if(player!=null && game.addPlayer(player)){
                 System.out.println("Player "+playerName +" joined");
-                if(game.getSeatsAvailable()==0){
+                if(game.getSeatsAvailable()==0 && game.startGame()){
                     /**
                      * Start Game
                      */
