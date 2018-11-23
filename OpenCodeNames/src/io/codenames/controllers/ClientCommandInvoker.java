@@ -38,7 +38,7 @@ public class ClientCommandInvoker  extends UnicastRemoteObject implements Client
         this.gameScreen = gameScreen;
     }
 
-    @Override
+   
     public boolean startGame() throws RemoteException {
         if(this.loadScreen == null)
             return false;
@@ -50,22 +50,22 @@ public class ClientCommandInvoker  extends UnicastRemoteObject implements Client
 
     }
 
-    @Override
+   
     public boolean reciveMessageBroadCast(String Message) throws RemoteException {
         return false;
     }
 
-    @Override
+   
     public boolean cardOpened(int i, int type, boolean turnChange) throws RemoteException {
         return false;
     }
 
-    @Override
+   
     public boolean reciveGameMessage(String message) throws RemoteException {
         return false;
     }
 
-    @Override
+   
     public boolean reciveHint(String hint) throws RemoteException {
         return false;
     }
