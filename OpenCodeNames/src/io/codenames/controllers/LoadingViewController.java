@@ -9,6 +9,8 @@ import java.net.URL;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.util.ResourceBundle;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.prefs.Preferences;
 
 import javax.swing.JFrame;
@@ -19,17 +21,24 @@ public class LoadingViewController implements Initializable {
 
     private GamesHandlerInterface gamehandler;
     private Preferences pref;
+    private boolean loadingDone = false;
+    private Timer timer;
 
     protected boolean loadGame() {
-        try {
-            ViewController viewcontroller = ViewController.getInstance();
-            viewcontroller.addScreen("Game", FXMLLoader.load(getClass().getResource( "/fxml/GameView.fxml" )));
-            viewcontroller.activate("Game");
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
+    	this.timer = new Timer();
+        this.timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+			        try {
+			            ViewController viewcontroller = ViewController.getInstance();
+			            viewcontroller.addScreen("Game", FXMLLoader.load(getClass().getResource( "/fxml/GameView.fxml" )));
+			            viewcontroller.activate("Game");
+			        } catch (Exception e) {
+			            e.printStackTrace();
+			        }
+	            };
+	    }, 2000); 
+        return true;
     }
 
 	@Override
@@ -55,7 +64,10 @@ public class LoadingViewController implements Initializable {
 		}catch (Exception e) {
             System.out.println(e.getMessage());
         }
-
+        if(this.loadingDone) {
+        	ViewController viewcontroller = ViewController.getInstance();
+        	viewcontroller.activate("Game");
+        }
 	}
 
 }
