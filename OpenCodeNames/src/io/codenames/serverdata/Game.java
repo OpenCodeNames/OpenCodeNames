@@ -17,7 +17,7 @@ public class Game  implements GameInterface, Serializable {
 
 
     private CardFactory cardfactory= new CardFactory();
-    private static ArrayList<Player> playerMap = new ArrayList<Player>();
+    private ArrayList<Player> playerMap = new ArrayList<Player>();
 
     
     public Game(String name, String creator, int seats) {
@@ -115,6 +115,7 @@ public class Game  implements GameInterface, Serializable {
     
     protected boolean startGame(){
     	for (Player player: playerMap ) {
+    		System.out.println(player.getName());
     	   try {
 			if(!player.getClientCallBackInterface().startGame() ) {
 				   return false;
