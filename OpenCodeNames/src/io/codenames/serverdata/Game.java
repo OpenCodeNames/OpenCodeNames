@@ -46,6 +46,7 @@ public class Game  implements GameInterface, Serializable {
         return cardfactory.getCard(i);
     }
 
+    public ArrayList<String> getCardsArray(){ return cardfactory.getCardsArray(); }
 
     public void setName(String name) {
         this.name = name;
@@ -91,7 +92,7 @@ public class Game  implements GameInterface, Serializable {
 
     protected boolean addPlayer(Player player){
         int seats = getSeatsAvailable();
-        if(seats>0){
+        if(seats>0 && playerExists(player)){
             this.playerMap.add(player);
             setSeatsAvailable(seats-1);
             return true;
@@ -103,7 +104,7 @@ public class Game  implements GameInterface, Serializable {
 
     protected boolean removePlayer(Player player){
         int seats = getSeatsAvailable();
-        if(seats>0){
+        if(seats>0 && playerExists(player)){
             this.playerMap.remove(player);
             setSeatsAvailable(seats-1);
             return true;
@@ -111,6 +112,10 @@ public class Game  implements GameInterface, Serializable {
             return false;
         }
 
+    }
+
+    protected boolean playerExists(Player player){
+        return playerMap.contains(player);
     }
     
     protected boolean startGame(){

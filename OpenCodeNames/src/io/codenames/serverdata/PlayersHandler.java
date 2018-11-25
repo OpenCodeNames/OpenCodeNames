@@ -1,5 +1,6 @@
 package io.codenames.serverdata;
 
+import java.io.*;
 import java.rmi.*;
 import java.rmi.server.*;
 
@@ -15,10 +16,25 @@ public class PlayersHandler extends UnicastRemoteObject implements PlayersHandle
 	 */
 	private static final long serialVersionUID = -4825483869639346540L;
 
-	private static final HashMap<String, Player> playerList = new HashMap<String, Player>();
+	private static transient HashMap<String, Player> playerList = new HashMap<String, Player>();
 
 	public PlayersHandler() throws RemoteException {
-    	
+        try {
+            File f = new File("ServerData.ser");
+            if (f.isFile() && f.canRead()) {
+                FileInputStream fis = new FileInputStream("ServerData.ser");
+                ObjectInputStream ois = new ObjectInputStream(fis);
+                this.playerList = (HashMap<String, Player>) ois.readObject();
+                ois.close();
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
     }
     /**
      * Implement Singleton
@@ -61,6 +77,21 @@ public class PlayersHandler extends UnicastRemoteObject implements PlayersHandle
             return playerList.get(playerName);
         }else{
             return null;
+        }
+    }
+
+    public void savePlayerList(){
+        FileOutputStream f = null;
+        try {
+            FileOutputStream fs = new FileOutputStream(new File("ServerData.ser"));
+            ObjectOutputStream os = new ObjectOutputStream(fs);
+            os.writeObject(playerList);
+            os.close();
+            fs.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

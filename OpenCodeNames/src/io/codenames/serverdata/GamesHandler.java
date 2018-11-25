@@ -2,6 +2,7 @@ package io.codenames.serverdata;
 
 import java.rmi.*;
 import java.rmi.server.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -120,9 +121,22 @@ public class GamesHandler extends UnicastRemoteObject implements GamesHandlerInt
 		return null;
 	}
 
+    @Override
+    public ArrayList<String> getCardsArray(String gameID, String playerName) throws RemoteException {
+        if(gameList.containsKey(gameID)){
+            Game game = gameList.get(gameID);
+            PlayersHandler playersHandler= PlayersHandler.getInstance();
+            Player player = playersHandler.getPlayer(playerName);
+            if(game.playerExists(player)){
+                return game.getCardsArray();
+            }
+        }
+        System.out.println("Game "+gameID+"Not Found");
+        return null;
+    }
 
 
-	public boolean placeChatMessage(String gameName, String platerName, String message) throws RemoteException {
+    public boolean placeChatMessage(String gameName, String platerName, String message) throws RemoteException {
 		// TODO Auto-generated method stub
 		return false;
 	}

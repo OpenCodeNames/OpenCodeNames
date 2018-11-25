@@ -1,6 +1,7 @@
 package io.codenames.serverinterfaces;
 
 import java.rmi.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
@@ -17,6 +18,8 @@ public interface GamesHandlerInterface extends Remote{
     LinkedHashMap<String, HashMap<String,String>> getGames() throws RemoteException ;
 
 	String getCodeNameOfCard(String gameName, int i) throws RemoteException;
+
+	ArrayList<String> getCardsArray(String gameID, String playerName) throws RemoteException ;
 
     boolean cardSelected(String gameID, int cardID, String playerName) throws RemoteException;
 
