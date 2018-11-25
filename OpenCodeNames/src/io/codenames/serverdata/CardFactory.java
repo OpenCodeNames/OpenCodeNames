@@ -35,6 +35,7 @@ public class CardFactory {
 				} catch (RemoteException e) {
 					e.printStackTrace();
 				}
+				cardNameMap.add(code);
                 cardMap.put(code, card);
             }
         }

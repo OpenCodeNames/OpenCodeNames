@@ -14,6 +14,7 @@ public class Game  implements GameInterface, Serializable {
     private String creator;
     private int seats;
     private int seatsAvailable;
+    private final static char[] hexArray = "0123456789ABCDEF".toCharArray();
 
 
     private CardFactory cardfactory= new CardFactory();
@@ -24,18 +25,25 @@ public class Game  implements GameInterface, Serializable {
         try {
             this.name = name;
             this.creator = creator;
-            MessageDigest messageDigest = null;
-
-            messageDigest = MessageDigest.getInstance("MD5");
+            MessageDigest messageDigest = MessageDigest.getInstance("MD5");
             String gameIDToHash = name+creator+ Long.toString(System.currentTimeMillis());
             messageDigest.update(gameIDToHash.getBytes());
-            this.gameID = new String(messageDigest.digest());
+            this.gameID = bytesToHex(messageDigest.digest());
             setSeats(seats);
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
     }
-    
+
+    private static String bytesToHex(byte[] bytes) {
+        char[] hexChars = new char[bytes.length * 2];
+        for ( int j = 0; j < bytes.length; j++ ) {
+            int v = bytes[j] & 0xFF;
+            hexChars[j * 2] = hexArray[v >>> 4];
+            hexChars[j * 2 + 1] = hexArray[v & 0x0F];
+        }
+        return new String(hexChars);
+    }
     
 	public String getName(){
         return name;
@@ -92,7 +100,7 @@ public class Game  implements GameInterface, Serializable {
 
     protected boolean addPlayer(Player player){
         int seats = getSeatsAvailable();
-        if(seats>0 && playerExists(player)){
+        if(seats>0 && !playerExists(player)){
             this.playerMap.add(player);
             setSeatsAvailable(seats-1);
             return true;

@@ -18,34 +18,34 @@ public class GamesHandler extends UnicastRemoteObject implements GamesHandlerInt
     private static LinkedHashMap<String,HashMap<String,String>> viewablegamewue = new LinkedHashMap<String,HashMap<String,String>>();
     private static LinkedHashMap<String, Game> runningGames =  new LinkedHashMap<String, Game>();
      /**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = -6002464202108439172L;
 
 	private GamesHandler() throws RemoteException {
-    	
+
     }
-	
+
     /**
      * Implement Singleton
      */
 	private static GamesHandler single_instance = null;
-	
+
     public static GamesHandler getInstance() throws RemoteException  {
-    	if (single_instance == null) 
+    	if (single_instance == null)
             single_instance = new GamesHandler();
-        return single_instance; 
+        return single_instance;
     }
 
 
-  
+
     public String createGame(String gameName, String creatorName, int numPlayers) {
         Game game = new Game(gameName,creatorName,numPlayers);
         if(gameList.containsKey(game.getGameID())){
             System.out.println("Game Creation Failed");
             return null;
         }
-        
+
         gameList.put(game.getGameID(), game);
         HashMap<String,String> gameHM = new HashMap<String,String>();
         gameHM.put("name",game.getName());
@@ -57,7 +57,7 @@ public class GamesHandler extends UnicastRemoteObject implements GamesHandlerInt
         return game.getGameID();
     }
 
-    
+
     public boolean joinGameQueue(String gameID, String playerName,  ClientCommandInvokerInterface client) throws RemoteException {
         if(gameList.containsKey(gameID)){
             Game game = gameList.get(gameID);
@@ -70,14 +70,14 @@ public class GamesHandler extends UnicastRemoteObject implements GamesHandlerInt
                     /**
                      * Start Game
                      */
-                	
+
                     System.out.println("Game "+gameID+" Started");
                     gameList.remove(gameID);
                     viewablegamewue.remove(gameID);
                     runningGames.put(gameID,game);
 
                 }
-                
+
                 return true;
             }
 
@@ -86,7 +86,7 @@ public class GamesHandler extends UnicastRemoteObject implements GamesHandlerInt
         return false;
     }
 
-    
+
     public boolean leaveGameQueue(String gameID, String playerName) throws RemoteException {
         if(gameList.containsKey(gameID)){
             Game game = gameList.get(gameID);
@@ -104,12 +104,12 @@ public class GamesHandler extends UnicastRemoteObject implements GamesHandlerInt
         return false;
     }
 
-  
+
     public LinkedHashMap<String, HashMap<String,String>> getGames() throws RemoteException {
         return this.viewablegamewue;
     }
 
-    
+
     public boolean cardSelected(String gameID, int cardID, String playerName) throws RemoteException{
         return false;
     }
@@ -123,8 +123,8 @@ public class GamesHandler extends UnicastRemoteObject implements GamesHandlerInt
 
     @Override
     public ArrayList<String> getCardsArray(String gameID, String playerName) throws RemoteException {
-        if(gameList.containsKey(gameID)){
-            Game game = gameList.get(gameID);
+        if(runningGames.containsKey(gameID)){
+            Game game = runningGames.get(gameID);
             PlayersHandler playersHandler= PlayersHandler.getInstance();
             Player player = playersHandler.getPlayer(playerName);
             if(game.playerExists(player)){
