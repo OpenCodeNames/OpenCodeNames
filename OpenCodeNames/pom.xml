@@ -1,54 +1,202 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>OpenCodeNames</groupId>
-  <artifactId>OpenCodeNames</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <dependencies>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>OpenCodeNames</groupId>
+    <artifactId>OpenCodeNames</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <properties>
+        <!-- The final name for the JAR that you can find in target directory-->
+        <jar.final.name>OpenCodeNames</jar.final.name>
+        <!--  the default class that has the public static void main(String[]) method -->
+        <javafx.main.class>io.codenames.Main</javafx.main.class>
+    </properties>
+    <dependencies>
         <dependency>
             <groupId>com.jfoenix</groupId>
             <artifactId>jfoenix</artifactId>
-            <version>8.0.3</version>
+            <version>8.0.7</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.xmlgraphics/batik-bridge -->
         <dependency>
-            <groupId>de.jensd</groupId>
-            <artifactId>fontawesomefx</artifactId>
-            <version>8.9</version>
-		</dependency>
-</dependencies>
-	<build>
-    	<sourceDirectory>src</sourceDirectory>
-		<resources>
-			<resource>
-			   <directory>${project.basedir}/res</directory>
-			</resource>
-		</resources>
+            <groupId>org.apache.xmlgraphics</groupId>
+            <artifactId>batik-bridge</artifactId>
+            <version>1.9.1</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.codehaus.mojo/appassembler-maven-plugin -->
+        <dependency>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>appassembler-maven-plugin</artifactId>
+            <version>1.10</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/net.sf.launch4j/launch4j -->
+        <dependency>
+            <groupId>net.sf.launch4j</groupId>
+            <artifactId>launch4j</artifactId>
+            <version>3.4.0</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.akathist.maven.plugins.launch4j/launch4j-maven-plugin -->
+        <dependency>
+            <groupId>com.akathist.maven.plugins.launch4j</groupId>
+            <artifactId>launch4j-maven-plugin</artifactId>
+            <version>1.7.24</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.oracle.java/jre -->
+        <dependency>
+            <groupId>com.oracle.java</groupId>
+            <artifactId>jre</artifactId>
+            <version>1.8.0_131</version>
+            <classifier>win32</classifier>
+            <type>tgz</type>
+        </dependency>
+    </dependencies>
+    <repositories>
+        <repository>
+            <!-- this repository has the JRE tgz -->
+            <id>alfresco</id>
+            <url>https://artifacts.alfresco.com/nexus/content/repositories/public/</url>
+        </repository>
+    </repositories>
+    <build>
+        <sourceDirectory>src</sourceDirectory>
+        <resources>
+            <resource>
+                <directory>${project.basedir}/res</directory>
+            </resource>
+        </resources>
         <directory>${project.basedir}/target</directory>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.12.4</version>
+                <configuration>
+                    <skipTests>true</skipTests>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>2.4</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <!-- this is to extract the JRE tgz file we downloaded -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>2.5.1</version>
+                <executions>
+                    <execution>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>unpack-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <includeGroupIds>com.oracle.java</includeGroupIds>
+                            <includeTypes>tgz</includeTypes>
+                            <includeArtifactIds>jre</includeArtifactIds>
+                            <includeClassifiers>win32</includeClassifiers>
+                            <outputDirectory>target/win32</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.0.0</version>
+                <configuration>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <archive>
+                        <manifest>
+                            <mainClass>com.newmatik.App</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id> <!-- this is used for inheritance merges -->
+                        <phase>package</phase> <!-- bind to the packaging phase -->
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.akathist.maven.plugins.launch4j</groupId>
+                <version>1.7.24</version>
+                <artifactId>launch4j-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>l4j-gui</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>launch4j</goal>
+                        </goals>
+                        <configuration>
+                            <headerType>gui</headerType>
 
-	<plugins>
-	    <plugin>
-	      <artifactId>maven-compiler-plugin</artifactId>
-	      <version>3.7.0</version>
-	      <configuration>
-	        <source>1.8</source>
-	        <target>1.8</target>
-	      </configuration>
-	    </plugin>
-		<plugin>
-			<groupId>org.codehaus.mojo</groupId>
-			<artifactId>exec-maven-plugin</artifactId>
-			<version>1.1.1</version>
-			<executions>
-			 <execution>
-			  <phase>test</phase>
-			  <goals>
-			   <goal>java</goal>
-			  </goals>
-			  <configuration>
-			   <mainClass>io.codenames.Main</mainClass>
-			  </configuration>
-			 </execution>
-			</executions>
-		</plugin>
-    </plugins>
-  </build>
+                            <outfile>target/${jar.final.name}.exe</outfile>
+                            <jar>
+                                ${project.build.directory}/${jar.final.name}-${project.version}-jar-with-dependencies.jar
+                            </jar>
+                            <errTitle>${jar.final.name}-Gui</errTitle>
+                            <classPath>
+                                <mainClass>${javafx.main.class}</mainClass>
+                            </classPath>
+                            <jre>
+                                <path>win32/java</path>
+                                <!--<minVersion>1.8</minVersion>-->
+                                <!--<maxVersion>1.8.0_181</maxVersion>-->
+                                <jdkPreference></jdkPreference>
+                                <bundledJre64Bit>false</bundledJre64Bit>
+                                <runtimeBits>32</runtimeBits>
+                            </jre>
+                            <versionInfo>
+                                <fileVersion>1.2.0.1</fileVersion>
+                                <txtFileVersion>txt file version?</txtFileVersion>
+                                <fileDescription>
+                                    PrintBatchLabels is a cross-platform application for Windows, MacOS and Linux that
+                                    silently prints labels.
+                                </fileDescription>
+                                <copyright>Copyright © - ESO Electronic Service Ottenbreit GmbH
+                                </copyright>
+                                <productVersion>1.2.0.1</productVersion>
+                                <txtProductVersion>txt product version</txtProductVersion>
+                                <productName>${project.artifactId}</productName>
+                                <internalName>${project.artifactId}</internalName>
+                                <originalFilename>${jar.final.name}.exe</originalFilename>
+                            </versionInfo>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>2.7</version>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
