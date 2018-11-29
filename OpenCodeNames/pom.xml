@@ -167,6 +167,7 @@
                             <classPath>
                                 <mainClass>${javafx.main.class}</mainClass>
                             </classPath>
+                            <icon>${project.build.directory}/classes/Icons/Windows-Icon.ico</icon>
                             <jre>
                                 <path>win32/java</path>
                                 <!--<minVersion>1.8</minVersion>-->
