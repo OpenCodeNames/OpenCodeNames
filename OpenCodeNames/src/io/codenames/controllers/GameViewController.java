@@ -82,8 +82,6 @@ public class GameViewController implements Initializable {
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}
-		this.handleScores(2, 0);
-		this.handleScores(4, 1);
 	}
 	
 }
