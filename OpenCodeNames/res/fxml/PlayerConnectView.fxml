@@ -32,5 +32,10 @@
             <Font size="22.0" />
          </font>
       </JFXButton>
+      <JFXButton fx:id="refreshBtn1" layoutX="856.0" layoutY="500.0" onAction="#reloadGameList" prefHeight="25.0" prefWidth="77.0" text="Refresh">
+         <graphic>
+            <FontAwesomeIconView glyphName="REFRESH" wrappingWidth="17.0" />
+         </graphic>
+      </JFXButton>
    </children>
 </AnchorPane>

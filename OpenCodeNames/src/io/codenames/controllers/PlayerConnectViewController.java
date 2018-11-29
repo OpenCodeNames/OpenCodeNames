@@ -127,6 +127,7 @@ public class PlayerConnectViewController implements Initializable {
 		try {
 			LinkedHashMap<String, HashMap<String,String>> gameMap = gamehandler.getGames();
 			Iterator<HashMap<String,String>> it = gameMap.values().iterator();
+			gameList.clear();
 			while (it.hasNext())
 			{
                 HashMap<String,String> itGame = it.next();
@@ -136,6 +137,11 @@ public class PlayerConnectViewController implements Initializable {
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	@FXML 
+	protected void reloadGameList(ActionEvent event) {
+		this.loadGameList();
 	}
 
 	/**
