@@ -14,6 +14,7 @@ import com.jfoenix.controls.JFXButton;
 import io.codenames.serverinterfaces.GamesHandlerInterface;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 
 public class GameViewController implements Initializable {
@@ -26,6 +27,22 @@ public class GameViewController implements Initializable {
 
 	@FXML
 	private JFXButton chatSend;
+	
+	@FXML
+	private Label redScore;
+	
+	@FXML
+	private Label blueScore;
+	
+
+	protected boolean handleScores(int score, char team){
+		if(team == 1) {
+			redScore.setText(score+ "/8");
+		}else if(team == 2) {
+			blueScore.setText(score+ "/8");
+		}
+		return true;
+	}	
 	
 	
 	@Override
@@ -66,4 +83,5 @@ public class GameViewController implements Initializable {
 			e.printStackTrace();
 		}
 	}
+	
 }
