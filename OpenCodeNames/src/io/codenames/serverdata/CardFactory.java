@@ -14,9 +14,11 @@ public class CardFactory {
 
 
     public CardFactory() {
-        Card card;
+        Card card = null;
         do {
             String code =  WordList.getWord();
+            if(cardNameMap.contains(code))
+            	continue;
             card = generateCard(code);
         }while(card != null);
 
@@ -25,19 +27,17 @@ public class CardFactory {
 
     public Card generateCard(String code) {
         Card card = null;
-        if(!cardNameMap.contains(code)){
-            int type = this.randType();
-            if(type == 0){
-                return null;
-            }else {
-                try {
-					card = new Card(type, code);
-				} catch (RemoteException e) {
-					e.printStackTrace();
-				}
-				cardNameMap.add(code);
-                cardMap.put(code, card);
-            }
+        int type = this.randType();
+        if(type == 0){
+            return null;
+        }else {
+            try {
+				card = new Card(type, code);
+			} catch (RemoteException e) {
+				e.printStackTrace();
+			}
+			cardNameMap.add(code);
+            cardMap.put(code, card);
         }
         return card;
 
@@ -55,7 +55,6 @@ public class CardFactory {
     private int randType(){
         Random rn = new Random();
         int type = rn.nextInt(4)+1;
-
         if((blueCount+blackCount+redCount+neutralCount) >= 25){
             return 0;
         }else if(type==1){

@@ -18,9 +18,7 @@ public class WordList {
     private WordList() {
 
         try {
-            URL resourceUrl = getClass().getResource("/CNwordslist.txt");
-            File file = new File(resourceUrl.toURI());
-            FileInputStream fileInputStream  = new FileInputStream(file);
+            InputStream fileInputStream  = WordList.class.getClass().getResourceAsStream("/CNwordslist.txt");
             BufferedReader br = new BufferedReader(new InputStreamReader(fileInputStream));
 
             String strLine;
@@ -34,9 +32,7 @@ public class WordList {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
+        } 
 
     }
 

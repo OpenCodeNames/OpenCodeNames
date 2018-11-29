@@ -17,6 +17,7 @@ public class Player implements PlayerInterface, Serializable {
     private int deathCards = 0;
     private int gamesWon = 0;
 
+
     protected Player(String name, String password) {
         this.name = name;
         this.password = password;
@@ -101,7 +102,7 @@ public class Player implements PlayerInterface, Serializable {
 
     /**
      * Get Death Cards Revile's
-     * @return deathCards number of death card revile's
+     * @param deathCards number of death card revile's
      */
 	public int getDeathCards() {
 		return deathCards;
@@ -130,5 +131,7 @@ public class Player implements PlayerInterface, Serializable {
 	protected void setGamesWon(int gamesWon) {
 		this.gamesWon = gamesWon;
 	}
+ 
+
 
 }

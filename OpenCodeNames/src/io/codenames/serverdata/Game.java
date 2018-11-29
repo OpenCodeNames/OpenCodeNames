@@ -19,13 +19,13 @@ public class Game  implements GameInterface, Serializable {
     private int team1;
     private int team2;
     private int team1SpyMasterIndex;
-    private int team2SpyMasterInxex;
+    private int team2SpyMasterIndex;
 
     private CardFactory cardfactory= new CardFactory();
     private ArrayList<PlayerProxy> playerMap = new ArrayList<PlayerProxy>();
     private ArrayList<String> playerNames = new ArrayList<String>();
 
-    
+
     public Game(String name, String creator, int seats) {
         try {
             this.name = name;
@@ -51,8 +51,8 @@ public class Game  implements GameInterface, Serializable {
         }
         return new String(hexChars);
     }
-    
-	public String getName(){
+
+    public String getName(){
         return name;
     }
 
@@ -67,22 +67,22 @@ public class Game  implements GameInterface, Serializable {
         this.name = name;
     }
 
- 
+
     public String getCreator() {
         return creator;
     }
 
-   
+
     public void setCreator(String creator) {
         this.creator = creator;
     }
 
-  
+
     public int getSeats() {
         return seats;
     }
 
-   
+
     public void setSeats(int seats) {
         this.seats = seats;
         setSeatsAvailable(seats);
@@ -98,7 +98,7 @@ public class Game  implements GameInterface, Serializable {
     }
 
     /**
-     * 
+     *
      * @param seatsAvailable
      */
     private void setSeatsAvailable(int seatsAvailable) {
@@ -136,13 +136,13 @@ public class Game  implements GameInterface, Serializable {
     protected boolean playerExists(String playerName){
         return playerNames.contains(playerName);
     }
-    
+
     protected boolean startGame(){
         int i=0;
         int t1i=0;
         int t2i=0;
-    	for (PlayerProxy player: playerMap ) {
-    		System.out.println("Starting game for"+ player.getName());
+        for (PlayerProxy player: playerMap ) {
+            System.out.println("Starting game for"+ player.getName());
             if(i % 2 == 0){
                 player.setTeam(team1);
                 if(t1i==team1SpyMasterIndex){
@@ -153,24 +153,24 @@ public class Game  implements GameInterface, Serializable {
                 t1i++;
             }else{
                 player.setTeam(team1=2);
-                if(t1i==team2SpyMasterInxex){
+                if(t2i==team2SpyMasterIndex){
                     player.setRole(1);
                 }else{
                     player.setRole(0);
                 }
                 t2i++;
             }try{
-			    if(!player.getClientCallBackInterface().startGame() ) {
-				   return false;
-			    }
-		    } catch (RemoteException e) {
-			    e.printStackTrace();
-			    return false;
-		    }
-		    i++;
-    	}
-    	return true;
-    	
+                if(!player.getClientCallBackInterface().startGame() ) {
+                    return false;
+                }
+            } catch (RemoteException e) {
+                e.printStackTrace();
+                return false;
+            }
+            i++;
+        }
+        return true;
+
     }
 
     protected void chooseTeams(){
@@ -184,8 +184,8 @@ public class Game  implements GameInterface, Serializable {
 
     protected void genarateRole(){
         Random rn = new Random();
-        int team1SpyMasterIndex = rn.nextInt(seats/2);
-        int team2SpyMasterIndex = rn.nextInt(seats/2);
+        team1SpyMasterIndex = rn.nextInt(seats/2);
+        team2SpyMasterIndex = rn.nextInt(seats/2);
     }
 
 }
