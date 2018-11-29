@@ -63,8 +63,9 @@ public class GamesHandler extends UnicastRemoteObject implements GamesHandlerInt
             Game game = gameList.get(gameID);
             PlayersHandler playersHandler= PlayersHandler.getInstance();
             Player player = playersHandler.getPlayer(playerName);
-            player.setClientCallBackInterface(client);
-            if(player!=null && game.addPlayer(player)){
+            PlayerProxy tmpPlayer = new PlayerProxy(player);
+            tmpPlayer.setClientCallBackInterface(client);
+            if(player!=null && game.addPlayer(tmpPlayer)){
                 System.out.println("Player "+playerName +" joined");
                 if(game.getSeatsAvailable()==0 && game.startGame()){
                     /**
@@ -92,8 +93,9 @@ public class GamesHandler extends UnicastRemoteObject implements GamesHandlerInt
             Game game = gameList.get(gameID);
             PlayersHandler playersHandler= PlayersHandler.getInstance();
             Player player = playersHandler.getPlayer(playerName);
+            PlayerProxy tmpPlayer = new PlayerProxy(player);
             if(player!=null){
-                if(game.removePlayer(player)){
+                if(game.removePlayer(tmpPlayer)){
                     System.out.println("Player "+playerName+" left game");
                     return true;
                 }
@@ -125,9 +127,7 @@ public class GamesHandler extends UnicastRemoteObject implements GamesHandlerInt
     public ArrayList<String> getCardsArray(String gameID, String playerName) throws RemoteException {
         if(runningGames.containsKey(gameID)){
             Game game = runningGames.get(gameID);
-            PlayersHandler playersHandler= PlayersHandler.getInstance();
-            Player player = playersHandler.getPlayer(playerName);
-            if(game.playerExists(player)){
+            if(game.playerExists(playerName)){
                 return game.getCardsArray();
             }
         }
