@@ -5,6 +5,7 @@ import java.rmi.RemoteException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.security.MessageDigest;
+import java.util.Random;
 
 import io.codenames.serverinterfaces.GameInterface;
 
@@ -15,10 +16,14 @@ public class Game  implements GameInterface, Serializable {
     private int seats;
     private int seatsAvailable;
     private final static char[] hexArray = "0123456789ABCDEF".toCharArray();
-
+    private int team1;
+    private int team2;
+    private int team1SpyMasterIndex;
+    private int team2SpyMasterInxex;
 
     private CardFactory cardfactory= new CardFactory();
-    private ArrayList<Player> playerMap = new ArrayList<Player>();
+    private ArrayList<PlayerProxy> playerMap = new ArrayList<PlayerProxy>();
+    private ArrayList<String> playerNames = new ArrayList<String>();
 
     
     public Game(String name, String creator, int seats) {
@@ -30,6 +35,8 @@ public class Game  implements GameInterface, Serializable {
             messageDigest.update(gameIDToHash.getBytes());
             this.gameID = bytesToHex(messageDigest.digest());
             setSeats(seats);
+            chooseTeams();
+            genarateRole();
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
@@ -98,9 +105,11 @@ public class Game  implements GameInterface, Serializable {
         this.seatsAvailable = seatsAvailable;
     }
 
-    protected boolean addPlayer(Player player){
+    protected boolean addPlayer(PlayerProxy player){
         int seats = getSeatsAvailable();
-        if(seats>0 && !playerExists(player)){
+        String name = player.getName();
+        if(seats>0 && !playerExists(name)){
+            this.playerNames.add(name);
             this.playerMap.add(player);
             setSeatsAvailable(seats-1);
             return true;
@@ -110,9 +119,11 @@ public class Game  implements GameInterface, Serializable {
 
     }
 
-    protected boolean removePlayer(Player player){
+    protected boolean removePlayer(PlayerProxy player){
         int seats = getSeatsAvailable();
-        if(seats>0 && playerExists(player)){
+        String name = player.getName();
+        if(seats>0 && playerExists(name)){
+            this.playerNames.remove(name);
             this.playerMap.remove(player);
             setSeatsAvailable(seats-1);
             return true;
@@ -122,26 +133,59 @@ public class Game  implements GameInterface, Serializable {
 
     }
 
-    protected boolean playerExists(Player player){
-        return playerMap.contains(player);
+    protected boolean playerExists(String playerName){
+        return playerNames.contains(playerName);
     }
     
     protected boolean startGame(){
-    	for (Player player: playerMap ) {
-    		System.out.println(player.getName());
-    	   try {
-			if(!player.getClientCallBackInterface().startGame() ) {
+        int i=0;
+        int t1i=0;
+        int t2i=0;
+    	for (PlayerProxy player: playerMap ) {
+    		System.out.println("Starting game for"+ player.getName());
+            if(i % 2 == 0){
+                player.setTeam(team1);
+                if(t1i==team1SpyMasterIndex){
+                    player.setRole(1);
+                }else{
+                    player.setRole(0);
+                }
+                t1i++;
+            }else{
+                player.setTeam(team1=2);
+                if(t1i==team2SpyMasterInxex){
+                    player.setRole(1);
+                }else{
+                    player.setRole(0);
+                }
+                t2i++;
+            }try{
+			    if(!player.getClientCallBackInterface().startGame() ) {
 				   return false;
-			   }
-		} catch (RemoteException e) {
-			e.printStackTrace();
-			return false;
-		}
+			    }
+		    } catch (RemoteException e) {
+			    e.printStackTrace();
+			    return false;
+		    }
+		    i++;
     	}
     	return true;
     	
     }
-    
-    
+
+    protected void chooseTeams(){
+        Random rn = new Random();
+        int team1 = rn.nextInt(2);
+        if(team1==0)
+            team2=1;
+        else
+            team2=0;
+    }
+
+    protected void genarateRole(){
+        Random rn = new Random();
+        int team1SpyMasterIndex = rn.nextInt(seats/2);
+        int team2SpyMasterIndex = rn.nextInt(seats/2);
+    }
 
 }
