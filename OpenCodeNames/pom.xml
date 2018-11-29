@@ -174,10 +174,9 @@
                                 <fileVersion>1.2.0.1</fileVersion>
                                 <txtFileVersion>txt file version?</txtFileVersion>
                                 <fileDescription>
-                                    PrintBatchLabels is a cross-platform application for Windows, MacOS and Linux that
-                                    silently prints labels.
+                                    Codenames is a java based online board game
                                 </fileDescription>
-                                <copyright>Copyright © - ESO Electronic Service Ottenbreit GmbH
+                                <copyright>Copyright © - OpenCodeNames
                                 </copyright>
                                 <productVersion>1.2.0.1</productVersion>
                                 <txtProductVersion>txt product version</txtProductVersion>
