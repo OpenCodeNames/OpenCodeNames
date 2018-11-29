@@ -123,7 +123,6 @@ public class GamesHandler extends UnicastRemoteObject implements GamesHandlerInt
         return null;
     }
 
-    @Override
     public ArrayList<String> getCardsArray(String gameID, String playerName) throws RemoteException {
         if(runningGames.containsKey(gameID)){
             Game game = runningGames.get(gameID);
