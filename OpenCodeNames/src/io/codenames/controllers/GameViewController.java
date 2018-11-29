@@ -35,10 +35,10 @@ public class GameViewController implements Initializable {
 	private Label blueScore;
 	
 
-	protected boolean handleScores(int score, char team){
-		if(team == 1) {
+	protected boolean handleScores(int score, int team){
+		if(team == 0) {
 			redScore.setText(score+ "/8");
-		}else if(team == 2) {
+		}else if(team == 1) {
 			blueScore.setText(score+ "/8");
 		}
 		return true;
@@ -82,6 +82,8 @@ public class GameViewController implements Initializable {
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}
+		this.handleScores(2, 0);
+		this.handleScores(4, 1);
 	}
 	
 }
