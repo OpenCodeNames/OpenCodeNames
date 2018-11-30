@@ -8,7 +8,10 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.ResourceBundle;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.prefs.Preferences;
+import javafx.application.Platform;
 
 import com.jfoenix.controls.JFXButton;
 
@@ -19,12 +22,24 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
-import javax.swing.*;
+import javax.swing.JOptionPane;
+import javax.swing.JFrame;
+
+import javafx.animation.Timeline;
+import javafx.animation.KeyFrame;
+import javafx.animation.Animation;
+
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+
+import javafx.util.Duration;
 
 public class GameViewController implements Initializable {
 	private GamesHandlerInterface gamehandler;
 	private Preferences pref;
     private LinkedHashMap<String, JFXButton> buttonList;
+    private boolean inputLock=true;
+
     int team;
     int turn;
     int turnCount;
@@ -43,6 +58,9 @@ public class GameViewController implements Initializable {
 	@FXML
 	private Label blueScore;
 	
+	@FXML
+	private Label countDown;
+
 
 	protected boolean handleScores(int score, int team){
 		if(team == 0) {
@@ -51,6 +69,24 @@ public class GameViewController implements Initializable {
 			blueScore.setText(score+ "/8");
 		}
 		return true;
+	}
+
+	protected void lockInput() {
+		inputLock=true;
+	}
+
+	protected void unlockInput() {
+		inputLock=false;
+	}
+
+	protected void timeOver() {
+
+	}
+
+	protected void startCountDown() {
+		Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0),new ClockEventHandler(countDown, this)), new KeyFrame(Duration.seconds(1)));
+		timeline.setCycleCount(Animation.INDEFINITE);
+		timeline.play();
 	}
 
 	protected void handleCardClick(MouseEvent event){
@@ -66,7 +102,7 @@ public class GameViewController implements Initializable {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		try {
@@ -107,6 +143,7 @@ public class GameViewController implements Initializable {
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}
+		startCountDown();
 	}
 	
 }
