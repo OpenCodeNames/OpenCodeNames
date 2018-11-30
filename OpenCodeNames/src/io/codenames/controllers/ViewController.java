@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
 public class ViewController {
 
@@ -61,5 +62,17 @@ public class ViewController {
      */
     protected void activate(String name){
         mainView.setRoot( viewMap.get(name) );
+    }
+    
+    /**
+     * Close game method 
+     * @param name Scene Name
+     */
+    
+    public static void closeGame() {
+    	if (single_instance == null || mainView == null) 
+            throw new RuntimeException("View Controller Not Initialised");
+	    Stage stage = (Stage) mainView.getWindow();
+	    stage.close();
     }
 }

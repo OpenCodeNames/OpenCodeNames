@@ -12,7 +12,7 @@
       <Separator layoutX="338.0" layoutY="63.0" orientation="VERTICAL" prefHeight="506.0" prefWidth="0.0" />
       <JFXButton focusTraversable="false" layoutX="8.0" layoutY="247.0" onAction="#createGameAction" prefHeight="65.0" prefWidth="325.0" styleClass="mainMenuButton" text="Create Game" />
       <JFXButton focusTraversable="false" layoutX="9.0" layoutY="326.0" onAction="#playerStatsAction" prefHeight="65.0" prefWidth="325.0" styleClass="mainMenuButton" text="Statistics" />
-      <JFXButton focusTraversable="false" layoutX="10.0" layoutY="398.0" prefHeight="65.0" prefWidth="325.0" styleClass="mainMenuButton" text="Quit" />
+      <JFXButton fx:id="quit" focusTraversable="false" layoutX="10.0" layoutY="398.0" onAction="#closeButtonAction" prefHeight="65.0" prefWidth="325.0" styleClass="mainMenuButton" text="Quit" />
       <ImageView fitHeight="455.0" fitWidth="545.0" layoutX="397.0" layoutY="89.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../image/menupic.png" />

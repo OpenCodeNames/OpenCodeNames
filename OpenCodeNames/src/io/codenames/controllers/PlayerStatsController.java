@@ -45,6 +45,18 @@ public class PlayerStatsController implements Initializable{
 	private Label winRate;
 	
 	@FXML
+	private Label avgCardReveals;
+	
+	@FXML
+	private Label avgWCardReveals;
+	
+	@FXML
+	private Label avgDCardReveals;
+	
+	@FXML
+	private Label avgWinRate;
+	
+	@FXML
 	protected void backAction(ActionEvent event) {
 		try {
 				ViewController viewcontroller = ViewController.getInstance();
@@ -71,12 +83,21 @@ public class PlayerStatsController implements Initializable{
 		playerName.setText(this.pref.get("userName",""));
 		String playerName = this.pref.get("userName","");
 		try {
+			
 			Player player = playerhandler.getPlayer(playerName);
 			int cardReviled = player.getCardsReviled();
 			correctCards.setText(player.getCorrectReviles()+"/"+cardReviled);
 			wrongCards.setText(player.getIncorrectReviles()+"/"+cardReviled);
 			deathCards.setText(player.getDeathCards()+"/"+cardReviled);
 			winRate.setText(player.getGamesWon()+"/"+player.getNumGames());
+			
+			int avgCardReviled = 0;
+			
+			avgCardReveals.setText(player.getCorrectReviles()+"/"+avgCardReviled);
+			avgWCardReveals.setText(player.getIncorrectReviles()+"/"+avgCardReviled);
+			avgDCardReveals.setText(player.getDeathCards()+"/"+avgCardReviled);
+			avgWinRate.setText(player.getGamesWon()+"/"+player.getNumGames());
+			
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
