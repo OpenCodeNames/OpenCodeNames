@@ -42,7 +42,7 @@ public class GamesHandler extends UnicastRemoteObject implements GamesHandlerInt
     public String createGame(String gameName, String creatorName, int numPlayers) {
         Game game = new Game(gameName,creatorName,numPlayers);
         if(gameList.containsKey(game.getGameID())){
-            System.out.println("Game Creation Failed");
+            System.out.println("createGame: Game Creation Failed");
             return null;
         }
 
@@ -136,7 +136,7 @@ public class GamesHandler extends UnicastRemoteObject implements GamesHandlerInt
                 return game.getCardsArray();
             }
         }
-        System.out.println("Game "+gameID+"Not Found");
+        System.out.println("getCardsArray: Game "+gameID+"Not Found");
         return null;
     }
 
@@ -151,6 +151,42 @@ public class GamesHandler extends UnicastRemoteObject implements GamesHandlerInt
     public boolean placeHintMessage(String gameName, int turnCount, String playerName, String message) throws RemoteException {
         // TODO Auto-generated method stub
         return false;
+    }
+
+
+    public int getTeamOfPlayerInGame(String gameID, String playerName) throws RemoteException {
+        if(runningGames.containsKey(gameID)){
+            Game game = runningGames.get(gameID);
+            if(game.playerExists(playerName)){
+                return game.getTeamOfPlayerInGame(playerName);
+            }
+        }
+        System.out.println("getTeamOfPlayerInGame: Game "+gameID+"Not Found");
+        return -1;
+    }
+
+
+    public int getTurnOfGame(String gameID, String playerName) throws RemoteException {
+        if(runningGames.containsKey(gameID)){
+            Game game = runningGames.get(gameID);
+            if(game.playerExists(playerName)){
+                return game.getTurn();
+            }
+        }
+        System.out.println("getTurnOfGame: Game "+gameID+"Not Found");
+        return -1;
+    }
+
+
+    public int getTurnCountOfGame(String gameID, String playerName) throws RemoteException {
+        if(runningGames.containsKey(gameID)){
+            Game game = runningGames.get(gameID);
+            if(game.playerExists(playerName)){
+                return game.getTurnCount();
+            }
+        }
+        System.out.println("Game "+gameID+"Not Found");
+        return -1;
     }
 
 
