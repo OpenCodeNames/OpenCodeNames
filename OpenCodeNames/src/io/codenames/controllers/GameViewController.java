@@ -39,7 +39,7 @@ import javafx.util.Duration;
 public class GameViewController implements Initializable {
 	private GamesHandlerInterface gamehandler;
 	private Preferences pref;
-    private LinkedHashMap<String, JFXButton> buttonList;
+    private LinkedHashMap<String, JFXButton> buttonList = new LinkedHashMap<String, JFXButton>();
     private boolean inputLock=true;
 
     int team;
