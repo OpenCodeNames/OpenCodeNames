@@ -11,4 +11,5 @@ public interface ClientCommandInvokerInterface extends Remote {
     boolean cardOpened(String code, boolean turnChange) throws RemoteException;
     boolean reciveGameMessage(String message) throws RemoteException;
     boolean reciveHint(String hint) throws RemoteException;
+    boolean playerDropped()throws RemoteException;
 }

@@ -1,5 +1,6 @@
 package io.codenames.controllers;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.rmi.Naming;
@@ -16,6 +17,7 @@ import com.jfoenix.controls.JFXButton;
 
 import io.codenames.serverinterfaces.GamesHandlerInterface;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
@@ -75,6 +77,24 @@ public class GameViewController implements Initializable {
 		Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0),new ClockEventHandler(countDown, this)), new KeyFrame(Duration.seconds(1)));
 		timeline.setCycleCount(Animation.INDEFINITE);
 		timeline.play();
+	}
+	
+
+	@FXML 
+	protected boolean gameDrop() {
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+			        try {
+			            ViewController viewcontroller = ViewController.getInstance();
+			            viewcontroller.addScreen("GameDrop", FXMLLoader.load(getClass().getResource( "/fxml/MenuView.fxml" )));
+			            viewcontroller.activate("GameDrop");
+			        } catch (Exception e) {
+			            e.printStackTrace();
+			        }
+	            };
+	    });
+        return true;
 	}
 	
 	

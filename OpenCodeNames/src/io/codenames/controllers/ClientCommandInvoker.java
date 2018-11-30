@@ -49,6 +49,16 @@ public class ClientCommandInvoker  extends UnicastRemoteObject implements Client
         }
 
     }
+    
+    public boolean playerDropped() throws RemoteException{
+    	if(this.gameScreen == null)
+            return false;
+        if(gameScreen.gameDrop()){
+            return true;
+        }else {
+            return false;
+        }
+    }
 
    
     public boolean reciveMessageBroadCast(String Message) throws RemoteException {
