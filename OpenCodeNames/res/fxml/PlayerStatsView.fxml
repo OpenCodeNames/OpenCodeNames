@@ -1,74 +1,150 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTabPane?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" styleClass="MainPane" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.codenames.controllers.PlayerStatsController">
    <children>
-      <AnchorPane layoutX="23.0" layoutY="89.0" prefHeight="83.0" prefWidth="954.0" styleClass="PlayerProfile">
-         <children>
-            <Label layoutX="41.0" layoutY="14.0" prefHeight="29.0" prefWidth="215.0" text="Player Name :" textFill="WHITE">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Label fx:id="playerName" layoutX="283.0" layoutY="15.0" prefHeight="27.0" prefWidth="120.0" text="Keith Perera" textFill="WHITE">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-         </children>
-      </AnchorPane>
-      <AnchorPane layoutX="23.0" layoutY="198.0" prefHeight="363.0" prefWidth="954.0" styleClass="PlayerProfile">
-         <children>
-            <Label layoutX="41.0" layoutY="29.0" prefHeight="29.0" prefWidth="215.0" text="Correct Card Reveals :" textFill="WHITE">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Label layoutX="41.0" layoutY="79.0" prefHeight="29.0" prefWidth="215.0" text="Wrong Card Reveals :" textFill="WHITE">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Label layoutX="41.0" layoutY="130.0" prefHeight="29.0" prefWidth="215.0" text="Death Card Reveals :" textFill="WHITE">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Label layoutX="41.0" layoutY="182.0" prefHeight="29.0" prefWidth="215.0" text="Win Rate :" textFill="WHITE">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Label fx:id="correctCards" layoutX="281.0" layoutY="31.0" prefHeight="27.0" prefWidth="120.0" text="13/25" textFill="WHITE">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Label fx:id="wrongCards" layoutX="281.0" layoutY="80.0" prefHeight="27.0" prefWidth="120.0" text="10/25" textFill="WHITE">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Label fx:id="deathCards" layoutX="281.0" layoutY="129.0" prefHeight="27.0" prefWidth="120.0" text="02/25" textFill="WHITE">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Label fx:id="winRate" layoutX="281.0" layoutY="183.0" prefHeight="27.0" prefWidth="120.0" text="80%" textFill="WHITE">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-         </children>
-      </AnchorPane>
       <JFXButton layoutX="40.0" layoutY="14.0" onAction="#backAction" prefHeight="59.0" prefWidth="120.0" styleClass="backButton" text="&lt;Back">
          <font>
             <Font size="22.0" />
          </font>
       </JFXButton>
+      <JFXTabPane layoutY="94.0" prefHeight="506.0" prefWidth="1000.0" styleClass="statisticsTabPane">
+         <tabs>
+          <Tab text="Your Statistics">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="493.0" prefWidth="993.0">
+                     <children>
+                        <AnchorPane layoutX="23.0" layoutY="25.0" prefHeight="83.0" prefWidth="954.0" styleClass="PlayerProfile">
+                           <children>
+                              <Label layoutX="41.0" layoutY="14.0" prefHeight="29.0" prefWidth="215.0" text="Player Name :" textFill="WHITE">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="playerName" layoutX="283.0" layoutY="15.0" prefHeight="27.0" prefWidth="120.0" text="Keith Perera" textFill="WHITE">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane layoutX="23.0" layoutY="120.0" prefHeight="239.0" prefWidth="954.0" styleClass="PlayerProfile">
+                           <children>
+                              <Label layoutX="41.0" layoutY="29.0" prefHeight="29.0" prefWidth="215.0" text="Correct Card Reveals :" textFill="WHITE">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="41.0" layoutY="79.0" prefHeight="29.0" prefWidth="215.0" text="Wrong Card Reveals :" textFill="WHITE">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="41.0" layoutY="130.0" prefHeight="29.0" prefWidth="215.0" text="Death Card Reveals :" textFill="WHITE">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="41.0" layoutY="182.0" prefHeight="29.0" prefWidth="215.0" text="Win Rate :" textFill="WHITE">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="correctCards" layoutX="281.0" layoutY="31.0" prefHeight="27.0" prefWidth="120.0" text="13/25" textFill="WHITE">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="wrongCards" layoutX="281.0" layoutY="80.0" prefHeight="27.0" prefWidth="120.0" text="10/25" textFill="WHITE">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="deathCards" layoutX="281.0" layoutY="129.0" prefHeight="27.0" prefWidth="120.0" text="02/25" textFill="WHITE">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="winRate" layoutX="281.0" layoutY="183.0" prefHeight="27.0" prefWidth="120.0" text="80%" textFill="WHITE">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="Overall Statistics ">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <BarChart layoutX="20.0" layoutY="35.0">
+                          <xAxis>
+                            <CategoryAxis side="BOTTOM" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis side="LEFT" />
+                          </yAxis>
+                        </BarChart>
+                        <AnchorPane layoutX="532.0" layoutY="52.0" prefHeight="357.0" prefWidth="432.0" styleClass="PlayerProfile">
+                           <children>
+                              <Label layoutX="41.0" layoutY="29.0" prefHeight="29.0" prefWidth="215.0" text="Avg Card Reveals :" textFill="WHITE">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="41.0" layoutY="79.0" prefHeight="29.0" prefWidth="215.0" text="Avg Wrong Card Reveals :" textFill="WHITE">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="41.0" layoutY="130.0" prefHeight="29.0" prefWidth="215.0" text="Avg Death Card Reveals :" textFill="WHITE">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="41.0" layoutY="182.0" prefHeight="29.0" prefWidth="215.0" text="Avg Win Rate :" textFill="WHITE">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="avgCardReveals" layoutX="281.0" layoutY="31.0" prefHeight="27.0" prefWidth="120.0" text="13/25" textFill="WHITE">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="avgWCardReveals" layoutX="281.0" layoutY="80.0" prefHeight="27.0" prefWidth="120.0" text="10/25" textFill="WHITE">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="avgDCardReveals" layoutX="281.0" layoutY="129.0" prefHeight="27.0" prefWidth="120.0" text="02/25" textFill="WHITE">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="avgWinRate" layoutX="281.0" layoutY="183.0" prefHeight="27.0" prefWidth="120.0" text="80%" textFill="WHITE">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                     </children></AnchorPane>
+            </content>
+          </Tab>
+         </tabs>
+      </JFXTabPane>
    </children>
 </AnchorPane>
