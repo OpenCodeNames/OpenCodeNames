@@ -4,11 +4,14 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import com.jfoenix.controls.JFXButton;
+
 import javafx.event.ActionEvent;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.stage.Stage;
 
 public class MenuViewController implements Initializable {
 	
@@ -66,7 +69,17 @@ public class MenuViewController implements Initializable {
 		}catch (RuntimeException e) {
 			e.printStackTrace();
 		}
-	}	
+	}
+	
+	/**
+	 * Action listener for Quit Game button
+	 * @param event
+	 */
+	
+	@FXML
+	private void closeButtonAction(){
+		ViewController.closeGame();
+	}
 
 	
 	@Override

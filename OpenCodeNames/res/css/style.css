@@ -87,3 +87,11 @@
 .loadingPage{
     -fx-background-color: url("../image/bg.jpg");
 }
+
+.statisticsTabPane  .tab-header-background{
+	 -fx-background-color: #e0a414;
+}
+
+.statisticsTabPane{
+	-fx-background-color:rgba(0,0,0,0.5)
+}
