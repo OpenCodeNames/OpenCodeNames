@@ -56,7 +56,7 @@ public class ClientCommandInvoker  extends UnicastRemoteObject implements Client
     }
 
    
-    public boolean cardOpened(int i, int type, boolean turnChange) throws RemoteException {
+    public boolean cardOpened(String code, boolean turnChange) throws RemoteException {
         return false;
     }
 
