@@ -256,6 +256,18 @@ public class GamesHandler extends UnicastRemoteObject implements GamesHandlerInt
         return -1;
     }
 
+    @Override
+    public int getRoleOfPlayerInGame(String gameID, String playerName) throws RemoteException {
+        if(runningGames.containsKey(gameID)){
+            Game game = runningGames.get(gameID);
+            if(game.playerExists(playerName)){
+                return game.getRoleOfPlayerInGame(playerName);
+            }
+        }
+        System.out.println("getTeamOfPlayerInGame: Game "+gameID+"Not Found");
+        return -1;
+    }
+
 
     public int getTurnOfGame(String gameID, String playerName) throws RemoteException {
         if(runningGames.containsKey(gameID)){

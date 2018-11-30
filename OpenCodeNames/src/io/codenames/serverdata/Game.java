@@ -241,6 +241,11 @@ public class Game  implements GameInterface, Serializable {
         return this.players.get(playerName).getTeam();
     }
 
+
+    protected int getRoleOfPlayerInGame(String playerName){
+        return this.players.get(playerName).getRole();
+    }
+
     public boolean turnMatches(int turnCount, String playerName){
         if(turnCount==this.turnCount && playerExists(playerName)){
             return (this.getTeamOfPlayerInGame(playerName) == this.turn);

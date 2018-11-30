@@ -28,7 +28,7 @@ public class CardFactory {
     public Card generateCard(String code) {
         Card card = null;
         int type = this.randType();
-        if(type == 0){
+        if(type == -1){
             return null;
         }else {
             try {
@@ -64,7 +64,7 @@ public class CardFactory {
         Random rn = new Random();
         int type = rn.nextInt(4);
         if((blueCount+blackCount+redCount+neutralCount) >= 25){
-            return 0;
+            return -1;
         }else if(type==0){
             if(redCount >= 8 ){
                 return randType();

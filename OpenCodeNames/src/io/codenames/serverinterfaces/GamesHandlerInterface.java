@@ -41,6 +41,8 @@ public interface GamesHandlerInterface extends Remote{
 
 	int getTeamOfPlayerInGame(String gameID, String playerName) throws RemoteException;
 
+    int getRoleOfPlayerInGame(String gameID, String playerName) throws RemoteException;
+
 	int getTurnOfGame(String gameID, String playerName) throws  RemoteException;
 
 	int getTurnCountOfGame(String gameID, String playerName) throws RemoteException;
