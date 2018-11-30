@@ -6,6 +6,7 @@ import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.ResourceBundle;
 import java.util.prefs.Preferences;
 
@@ -15,12 +16,20 @@ import io.codenames.serverinterfaces.GamesHandlerInterface;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+
+import javax.swing.*;
 
 public class GameViewController implements Initializable {
 	private GamesHandlerInterface gamehandler;
 	private Preferences pref;
-    private ArrayList<JFXButton> buttonList;
+    private LinkedHashMap<String, JFXButton> buttonList;
+    int team;
+    int turn;
+    int turnCount;
+    String gameID;
+    String playerName;
 
     @FXML
     private AnchorPane gameBoard;
@@ -42,8 +51,21 @@ public class GameViewController implements Initializable {
 			blueScore.setText(score+ "/8");
 		}
 		return true;
-	}	
-	
+	}
+
+	protected void handleCardClick(MouseEvent event){
+		if(team!=turn){
+			JOptionPane.showMessageDialog(new JFrame(), "Not your turn", "Error", JOptionPane.ERROR_MESSAGE);
+		}
+		JFXButton button = (JFXButton) event.getSource();
+		try {
+			if(!gamehandler.cardSelected(gameID, turnCount, button.getText(),playerName)){
+				JOptionPane.showMessageDialog(new JFrame(), "Couldn't Turn Card", "Error", JOptionPane.ERROR_MESSAGE);
+			}
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -52,7 +74,9 @@ public class GameViewController implements Initializable {
 			cci.setGameScreen(this);
 			this.pref = Preferences.userNodeForPackage(io.codenames.Main.class);
 			gamehandler = (GamesHandlerInterface) Naming.lookup("rmi://"+pref.get("rmiUri", "localhost")+"/GamesHandler");
-            ArrayList<String> codeNames = gamehandler.getCardsArray(this.pref.get("gameID", ""), this.pref.get("userName", ""));
+			gameID = this.pref.get("gameID", "");
+			playerName = this.pref.get("userName", "");
+            ArrayList<String> codeNames = gamehandler.getCardsArray(gameID, playerName);
             double xpos = 51.0;
             double ypos = 54.0;
             int i = 0;
@@ -73,7 +97,8 @@ public class GameViewController implements Initializable {
                     ypos+=81;
                     xpos = 51;
                 }
-
+				btn.setOnMouseClicked(actionEvent -> {this.handleCardClick(actionEvent);});
+				buttonList.put(cardtext,btn);
             }
 		} catch (RemoteException e) {
 			e.printStackTrace();
