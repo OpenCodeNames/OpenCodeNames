@@ -1,6 +1,7 @@
 package io.codenames.controllers;
 
 import io.codenames.serverinterfaces.GamesHandlerInterface;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 
@@ -9,8 +10,6 @@ import java.net.URL;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.util.ResourceBundle;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.prefs.Preferences;
 
 import javax.swing.JFrame;
@@ -22,13 +21,11 @@ public class LoadingViewController implements Initializable {
     private GamesHandlerInterface gamehandler;
     private Preferences pref;
     private boolean loadingDone = false;
-    private Timer timer;
 
     protected boolean loadGame() {
-    	this.timer = new Timer();
-        this.timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
 			        try {
 			            ViewController viewcontroller = ViewController.getInstance();
 			            viewcontroller.addScreen("Game", FXMLLoader.load(getClass().getResource( "/fxml/GameView.fxml" )));
@@ -37,7 +34,7 @@ public class LoadingViewController implements Initializable {
 			            e.printStackTrace();
 			        }
 	            };
-	    }, 2000); 
+	    });
         return true;
     }
 
