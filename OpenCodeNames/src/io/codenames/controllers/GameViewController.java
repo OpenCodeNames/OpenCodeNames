@@ -45,6 +45,7 @@ public class GameViewController implements Initializable {
     int team;
     int turn;
     int turnCount;
+    int role;
     String gameID;
     String playerName;
 
@@ -134,6 +135,10 @@ public class GameViewController implements Initializable {
 			gamehandler = (GamesHandlerInterface) Naming.lookup("rmi://"+pref.get("rmiUri", "localhost")+"/GamesHandler");
 			gameID = this.pref.get("gameID", "");
 			playerName = this.pref.get("userName", "");
+            team = gamehandler.getTeamOfPlayerInGame(gameID,playerName);
+            turn = gamehandler.getTurnOfGame(gameID,playerName);
+            turnCount = gamehandler.getTurnCountOfGame(gameID,playerName);
+            role = gamehandler.getRoleOfPlayerInGame(gameID,playerName);
             ArrayList<String> codeNames = gamehandler.getCardsArray(gameID, playerName);
             double xpos = 51.0;
             double ypos = 54.0;
