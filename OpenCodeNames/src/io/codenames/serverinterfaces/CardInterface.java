@@ -42,6 +42,6 @@ public interface CardInterface extends Remote{
 	    /*
 	     * reveal card andSet hidden state to false
 	     */
-	    void revealCard();
+	    boolean revealCard();
 
 }

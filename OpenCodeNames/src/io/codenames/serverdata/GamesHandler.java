@@ -111,8 +111,13 @@ public class GamesHandler extends UnicastRemoteObject implements GamesHandlerInt
         return this.viewablegamewue;
     }
 
-
-    public boolean cardSelected(String gameID, int cardID, String playerName) throws RemoteException{
+    public boolean cardSelected(String gameID, int turnCount, String code, String playerName) throws RemoteException{
+        if(runningGames.containsKey(gameID)){
+            Game game = runningGames.get(gameID);
+            if(game.revealCard(turnCount,code,playerName)){
+                return true;
+            }
+        }
         return false;
     }
 
@@ -122,6 +127,7 @@ public class GamesHandler extends UnicastRemoteObject implements GamesHandlerInt
         // TODO Auto-generated method stub
         return null;
     }
+
 
     public ArrayList<String> getCardsArray(String gameID, String playerName) throws RemoteException {
         if(runningGames.containsKey(gameID)){
@@ -142,7 +148,7 @@ public class GamesHandler extends UnicastRemoteObject implements GamesHandlerInt
 
 
 
-    public boolean placeHintMessage(String gameName, String playerName, String message) throws RemoteException {
+    public boolean placeHintMessage(String gameName, int turnCount, String playerName, String message) throws RemoteException {
         // TODO Auto-generated method stub
         return false;
     }

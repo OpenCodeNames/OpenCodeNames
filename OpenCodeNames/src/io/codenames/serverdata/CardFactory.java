@@ -44,9 +44,17 @@ public class CardFactory {
     }
 
     protected Card getCard(int i){
+        if(i<0 || i>24){
+            return null;
+        }
         return cardMap.get(cardNameMap.get(i));
     }
 
+    protected Card getCard(String code){
+        if(cardNameMap.contains(code))
+            return cardMap.get(code);
+        return null;
+    }
 
     public LinkedHashMap<String, Card> getCardMap() {
         return cardMap;
@@ -54,32 +62,32 @@ public class CardFactory {
 
     private int randType(){
         Random rn = new Random();
-        int type = rn.nextInt(4)+1;
+        int type = rn.nextInt(4);
         if((blueCount+blackCount+redCount+neutralCount) >= 25){
             return 0;
-        }else if(type==1){
+        }else if(type==0){
+            if(redCount >= 8 ){
+                return randType();
+            }else {
+                redCount++;
+            }
+        }else if(type == 1){
             if(blueCount >= 8 ){
                 return randType();
             }else {
                 blueCount++;
             }
         }else if(type == 2){
-            if(blackCount >= 1 ){
-                return randType();
-            }else {
-                blackCount++;
-            }
-        }else if(type == 3){
-            if(redCount >= 8 ){
-                return randType();
-            }else {
-                redCount++;
-            }
-        }else if(type == 4){
             if(neutralCount >= 8 ){
                 return randType();
             }else {
                 neutralCount++;
+            }
+        }else if(type == 3){
+            if(blackCount >= 1 ){
+                return randType();
+            }else {
+                blackCount++;
             }
         }
 
@@ -89,5 +97,13 @@ public class CardFactory {
 
     public ArrayList<String> getCardsArray() {
         return cardNameMap;
+    }
+
+    protected boolean revealCard(String code){
+        if(cardMap.containsKey(code)){
+            cardMap.get(code).revealCard();
+            return true;
+        }
+        return false;
     }
 }

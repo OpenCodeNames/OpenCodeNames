@@ -21,9 +21,9 @@ public interface GamesHandlerInterface extends Remote{
 
 	ArrayList<String> getCardsArray(String gameID, String playerName) throws RemoteException ;
 
-    boolean cardSelected(String gameID, int cardID, String playerName) throws RemoteException;
+    boolean cardSelected(String gameID, int turnCount, String code, String playerName) throws RemoteException;
 
 	boolean placeChatMessage(String gameName, String platerName, String message) throws RemoteException;
 
-	boolean placeHintMessage(String gameName, String playerName, String message) throws RemoteException;
+	boolean placeHintMessage(String gameName, int turnCount, String playerName, String message) throws RemoteException;
 }

@@ -25,6 +25,10 @@ public class Card implements CardInterface, Serializable {
     }
 
 
+    /**
+     * Gets the type of card
+     * @return 0 if red 1 if blue 2 if neutral 3 if death
+     */
     public int getType() {
         return type;
     }
@@ -56,8 +60,13 @@ public class Card implements CardInterface, Serializable {
         this.hidden = hidden;
     }
 
-    public void revealCard() {
-        setHidden(false);
+    public boolean revealCard() {
+        if(isHidden()) {
+            setHidden(false);
+            return true;
+        }else {
+            return false;
+        }
     }
 
 }

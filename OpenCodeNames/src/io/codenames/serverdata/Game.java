@@ -5,6 +5,8 @@ import java.rmi.RemoteException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.security.MessageDigest;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Random;
 
 import io.codenames.serverinterfaces.GameInterface;
@@ -20,10 +22,13 @@ public class Game  implements GameInterface, Serializable {
     private int team2;
     private int team1SpyMasterIndex;
     private int team2SpyMasterIndex;
+    private int turnCount=1;
+    private int turn = 0;
+    private boolean gameOver;
+    private boolean gameStarted;
 
     private CardFactory cardfactory= new CardFactory();
-    private ArrayList<PlayerProxy> playerMap = new ArrayList<PlayerProxy>();
-    private ArrayList<String> playerNames = new ArrayList<String>();
+    private Map<String, PlayerProxy> players= new LinkedHashMap<String, PlayerProxy>();
 
 
     public Game(String name, String creator, int seats) {
@@ -35,7 +40,7 @@ public class Game  implements GameInterface, Serializable {
             messageDigest.update(gameIDToHash.getBytes());
             this.gameID = bytesToHex(messageDigest.digest());
             setSeats(seats);
-            chooseTeams();
+            chooseTeamOrder();
             genarateRole();
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
@@ -59,6 +64,10 @@ public class Game  implements GameInterface, Serializable {
 
     public Card getCard(int i) {
         return cardfactory.getCard(i);
+    }
+
+    public Card getCard(String code) {
+        return cardfactory.getCard(code);
     }
 
     public ArrayList<String> getCardsArray(){ return cardfactory.getCardsArray(); }
@@ -105,13 +114,35 @@ public class Game  implements GameInterface, Serializable {
         this.seatsAvailable = seatsAvailable;
     }
 
+    public int getTurnCount() {
+        return turnCount;
+    }
+
+    public int getTurn() {
+        return turn;
+    }
+
+    public boolean isGameOver() {
+        return gameOver;
+    }
+
+    protected void gameOver() {
+        this.gameOver = false;
+    }
+
+    public boolean isGameStarted() {
+        return gameStarted;
+    }
+
+    protected void gameStarted() {
+        this.gameStarted = true;
+    }
+
     protected boolean addPlayer(PlayerProxy player){
-        int seats = getSeatsAvailable();
         String name = player.getName();
-        if(seats>0 && !playerExists(name)){
-            this.playerNames.add(name);
-            this.playerMap.add(player);
-            setSeatsAvailable(seats-1);
+        if(seatsAvailable>0 && !playerExists(name)){
+            this.players.put(name,player);
+            setSeatsAvailable(seatsAvailable-1);
             return true;
         }else{
             return false;
@@ -120,12 +151,10 @@ public class Game  implements GameInterface, Serializable {
     }
 
     protected boolean removePlayer(PlayerProxy player){
-        int seats = getSeatsAvailable();
         String name = player.getName();
-        if(seats>0 && playerExists(name)){
-            this.playerNames.remove(name);
-            this.playerMap.remove(player);
-            setSeatsAvailable(seats-1);
+        if(seatsAvailable>0 && playerExists(name)){
+            this.players.remove(name,player);
+            setSeatsAvailable(seatsAvailable+1);
             return true;
         }else{
             return false;
@@ -134,14 +163,15 @@ public class Game  implements GameInterface, Serializable {
     }
 
     protected boolean playerExists(String playerName){
-        return playerNames.contains(playerName);
+        return players.containsKey(playerName);
     }
 
     protected boolean startGame(){
         int i=0;
         int t1i=0;
         int t2i=0;
-        for (PlayerProxy player: playerMap ) {
+        for (Map.Entry<String,PlayerProxy> entry : players.entrySet() ) {
+            PlayerProxy player = entry.getValue();
             System.out.println("Starting game for"+ player.getName());
             if(i % 2 == 0){
                 player.setTeam(team1);
@@ -169,11 +199,51 @@ public class Game  implements GameInterface, Serializable {
             }
             i++;
         }
+        gameStarted();
         return true;
 
     }
 
-    protected void chooseTeams(){
+    protected void incrimentTurnCount(){
+        turnCount++;
+    }
+
+    protected void passTurn(){
+        if(turn==0){
+            turn = 1;
+        }else{
+            turn =0;
+        }
+    }
+
+    protected boolean revealCard(int turnCount, String code, String playerName){
+        if(this.playerExists(playerName) && this.turnMatches(turnCount, playerName) && cardfactory.revealCard(code)){
+            Card card = this.getCard(code);
+            int type = card.getType();
+            if(type == this.turn){
+                incrimentTurnCount();
+                new java.util.Timer().schedule(new CardRevealedCallbackTask(code,false,players),20);
+            }else if(type == 3 ){
+                gameOver();
+                // TODO Auto-generated DeathCard Revealed Callback
+            }else{
+                incrimentTurnCount();
+                passTurn();
+                new java.util.Timer().schedule(new CardRevealedCallbackTask(code,true,players),20);
+            }
+
+            return true;
+        }
+        return false;
+    }
+
+    public boolean turnMatches(int turnCount, String playerName){
+        if(turnCount==this.turnCount && playerExists(playerName)){
+            return (this.players.get(playerName).getTeam() == this.turn);
+        }
+        return false;
+    }
+    protected void chooseTeamOrder(){
         Random rn = new Random();
         int team1 = rn.nextInt(2);
         if(team1==0)
