@@ -1,10 +1,16 @@
 package io.codenames.serverdata;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.rmi.*;
 import java.rmi.server.*;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 
 import io.codenames.clientinterfaces.ClientCommandInvokerInterface;
@@ -17,12 +23,45 @@ public class GamesHandler extends UnicastRemoteObject implements GamesHandlerInt
     private static LinkedHashMap<String, Game> gameList = new LinkedHashMap<String, Game>();
     private static LinkedHashMap<String,HashMap<String,String>> viewablegamewue = new LinkedHashMap<String,HashMap<String,String>>();
     private static LinkedHashMap<String, Game> runningGames =  new LinkedHashMap<String, Game>();
+    
+    private int avgNumGames = 0;
+	private int avgCardsReviled = 0;
+    private int avgCorrectReviles = 0;
+    private int avgIncorrectReviles = 0;
+    private int avgDeathCards = 0;
+    private int avgGamesWon = 0;
+    
+    
     /**
      *
      */
+    
     private static final long serialVersionUID = -6002464202108439172L;
 
     private GamesHandler() throws RemoteException {
+
+    	try {
+            File f = new File("ServerGameData.ser");
+            if (f.isFile() && f.canRead()) {
+                FileInputStream fis = new FileInputStream("ServerGameData.ser");
+                ObjectInputStream ois = new ObjectInputStream(fis);
+                @SuppressWarnings("unchecked")
+				HashMap<String, Integer> retriveGameData =  (HashMap<String, Integer>) ois.readObject();
+                this.avgNumGames = retriveGameData.get("avgNumGames");
+            	this.avgCardsReviled = retriveGameData.get("avgCardsReviled");
+                this.avgCorrectReviles = retriveGameData.get("avgCorrectReviles");
+                this.avgIncorrectReviles = retriveGameData.get("avgIncorrectReviles");
+                this.avgDeathCards = retriveGameData.get("avgDeathCards");
+                this.avgGamesWon = retriveGameData.get("avgGamesWon");
+                ois.close();
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -151,6 +190,58 @@ public class GamesHandler extends UnicastRemoteObject implements GamesHandlerInt
     public boolean placeHintMessage(String gameName, int turnCount, String playerName, String message) throws RemoteException {
         // TODO Auto-generated method stub
         return false;
+    }
+
+	public int getAvgNumGames() throws RemoteException {
+		// TODO Auto-generated method stub
+		return avgNumGames;
+	}
+
+	public int getAvgCardsReviled() throws RemoteException {
+		// TODO Auto-generated method stub
+		return avgCardsReviled;
+	}
+
+	public int getAvgCorrectReviles() throws RemoteException {
+		// TODO Auto-generated method stub
+		return avgCorrectReviles;
+	}
+
+	public int getAvgDeathCardReviles() throws RemoteException {
+		// TODO Auto-generated method stub
+		return avgDeathCards;
+	}
+
+	public int getAvgIncorrectReviles() throws RemoteException {
+		// TODO Auto-generated method stub
+		return avgIncorrectReviles;
+	}
+
+	public int getAvgGamesWon() throws RemoteException {
+		// TODO Auto-generated method stub
+		return avgGamesWon;
+	}
+
+    public void saveGameData(){
+        FileOutputStream f = null;
+        try {
+            FileOutputStream fs = new FileOutputStream(new File("ServerGameData.ser"));
+            ObjectOutputStream os = new ObjectOutputStream(fs);
+            HashMap<String, Integer> savableGameData = new HashMap<String, Integer>();
+            savableGameData.put("avgNumGames", avgNumGames);
+            savableGameData.put("avgCardsReviled", avgCardsReviled);
+            savableGameData.put("avgCorrectReviles", avgCorrectReviles);
+            savableGameData.put("avgIncorrectReviles", avgIncorrectReviles);
+            savableGameData.put("avgDeathCards", avgDeathCards);
+            savableGameData.put("avgGamesWon", avgGamesWon);
+            os.writeObject(savableGameData);
+            os.close();
+            fs.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 

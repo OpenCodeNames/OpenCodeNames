@@ -26,6 +26,18 @@ public interface GamesHandlerInterface extends Remote{
 	boolean placeChatMessage(String gameID, String platerName, String message) throws RemoteException;
 
 	boolean placeHintMessage(String gameID, int turnCount, String playerName, String message) throws RemoteException;
+	
+	int getAvgNumGames() throws RemoteException;
+	
+	int getAvgCardsReviled() throws RemoteException;
+	
+	int getAvgCorrectReviles() throws RemoteException;
+	
+	int getAvgDeathCardReviles() throws RemoteException;
+	
+	int getAvgIncorrectReviles() throws RemoteException;
+	
+	int getAvgGamesWon() throws RemoteException;
 
 	int getTeamOfPlayerInGame(String gameID, String playerName) throws RemoteException;
 

@@ -47,6 +47,10 @@ public interface PlayerInterface extends Remote{
      */
     int getIncorrectReviles();
 
-
-
+    /**
+     * Get Number of games won
+     * @return
+     */
+    int getGamesWon();
+    
 }
