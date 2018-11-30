@@ -32,26 +32,34 @@ public class CreateGameViewController implements Initializable{
 	 */
 	@FXML 
 	protected void gameAction(ActionEvent event) {
+//		int numberofplayers = Integer.parseInt(numPlayers.getText());
+//		if(numberofplayers % 2==0 && numberofplayers >= 4 ) {
 		try {
+				
 		        String creatorName = this.pref.get("userName", null);
                 String gameID = gamehandler.createGame(gameName.getText(),creatorName, Integer.parseInt(numPlayers.getText()));
-                if(gameID != null){
+                if(gameID != null ){
                     this.pref.put("gameID",gameID);
                     ViewController viewcontroller = ViewController.getInstance();
                     viewcontroller.addScreen("GameView", FXMLLoader.load(getClass().getResource( "/fxml/LoadingView.fxml" )));
                     viewcontroller.activate("GameView");
                 }else{
-                    JOptionPane.showMessageDialog(new JFrame(), "GameName Already Exists", "Error",
+                    JOptionPane.showMessageDialog(new JFrame(), "GameName Already Exists or Number of players can not be below 4", "Error",
                             JOptionPane.ERROR_MESSAGE);
                 }
-
+               
 		}
+		
 		catch (IOException e) {
 			e.printStackTrace();
 		}catch (RuntimeException e) {
 			e.printStackTrace();
 		}
-	}
+//	}else{
+//	    JOptionPane.showMessageDialog(new JFrame(), "Number of players can not be below 4 or an Odd number", "Error",
+//	            JOptionPane.ERROR_MESSAGE);
+//	}
+}
 	
 	/**
 	 * Action listener for back button
