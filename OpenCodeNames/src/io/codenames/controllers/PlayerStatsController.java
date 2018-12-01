@@ -58,16 +58,8 @@ public class PlayerStatsController implements Initializable{
 	
 	@FXML
 	protected void backAction(ActionEvent event) {
-		try {
 				ViewController viewcontroller = ViewController.getInstance();
-				viewcontroller.addScreen("Back", FXMLLoader.load(getClass().getResource( "/fxml/MenuView.fxml" )));
-				viewcontroller.activate("Back");
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}catch (RuntimeException e) {
-			e.printStackTrace();
-		}
+				viewcontroller.activate("Menu");
 	}
 	
 	@Override

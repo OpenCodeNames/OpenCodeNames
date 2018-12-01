@@ -44,7 +44,7 @@ public class CreateGameViewController implements Initializable{
                     viewcontroller.addScreen("GameView", FXMLLoader.load(getClass().getResource( "/fxml/LoadingView.fxml" )));
                     viewcontroller.activate("GameView");
                 }else{
-                    JOptionPane.showMessageDialog(new JFrame(), "GameName Already Exists or Number of players can not be below 4", "Error",
+                    JOptionPane.showMessageDialog(new JFrame(), "GameName Already Exists", "Error",
                             JOptionPane.ERROR_MESSAGE);
                 }
                
@@ -68,16 +68,8 @@ public class CreateGameViewController implements Initializable{
 	
 	@FXML 
 	protected void backAction(ActionEvent event) {
-		try {
 				ViewController viewcontroller = ViewController.getInstance();
-				viewcontroller.addScreen("Back", FXMLLoader.load(getClass().getResource( "/fxml/MenuView.fxml" )));
-				viewcontroller.activate("Back");
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}catch (RuntimeException e) {
-			e.printStackTrace();
-		}
+				viewcontroller.activate("Menu");
 	}
 	
 	@Override
