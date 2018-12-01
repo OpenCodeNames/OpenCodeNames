@@ -170,6 +170,7 @@ public class Game  implements GameInterface, Serializable {
         int i=0;
         int t1i=0;
         int t2i=0;
+        gameStarted();
         for (Map.Entry<String,PlayerProxy> entry : players.entrySet() ) {
             PlayerProxy player = entry.getValue();
             System.out.println("Starting game for"+ player.getName());
@@ -189,17 +190,11 @@ public class Game  implements GameInterface, Serializable {
                     player.setRole(0);
                 }
                 t2i++;
-            }try{
-                if(!player.getClientCallBackInterface().startGame() ) {
-                    return false;
-                }
-            } catch (RemoteException e) {
-                e.printStackTrace();
-                return false;
             }
+
             i++;
         }
-        gameStarted();
+        new java.util.Timer().schedule(new GameStartCallbackTask(players),20);
         return true;
 
     }
