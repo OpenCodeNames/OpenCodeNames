@@ -81,6 +81,65 @@ public class GameViewController implements Initializable {
 
 	}
 
+	protected void turnChange(){
+	    if(turn == 0){
+	        turn = 1;
+        }else{
+	        turn = 0;
+        }
+    }
+
+    protected void incrimentTurnCount(){
+	    turnCount++;
+    }
+
+    protected void revealCard(String code, boolean turnChange){
+        Platform.runLater(new Runnable() {
+            String code;
+            GameViewController gameView;
+            boolean turnChange;
+            public Runnable init(String code, boolean turnChange, GameViewController gameView) {
+                this.code=code;
+                this.gameView = gameView;
+                this.turnChange = turnChange;
+                return(this);
+            }
+
+            @Override
+            public void run() {
+                if(turnChange)
+                    this.gameView.turnChange();
+                this.gameView.incrimentTurnCount();
+                this.gameView.revealCard(code);
+            }
+        }.init(code,turnChange,this));
+    }
+
+    protected void revealCard(String code){
+        JFXButton btn = buttonList.get("code");
+        try {
+            int type = gamehandler.getTypeOfCardInGame(gameID,code,playerName);
+            btn.getStyleClass().remove("card-Hidden");
+            switch (type){
+                case 0:
+                    btn.getStyleClass().add("card-Red");
+                    break;
+                case 1:
+                    btn.getStyleClass().add("card-Blue");
+                    break;
+                case 2:
+                    btn.getStyleClass().add("card-Neutral");
+                    break;
+                case 3:
+                    btn.getStyleClass().add("card-Death");
+                    break;
+                default:
+            }
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
+
 	protected void startCountDown() {
 		Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0),new ClockEventHandler(countDown, this)), new KeyFrame(Duration.seconds(1)));
 		timeline.setCycleCount(Animation.INDEFINITE);
