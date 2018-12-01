@@ -116,7 +116,7 @@ public class GameViewController implements Initializable {
     }
 
     protected void revealCard(String code){
-        JFXButton btn = buttonList.get("code");
+        JFXButton btn = buttonList.get(code);
         try {
             int type = gamehandler.getTypeOfCardInGame(gameID,code,playerName);
             btn.getStyleClass().remove("card-Hidden");
