@@ -155,7 +155,11 @@ public class GamesHandler extends UnicastRemoteObject implements GamesHandlerInt
             Game game = runningGames.get(gameID);
             if(game.revealCard(turnCount,code,playerName)){
                 return true;
+            }else {
+            	 System.out.println("cardSelected: "+gameID+" RevealCard Failed for "+ " "+ code);
             }
+        }else {
+        	 System.out.println("cardSelected: "+gameID+" Game not found or Malicious call Found");
         }
         return false;
     }

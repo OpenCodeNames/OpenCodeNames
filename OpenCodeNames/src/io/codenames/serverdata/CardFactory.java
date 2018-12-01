@@ -118,6 +118,7 @@ public class CardFactory {
             cardMap.get(code).revealCard();
             return true;
         }
+        System.out.println("revealCard: "+code+" Card Not Found");
         return false;
     }
 }

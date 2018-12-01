@@ -24,6 +24,7 @@ public class CardRevealedCallbackTask extends TimerTask {
             try {
                 PlayerProxy player = entry.getValue();
                 player.getClientCallBackInterface().cardOpened(code, turnChanged);
+                System.out.println(player.getName()+ " " + code + " "+ turnChanged);
             } catch (RemoteException e) {
                 e.printStackTrace();
             }
