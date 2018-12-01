@@ -183,7 +183,7 @@ public class Game  implements GameInterface, Serializable {
                 }
                 t1i++;
             }else{
-                player.setTeam(team1=2);
+                player.setTeam(team2);
                 if(t2i==team2SpyMasterIndex){
                     player.setRole(1);
                 }else{
