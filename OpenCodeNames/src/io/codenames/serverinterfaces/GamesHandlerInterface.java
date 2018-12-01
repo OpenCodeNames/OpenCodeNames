@@ -17,11 +17,15 @@ public interface GamesHandlerInterface extends Remote{
 
     LinkedHashMap<String, HashMap<String,String>> getGames() throws RemoteException;
 
-	String getCodeNameOfCard(String gameID, int i) throws RemoteException;
+	String getCodeNameOfCard(String gameID, String playerName, int i) throws RemoteException;
 
 	ArrayList<String> getCardsArray(String gameID, String playerName) throws RemoteException ;
 
     boolean cardSelected(String gameID, int turnCount, String code, String playerName) throws RemoteException;
+
+    int getTypeOfCardInGame(String gameID, String code,String playerName) throws RemoteException;
+
+	void passTurnInGame(String gameID, String playerName, int turnCount) throws RemoteException;
 
 	boolean placeChatMessage(String gameID, String platerName, String message) throws RemoteException;
 

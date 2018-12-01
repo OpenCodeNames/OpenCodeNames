@@ -208,13 +208,18 @@ public class Game  implements GameInterface, Serializable {
         turnCount++;
     }
 
-    protected void passTurn(){
+    protected void passTurn(boolean broadcast){
+        incrimentTurnCount();
         if(turn==0){
             turn = 1;
         }else{
             turn =0;
         }
+
+        if(broadcast)
+            new java.util.Timer().schedule(new TurnPassedCallbackTask(players),20);
     }
+
 
     protected boolean revealCard(int turnCount, String code, String playerName){
         if(this.playerExists(playerName) && this.turnMatches(turnCount, playerName) && cardfactory.revealCard(code)){
@@ -227,14 +232,17 @@ public class Game  implements GameInterface, Serializable {
                 gameOver();
                 // TODO Auto-generated DeathCard Revealed Callback
             }else{
-                incrimentTurnCount();
-                passTurn();
+                passTurn(false);
                 new java.util.Timer().schedule(new CardRevealedCallbackTask(code,true,players),20);
             }
 
             return true;
         }
         return false;
+    }
+
+    protected int getTypeOfCard(String card){
+        return cardfactory.getTypeOfCard(card);
     }
 
     protected int getTeamOfPlayerInGame(String playerName){

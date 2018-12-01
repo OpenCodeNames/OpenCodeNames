@@ -40,7 +40,6 @@ public class GameViewController implements Initializable {
 	private GamesHandlerInterface gamehandler;
 	private Preferences pref;
     private LinkedHashMap<String, JFXButton> buttonList = new LinkedHashMap<String, JFXButton>();
-    private boolean inputLock=true;
 
     int team;
     int turn;
@@ -74,17 +73,72 @@ public class GameViewController implements Initializable {
 		return true;
 	}
 
-	protected void lockInput() {
-		inputLock=true;
-	}
-
-	protected void unlockInput() {
-		inputLock=false;
+	protected boolean inputLocked() {
+		return (turn!=team);
 	}
 
 	protected void timeOver() {
 
 	}
+
+	protected void turnChange(){
+	    if(turn == 0){
+	        turn = 1;
+        }else{
+	        turn = 0;
+        }
+    }
+
+    protected void incrimentTurnCount(){
+	    turnCount++;
+    }
+
+    protected void revealCard(String code, boolean turnChange){
+        Platform.runLater(new Runnable() {
+            String code;
+            GameViewController gameView;
+            boolean turnChange;
+            public Runnable init(String code, boolean turnChange, GameViewController gameView) {
+                this.code=code;
+                this.gameView = gameView;
+                this.turnChange = turnChange;
+                return(this);
+            }
+
+            @Override
+            public void run() {
+                if(turnChange)
+                    this.gameView.turnChange();
+                this.gameView.incrimentTurnCount();
+                this.gameView.revealCard(code);
+            }
+        }.init(code,turnChange,this));
+    }
+
+    protected void revealCard(String code){
+        JFXButton btn = buttonList.get("code");
+        try {
+            int type = gamehandler.getTypeOfCardInGame(gameID,code,playerName);
+            btn.getStyleClass().remove("card-Hidden");
+            switch (type){
+                case 0:
+                    btn.getStyleClass().add("card-Red");
+                    break;
+                case 1:
+                    btn.getStyleClass().add("card-Blue");
+                    break;
+                case 2:
+                    btn.getStyleClass().add("card-Neutral");
+                    break;
+                case 3:
+                    btn.getStyleClass().add("card-Death");
+                    break;
+                default:
+            }
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
 
 	protected void startCountDown() {
 		Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0),new ClockEventHandler(countDown, this)), new KeyFrame(Duration.seconds(1)));
@@ -121,17 +175,18 @@ public class GameViewController implements Initializable {
 	
 
 	protected void handleCardClick(MouseEvent event){
-		if(team!=turn){
+		if(inputLocked()){
 			JOptionPane.showMessageDialog(new JFrame(), "Not your turn", "Error", JOptionPane.ERROR_MESSAGE);
-		}
-		JFXButton button = (JFXButton) event.getSource();
-		try {
-			if(!gamehandler.cardSelected(gameID, turnCount, button.getText(),playerName)){
-				JOptionPane.showMessageDialog(new JFrame(), "Couldn't Turn Card", "Error", JOptionPane.ERROR_MESSAGE);
-			}
-		} catch (RemoteException e) {
-			e.printStackTrace();
-		}
+		}else {
+            JFXButton button = (JFXButton) event.getSource();
+            try {
+                if (!gamehandler.cardSelected(gameID, turnCount, button.getText(), playerName)) {
+                    JOptionPane.showMessageDialog(new JFrame(), "Couldn't Turn Card", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }
 	}
 
 	@Override

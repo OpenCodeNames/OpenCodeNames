@@ -60,6 +60,20 @@ public class CardFactory {
         return cardMap;
     }
 
+    protected int getTypeOfCard(String code){
+        if(cardMap.containsKey(code)){
+            Card card = cardMap.get(code);
+            if(card.isHidden()){
+                System.out.println("getTypeOfCard: "+code+" card is still hidden Malicious call");
+            }else{
+                return card.getType();
+            }
+        }else {
+            System.out.println("getTypeOfCard: " + code + " card not found");
+        }
+        return -1;
+    }
+
     private int randType(){
         Random rn = new Random();
         int type = rn.nextInt(4);

@@ -161,9 +161,35 @@ public class GamesHandler extends UnicastRemoteObject implements GamesHandlerInt
     }
 
 
+    public int getTypeOfCardInGame(String gameID, String code, String playerName) throws RemoteException {
+        if(runningGames.containsKey(gameID)){
+            Game game = runningGames.get(gameID);
+            if(game.playerExists(playerName)){
+                return game.getTypeOfCard(code);
+            }
+        }
+        System.out.println("getCardsArray: "+gameID+" Game not found or Malicious call Found");
+        return -1;
+    }
 
-    public String getCodeNameOfCard(String gameName, int i) throws RemoteException {
-        // TODO Auto-generated method stub
+
+    public void passTurnInGame(String gameID, String playerName, int turnCount) throws RemoteException {
+        if(runningGames.containsKey(gameID)){
+            Game game = runningGames.get(gameID);
+            if(game.turnMatches(turnCount,playerName)){
+                game.passTurn(true);
+            }
+        }
+    }
+
+
+    public String getCodeNameOfCard(String gameID, String playerName, int i) throws RemoteException {
+        if(runningGames.containsKey(gameID)){
+            Game game = runningGames.get(gameID);
+            if(game.playerExists(playerName)){
+                return game.getCard(i).getCodeName();
+            }
+        }
         return null;
     }
 
@@ -193,32 +219,26 @@ public class GamesHandler extends UnicastRemoteObject implements GamesHandlerInt
     }
 
 	public int getAvgNumGames() throws RemoteException {
-		// TODO Auto-generated method stub
 		return avgNumGames;
 	}
 
 	public int getAvgCardsReviled() throws RemoteException {
-		// TODO Auto-generated method stub
 		return avgCardsReviled;
 	}
 
 	public int getAvgCorrectReviles() throws RemoteException {
-		// TODO Auto-generated method stub
 		return avgCorrectReviles;
 	}
 
 	public int getAvgDeathCardReviles() throws RemoteException {
-		// TODO Auto-generated method stub
 		return avgDeathCards;
 	}
 
 	public int getAvgIncorrectReviles() throws RemoteException {
-		// TODO Auto-generated method stub
 		return avgIncorrectReviles;
 	}
 
 	public int getAvgGamesWon() throws RemoteException {
-		// TODO Auto-generated method stub
 		return avgGamesWon;
 	}
 
@@ -256,7 +276,6 @@ public class GamesHandler extends UnicastRemoteObject implements GamesHandlerInt
         return -1;
     }
 
-    @Override
     public int getRoleOfPlayerInGame(String gameID, String playerName) throws RemoteException {
         if(runningGames.containsKey(gameID)){
             Game game = runningGames.get(gameID);
