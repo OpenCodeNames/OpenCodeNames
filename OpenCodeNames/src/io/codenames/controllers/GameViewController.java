@@ -92,23 +92,31 @@ public class GameViewController implements Initializable {
 		timeline.play();
 	}
 	
-
-	@FXML 
+ 
 	protected boolean gameDrop() {
+		gameOver("A Player forfited the game",true,"Game Droped");
+        return true;
+	}
+	
+	protected void gameOver(String message,boolean isError,String messageTitle) {
+		int paneType;
+		if(isError){
+			paneType = JOptionPane.ERROR_MESSAGE;
+		}else {
+			paneType = JOptionPane.INFORMATION_MESSAGE;
+		}
 		Platform.runLater(new Runnable() {
 			@Override
 			public void run() {
-			        try {
+						JOptionPane.showMessageDialog(new JFrame(), message, messageTitle,
+								paneType);
 			            ViewController viewcontroller = ViewController.getInstance();
-			            viewcontroller.addScreen("GameDrop", FXMLLoader.load(getClass().getResource( "/fxml/MenuView.fxml" )));
-			            viewcontroller.activate("GameDrop");
-			        } catch (Exception e) {
-			            e.printStackTrace();
-			        }
-	            };
-	    });
-        return true;
+			            viewcontroller.activate("Menu");  
+	       }
+	    
+		});
 	}
+	
 	
 	
 
