@@ -63,6 +63,16 @@ public class ClientCommandInvoker  extends UnicastRemoteObject implements Client
 
    
     public boolean cardOpened(String code, boolean turnChange) throws RemoteException {
+
+        return true;
+    }
+
+
+    public boolean turnPassed() throws RemoteException {
+        if(this.gameScreen != null) {
+            gameScreen.turnChange();
+            return true;
+        }
         return false;
     }
 
