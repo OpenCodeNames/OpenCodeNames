@@ -108,17 +108,18 @@ public class GameViewController implements Initializable {
 	
 
 	protected void handleCardClick(MouseEvent event){
-		if(team!=turn){
+		if(inputLocked()){
 			JOptionPane.showMessageDialog(new JFrame(), "Not your turn", "Error", JOptionPane.ERROR_MESSAGE);
-		}
-		JFXButton button = (JFXButton) event.getSource();
-		try {
-			if(!gamehandler.cardSelected(gameID, turnCount, button.getText(),playerName)){
-				JOptionPane.showMessageDialog(new JFrame(), "Couldn't Turn Card", "Error", JOptionPane.ERROR_MESSAGE);
-			}
-		} catch (RemoteException e) {
-			e.printStackTrace();
-		}
+		}else {
+            JFXButton button = (JFXButton) event.getSource();
+            try {
+                if (!gamehandler.cardSelected(gameID, turnCount, button.getText(), playerName)) {
+                    JOptionPane.showMessageDialog(new JFrame(), "Couldn't Turn Card", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }
 	}
 
 	@Override
