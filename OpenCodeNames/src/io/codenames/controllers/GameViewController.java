@@ -40,7 +40,6 @@ public class GameViewController implements Initializable {
 	private GamesHandlerInterface gamehandler;
 	private Preferences pref;
     private LinkedHashMap<String, JFXButton> buttonList = new LinkedHashMap<String, JFXButton>();
-    private boolean inputLock=true;
 
     int team;
     int turn;
@@ -74,12 +73,8 @@ public class GameViewController implements Initializable {
 		return true;
 	}
 
-	protected void lockInput() {
-		inputLock=true;
-	}
-
-	protected void unlockInput() {
-		inputLock=false;
+	protected boolean inputLocked() {
+		return (turn!=team);
 	}
 
 	protected void timeOver() {
