@@ -40,9 +40,7 @@ public class ClientCommandInvoker  extends UnicastRemoteObject implements Client
 
    
     public boolean startGame() throws RemoteException {
-        if(this.loadScreen == null)
-            return false;
-        if(loadScreen.loadGame()){
+        if(this.loadScreen != null && loadScreen.loadGame()){
             return true;
         }else {
             return false;
@@ -51,9 +49,7 @@ public class ClientCommandInvoker  extends UnicastRemoteObject implements Client
     }
     
     public boolean playerDropped() throws RemoteException{
-    	if(this.gameScreen == null)
-            return false;
-        if(gameScreen.gameDrop()){
+        if(this.gameScreen != null && gameScreen.gameDrop()){
             return true;
         }else {
             return false;
@@ -70,7 +66,7 @@ public class ClientCommandInvoker  extends UnicastRemoteObject implements Client
         return false;
     }
 
-   
+
     public boolean reciveGameMessage(String message) throws RemoteException {
         return false;
     }
