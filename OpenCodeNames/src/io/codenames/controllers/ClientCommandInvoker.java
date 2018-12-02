@@ -56,8 +56,8 @@ public class ClientCommandInvoker  extends UnicastRemoteObject implements Client
         }
     }
 
-    public void gameWinLossMessageReceive(int winningTeam, boolean wonByDeathCard) throws RemoteException {
-        this.gameScreen.gameWon(winningTeam,wonByDeathCard);
+    public void gameWinLossMessageReceive(int lastTurnBy, boolean wonByDeathCard) throws RemoteException {
+        this.gameScreen.gameWon(lastTurnBy,wonByDeathCard);
     }
 
 
