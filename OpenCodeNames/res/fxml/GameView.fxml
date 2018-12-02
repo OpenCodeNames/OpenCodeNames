@@ -22,14 +22,7 @@
          <content>
             <VBox fx:id="messageBoard" prefHeight="200.0" prefWidth="210.0">
                <children>
-                  <Label layoutX="10.0" layoutY="10.0" prefHeight="47.0" prefWidth="206.0" text="This is a message for testing " textOverrun="CLIP" wrapText="true" VBox.vgrow="SOMETIMES">
-                     <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </padding>
-                     <VBox.margin>
-                        <Insets bottom="5.0" />
-                     </VBox.margin>
-                  </Label>
+                  
                </children>
             </VBox>
          </content>
