@@ -16,11 +16,6 @@ public class PlayerProxy {
 
     public PlayerProxy(Player player) {
         this.player = player;
-        this.cardsReviled = player.getCardsReviled();
-        this.correctReviles = player.getCorrectReviles();
-        this.incorrectReviles = player.getIncorrectReviles();
-        this.deathCards = player.getDeathCards();
-        this.gamesWon = player.getGamesWon();
     }
 
     protected Player getPlayer() {
@@ -32,24 +27,42 @@ public class PlayerProxy {
     }
 
     public int getCardsReviled() {
-        return cardsReviled;
+        return cardsReviled+player.getCardsReviled();
     }
 
     public int getCorrectReviles() {
-        return correctReviles;
+        return correctReviles+player.getCorrectReviles();
     }
 
     public int getIncorrectReviles() {
-        return incorrectReviles;
+        return incorrectReviles+player.getIncorrectReviles();
     }
 
     public int getDeathCards() {
-        return deathCards;
+        return deathCards+player.getDeathCards();
     }
 
     public int getGamesWon() {
-        return gamesWon;
+        return gamesWon+player.getGamesWon();
     }
+
+
+    public int getCardsReviledChange() {
+        return cardsReviled;
+    }
+
+    public int getCorrectRevilesChange() {
+        return correctReviles;
+    }
+
+    public int getIncorrectRevilesChange() {
+        return incorrectReviles;
+    }
+
+    public int getDeathCardsChange() {
+        return deathCards;
+    }
+
 
     public int getTeam() {
         return team;
@@ -63,12 +76,46 @@ public class PlayerProxy {
         return clientCallBackInterface;
     }
 
-    public void setTeam(int team) {
+    protected void setTeam(int team) {
         this.team = team;
     }
 
-    public void setRole(int role) {
+    protected void setRole(int role) {
         this.role = role;
+    }
+
+    protected void clicked(int type){
+        cardsReviled++;
+        if(type == team){
+            correctReviles++;
+        }else if(type == 3){
+            incorrectReviles++;
+            deathCards++;
+        }else{
+            incorrectReviles++;
+        }
+    }
+
+    protected void gameOver(int lastTeamPlayed ,boolean byDeathCard){
+        if(team==lastTeamPlayed){
+            if(!byDeathCard){
+                gamesWon++;
+            }
+        }else{
+            if(byDeathCard){
+                gamesWon++;
+            }
+        }
+        updateRealPlayer();
+    }
+
+    protected void updateRealPlayer(){
+        player.setCardsReviled(getCardsReviled());
+        player.setCorrectReviles(getCorrectReviles());
+        player.setDeathCards(getDeathCards());
+        player.setGamesWon(getGamesWon());
+        player.setIncorrectReviles(getIncorrectReviles());
+        player.setNumGames(player.getNumGames()+1);
     }
 
     protected void setClientCallBackInterface(ClientCommandInvokerInterface clientCallBackInterface) {

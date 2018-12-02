@@ -230,6 +230,8 @@ public class Game  implements GameInterface, Serializable {
         if(this.playerExists(playerName) && this.turnMatches(turnCount, playerName) && cardfactory.revealCard(code)){
             Card card = this.getCard(code);
             int type = card.getType();
+            PlayerProxy player= players.get(playerName);
+            player.clicked(type);
             if(type == this.turn){
             	System.out.println("revealCard: gameID:- "+this.getGameID()+" continues with same teams turn ");
                 incrimentTurnCount();

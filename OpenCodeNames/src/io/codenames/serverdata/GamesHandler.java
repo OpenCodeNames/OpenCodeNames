@@ -24,17 +24,17 @@ public class GamesHandler extends UnicastRemoteObject implements GamesHandlerInt
     private static LinkedHashMap<String,HashMap<String,String>> viewablegamewue = new LinkedHashMap<String,HashMap<String,String>>();
     private static LinkedHashMap<String, Game> runningGames =  new LinkedHashMap<String, Game>();
     
-    private int avgNumGames = 0;
-	private int avgCardsReviled = 0;
-    private int avgCorrectReviles = 0;
-    private int avgIncorrectReviles = 0;
-    private int avgDeathCards = 0;
-    private int avgGamesWon = 0;
-    private int redWonByDeathCard = 0;
-    private int redWonByCompletion = 0;
-    private int blueWonByDeathCard = 0;
-    private int blueWonByCompletion = 0;
-    
+    private static int numGames = 0;
+	private static float avgCardsReviled = 0;
+    private static float avgCorrectReviles = 0;
+    private static float avgIncorrectReviles = 0;
+    private static float avgDeathCards = 0;
+    private static float avgGamesWon = 0;
+    private static int redWonByDeathCard = 0;
+    private static int redWonByCompletion = 0;
+    private static int blueWonByDeathCard = 0;
+    private static int blueWonByCompletion = 0;
+    private static int numberOfPlayers = 0;
     /**
      *
      */
@@ -49,13 +49,18 @@ public class GamesHandler extends UnicastRemoteObject implements GamesHandlerInt
                 FileInputStream fis = new FileInputStream("ServerGameData.ser");
                 ObjectInputStream ois = new ObjectInputStream(fis);
                 @SuppressWarnings("unchecked")
-				HashMap<String, Integer> retriveGameData =  (HashMap<String, Integer>) ois.readObject();
-                this.avgNumGames = retriveGameData.get("avgNumGames");
-            	this.avgCardsReviled = retriveGameData.get("avgCardsReviled");
-                this.avgCorrectReviles = retriveGameData.get("avgCorrectReviles");
-                this.avgIncorrectReviles = retriveGameData.get("avgIncorrectReviles");
-                this.avgDeathCards = retriveGameData.get("avgDeathCards");
-                this.avgGamesWon = retriveGameData.get("avgGamesWon");
+				HashMap<String, String> retriveGameData =  (HashMap<String, String>) ois.readObject();
+                this.numGames = Integer.parseInt(retriveGameData.get("avgNumGames"));
+                this.numberOfPlayers = Integer.parseInt(retriveGameData.get("numberOfPlayers"));
+            	this.avgCardsReviled = Float.parseFloat(retriveGameData.get("avgCardsReviled"));
+                this.avgCorrectReviles = Float.parseFloat(retriveGameData.get("avgCorrectReviles"));
+                this.avgIncorrectReviles = Float.parseFloat(retriveGameData.get("avgIncorrectReviles"));
+                this.avgDeathCards = Float.parseFloat(retriveGameData.get("avgDeathCards"));
+                this.avgGamesWon = Float.parseFloat(retriveGameData.get("avgGamesWon"));
+                this.redWonByDeathCard = Integer.parseInt(retriveGameData.get("redWonByDeathCard"));
+                this.redWonByCompletion = Integer.parseInt(retriveGameData.get("redWonByCompletion"));
+                this.blueWonByDeathCard = Integer.parseInt(retriveGameData.get("blueWonByDeathCard"));
+                this.blueWonByCompletion = Integer.parseInt(retriveGameData.get("blueWonByCompletion"));
                 ois.close();
             }
         } catch (FileNotFoundException e) {
@@ -232,97 +237,186 @@ public class GamesHandler extends UnicastRemoteObject implements GamesHandlerInt
     }
 
 	public int getAvgNumGames() throws RemoteException {
-		return avgNumGames;
+		return (numGames/numberOfPlayers);
 	}
 
 	public int getAvgCardsReviled() throws RemoteException {
-		return avgCardsReviled;
+		return (int)avgCardsReviled;
 	}
 
 	public int getAvgCorrectReviles() throws RemoteException {
-		return avgCorrectReviles;
+		return (int)avgCorrectReviles;
 	}
 
 	public int getAvgDeathCardReviles() throws RemoteException {
-		return avgDeathCards;
+		return (int)avgDeathCards;
 	}
 
 	public int getAvgIncorrectReviles() throws RemoteException {
-		return avgIncorrectReviles;
+		return (int)avgIncorrectReviles;
 	}
 
 	public int getAvgGamesWon() throws RemoteException {
-		return avgGamesWon;
+		return (int)avgGamesWon;
 	}
 
     public int getRedWonByDeathCard() throws RemoteException {
-        return this.redWonByDeathCard;
+        return redWonByDeathCard;
     }
 
     public int getRedWonByCompletion() throws RemoteException {
-        return this.redWonByCompletion;
+        return redWonByCompletion;
     }
 
     public int getBlueWonByDeathCard() throws RemoteException {
-        return this.blueWonByDeathCard;
+        return blueWonByDeathCard;
     }
 
     public int getBlueWonByCompletion() throws RemoteException {
-        return this.blueWonByCompletion;
+        return blueWonByCompletion;
     }
 
-    public void addToAvgNumGames(int avgNumGames) {
-        this.avgNumGames += avgNumGames;
+    protected static void incrimentNumGames() {
+        if (single_instance == null) {
+            try {
+                single_instance = new GamesHandler();
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }
+        numGames++;
     }
 
-    public void addToAvgCardsReviled(int avgCardsReviled) {
-        this.avgCardsReviled += avgCardsReviled;
+    protected static void addToAvgCardsReviled(int CardsReviledChange) {
+        if (single_instance == null) {
+            try {
+                single_instance = new GamesHandler();
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }
+        avgCardsReviled += ((float)CardsReviledChange/numberOfPlayers);
     }
 
-    public void addToAvgCorrectReviles(int avgCorrectReviles) {
-        this.avgCorrectReviles += avgCorrectReviles;
+    protected static void addToAvgCorrectReviles(int CorrectRevilesdChange) {
+        if (single_instance == null) {
+            try {
+                single_instance = new GamesHandler();
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }
+        avgCorrectReviles += ((float)CorrectRevilesdChange/numberOfPlayers);
     }
 
-    public void addToAvgIncorrectReviles(int avgIncorrectReviles) {
-        this.avgIncorrectReviles += avgIncorrectReviles;
+    protected static void addToAvgIncorrectReviles(int IncorrectRevilesChange) {
+        if (single_instance == null) {
+            try {
+                single_instance = new GamesHandler();
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }
+        avgIncorrectReviles += ((float)IncorrectRevilesChange/numberOfPlayers);
     }
 
-    public void addToAvgDeathCards(int avgDeathCards) {
-        this.avgDeathCards += avgDeathCards;
+    protected static void addToAvgDeathCards(int DeathCardsChange) {
+        if (single_instance == null) {
+            try {
+                single_instance = new GamesHandler();
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }
+        avgDeathCards += ((float)DeathCardsChange/numberOfPlayers);
     }
 
-    public void addToAvgGamesWon(int avgGamesWon) {
-        this.avgGamesWon += avgGamesWon;
+    /**
+     * Dont use for stats
+     * @param avgGamesWonChange
+     */
+    protected static void addToAvgGamesWon(int avgGamesWonChange) {
+        if (single_instance == null) {
+            try {
+                single_instance = new GamesHandler();
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }
+        avgGamesWon += ((float)avgGamesWonChange/numberOfPlayers);
     }
 
-    public void addToRedWonByDeathCard(int redWonByDeathCard) {
-        this.redWonByDeathCard += redWonByDeathCard;
+    protected static void incrimentRedWonByDeathCard() {
+        if (single_instance == null) {
+            try {
+                single_instance = new GamesHandler();
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }
+        redWonByDeathCard ++;
     }
 
-    public void addToRedWonByCompletion(int redWonByCompletion) {
-        this.redWonByCompletion += redWonByCompletion;
+    protected static void incrimentRedWonByCompletion() {
+        if (single_instance == null) {
+            try {
+                single_instance = new GamesHandler();
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }
+        redWonByCompletion ++;
     }
 
-    public void addToBlueWonByDeathCard(int blueWonByDeathCard) {
-        this.blueWonByDeathCard += blueWonByDeathCard;
+    protected static void incrimentBlueWonByDeathCard() {
+        if (single_instance == null) {
+            try {
+                single_instance = new GamesHandler();
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }
+        blueWonByDeathCard++;
     }
 
-    public void addToBlueWonByCompletion(int blueWonByCompletion) {
-        this.blueWonByCompletion += blueWonByCompletion;
+    protected static void incrimentBlueWonByCompletion() {
+        if (single_instance == null) {
+            try {
+                single_instance = new GamesHandler();
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }
+        blueWonByCompletion++;
     }
 
+    protected static void incrimentNumberOfPlayers() {
+        if (single_instance == null) {
+            try {
+                single_instance = new GamesHandler();
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }
+        numberOfPlayers++;
+    }
     public void saveGameData(){
         FileOutputStream f = null;
         try {
             FileOutputStream fs = new FileOutputStream(new File("ServerGameData.ser"));
             ObjectOutputStream os = new ObjectOutputStream(fs);
-            HashMap<String, Integer> savableGameData = new HashMap<String, Integer>();
-            savableGameData.put("avgNumGames", avgNumGames);
-            savableGameData.put("avgCardsReviled", avgCardsReviled);
-            savableGameData.put("avgCorrectReviles", avgCorrectReviles);
-            savableGameData.put("avgIncorrectReviles", avgIncorrectReviles);
-            savableGameData.put("avgDeathCards", avgDeathCards);
-            savableGameData.put("avgGamesWon", avgGamesWon);
+            HashMap<String, String> savableGameData = new HashMap<String, String>();
+            savableGameData.put("numGames", String.valueOf(numGames));
+            savableGameData.put("numberOfPlayers",String.valueOf(numberOfPlayers));
+            savableGameData.put("avgCardsReviled", String.valueOf(avgCardsReviled));
+            savableGameData.put("avgCorrectReviles", String.valueOf(avgCorrectReviles));
+            savableGameData.put("avgIncorrectReviles", String.valueOf(avgIncorrectReviles));
+            savableGameData.put("avgDeathCards", String.valueOf(avgDeathCards));
+            savableGameData.put("avgGamesWon", String.valueOf(avgGamesWon));
+            savableGameData.put("redWonByDeathCard", String.valueOf(redWonByDeathCard));
+            savableGameData.put("redWonByCompletion", String.valueOf(redWonByCompletion));
+            savableGameData.put("blueWonByDeathCard", String.valueOf(blueWonByDeathCard));
+            savableGameData.put("blueWonByCompletion", String.valueOf(blueWonByCompletion));
             os.writeObject(savableGameData);
             os.close();
             fs.close();
