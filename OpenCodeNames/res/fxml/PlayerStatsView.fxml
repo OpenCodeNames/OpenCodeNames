@@ -114,11 +114,6 @@
                                     <Font size="18.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="41.0" layoutY="182.0" prefHeight="29.0" prefWidth="215.0" text="Avg Win Rate :" textFill="WHITE">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </Label>
                               <Label fx:id="avgCardReveals" layoutX="281.0" layoutY="31.0" prefHeight="27.0" prefWidth="120.0" text="13/25" textFill="WHITE">
                                  <font>
                                     <Font size="18.0" />
@@ -130,11 +125,6 @@
                                  </font>
                               </Label>
                               <Label fx:id="avgDCardReveals" layoutX="281.0" layoutY="129.0" prefHeight="27.0" prefWidth="120.0" text="02/25" textFill="WHITE">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="avgWinRate" layoutX="281.0" layoutY="183.0" prefHeight="27.0" prefWidth="120.0" text="80%" textFill="WHITE">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
