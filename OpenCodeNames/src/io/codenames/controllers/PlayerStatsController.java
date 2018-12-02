@@ -8,6 +8,8 @@ import java.util.ResourceBundle;
 import java.util.prefs.Preferences;
 
 import io.codenames.data.Game;
+import io.codenames.data.GameHandler;
+import io.codenames.serverdata.GamesHandler;
 import io.codenames.serverdata.Player;
 import io.codenames.serverinterfaces.GamesHandlerInterface;
 import io.codenames.serverinterfaces.PlayersHandlerInterface;
@@ -32,6 +34,7 @@ public class PlayerStatsController implements Initializable{
 	
 	
 	private PlayersHandlerInterface playerhandler;
+	private GamesHandlerInterface gamehandler;
 	private Preferences pref;
 	
 	@FXML
@@ -59,10 +62,8 @@ public class PlayerStatsController implements Initializable{
 	private Label avgDCardReveals;
 	
 	@FXML
-	private Label avgWinRate;
-	
-   @FXML
 	private NumberAxis xAxis;
+	
 	@FXML
 	private CategoryAxis yAxis;
     
@@ -104,21 +105,25 @@ public class PlayerStatsController implements Initializable{
 			avgCardReveals.setText(player.getCorrectReviles()+"/"+avgCardReviled);
 			avgWCardReveals.setText(player.getIncorrectReviles()+"/"+avgCardReviled);
 			avgDCardReveals.setText(player.getDeathCards()+"/"+avgCardReviled);
-			avgWinRate.setText(player.getGamesWon()+"/"+player.getNumGames());
 			
 			xAxis.setLabel("Number of Games");
 			xAxis.setTickLabelFill(Color.web("#FFFFFF"));
 //			xAxis.setTickLabelRotation(90);
 			yAxis.setLabel("Performance");
 			
+			int gameStatsBlue = gamehandler.getBlueWonByCompletion();
+			int deathCardBlueWins = gamehandler.getBlueWonByDeathCard();
+			int gameStatsRed = gamehandler.getRedWonByCompletion();
+			int deathCardRedWins = gamehandler.getRedWonByDeathCard();
+			
 			XYChart.Series<String, Integer> series1 = new XYChart.Series<String, Integer>();
-			series1.getData().add(new XYChart.Data("Won by Completion",50));
-			series1.getData().add(new XYChart.Data("Won Death Card Reveal",20));
+			series1.getData().add(new XYChart.Data("Blue Won by Completion",gameStatsBlue));
+			series1.getData().add(new XYChart.Data("Blue Won Death Card Reveal",deathCardBlueWins));
 			
 			
 			XYChart.Series<String, Integer> series2 = new XYChart.Series<String, Integer>();
-			series2.getData().add(new XYChart.Data("Won by Completion",60));
-			series2.getData().add(new XYChart.Data("Won Death Card Reveal",30));
+			series2.getData().add(new XYChart.Data("Red Won by Completion",gameStatsRed));
+			series2.getData().add(new XYChart.Data("Red Won Death Card Reveal",deathCardRedWins));
 			barChart.getData().addAll(series1, series2);
 			
 			
