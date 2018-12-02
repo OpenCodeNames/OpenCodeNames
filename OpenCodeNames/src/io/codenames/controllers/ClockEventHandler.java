@@ -8,6 +8,7 @@ public class ClockEventHandler implements EventHandler<ActionEvent> {
 	int count = 31;
 	Label countDown;
 	long starTime;
+	boolean stoped=false;
 	GameViewController gameview;
 	
 	public ClockEventHandler(Label countDown, GameViewController gameViweController) {
@@ -21,13 +22,20 @@ public class ClockEventHandler implements EventHandler<ActionEvent> {
 		this.count = count;
 	}
 
-
-
+	public void stopClock() {
+		this.stoped=true;
+	}
+	public void startClock() {
+		this.stoped=false;
+		count=30;
+	}
 	@Override
 	public void handle(ActionEvent actionEvent) {
-		count--;
-		if(count ==0) {
+		if(!stoped)
+			count--;
+		if(count <=0) {
 			this.gameview.timeOver();
+			this.stopClock();
 		}
 		countDown.setText("0:"+count);
 	}
