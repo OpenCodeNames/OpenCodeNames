@@ -86,33 +86,37 @@ public class GameViewController implements Initializable {
 	}
 
 	protected void addChatMessage(String chat,int team,int type){
-
-	    Label chatMessage = new Label(chat);
-	    String teamString="";
-	    String typeString="";
-	    switch (team){
-            case(0):
-                teamString = "red-";
-                break;
-            case(1):
-                teamString = "blue-";
-                break;
-            default:
-                break;
-        }
-        switch (type){
-            case(0):
-                typeString = "player";
-                break;
-            case(1):
-                typeString = "spymaster";
-                break;
-            default:
-                typeString = "gameMessage";
-                break;
-        }
-        chatMessage.getStyleClass().add(teamString+typeString);
-        messageBoard.getChildren().add(chatMessage);
+		 Platform.runLater(new Runnable() {
+			 @Override
+	            public void run() {
+				    Label chatMessage = new Label(chat);
+				    String teamString="";
+				    String typeString="";
+				    switch (team){
+				        case(0):
+				            teamString = "red-";
+				            break;
+				        case(1):
+				            teamString = "blue-";
+				            break;
+				        default:
+				            break;
+				    }
+				    switch (type){
+				        case(0):
+				            typeString = "player";
+				            break;
+				        case(1):
+				            typeString = "spymaster";
+				            break;
+				        default:
+				            typeString = "gameMessage";
+				            break;
+				    }
+				    chatMessage.getStyleClass().add(teamString+typeString);
+				    messageBoard.getChildren().add(chatMessage);
+			 }
+		 });
     }
 	protected void timeOver() {
 
