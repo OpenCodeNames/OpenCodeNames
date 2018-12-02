@@ -52,7 +52,8 @@ public class GameViewController implements Initializable {
     String gameID;
     String playerName;
 
-
+    ClockEventHandler gameClock;
+    
     @FXML
     private AnchorPane gameBoard;
 
@@ -117,7 +118,11 @@ public class GameViewController implements Initializable {
 		 });
     }
 	protected void timeOver() {
-
+		try {
+            gamehandler.passTurnInGame(gameID, playerName, turnCount);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
 	}
 
 	protected void turnChange(){
@@ -126,6 +131,7 @@ public class GameViewController implements Initializable {
         }else{
 	        turn = 0;
         }
+	    this.gameClock.startClock();
     }
 
     protected void incrimentTurnCount(){
@@ -177,13 +183,15 @@ public class GameViewController implements Initializable {
                 default:
             }
             handleScores();
+            this.gameClock.startClock();
         } catch (RemoteException e) {
             e.printStackTrace();
         }
     }
 
 	protected void startCountDown() {
-		Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0),new ClockEventHandler(countDown, this)), new KeyFrame(Duration.seconds(1)));
+		gameClock = new ClockEventHandler(countDown, this);
+		Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0), gameClock), new KeyFrame(Duration.seconds(1)));
 		timeline.setCycleCount(Animation.INDEFINITE);
 		timeline.play();
 	}
@@ -248,11 +256,16 @@ public class GameViewController implements Initializable {
     }
 	
 	
-
+	private boolean spyMasterLock() {
+		return (role==1);
+	}
+	
 	protected void handleCardClick(MouseEvent event){
 		if(inputLocked()){
 			JOptionPane.showMessageDialog(new JFrame(), "Not your turn", "Error", JOptionPane.ERROR_MESSAGE);
-		}else {
+		}else if(spyMasterLock()){
+			JOptionPane.showMessageDialog(new JFrame(), "Spy master cant reveal cards", "Error", JOptionPane.ERROR_MESSAGE);
+		}else{
             JFXButton button = (JFXButton) event.getSource();
             try {
                 if (!gamehandler.cardSelected(gameID, turnCount, button.getText(), playerName)) {
