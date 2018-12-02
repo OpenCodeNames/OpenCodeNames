@@ -15,8 +15,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.paint.Color;
 
 /**
  * Action listener for back button
@@ -56,12 +61,23 @@ public class PlayerStatsController implements Initializable{
 	@FXML
 	private Label avgWinRate;
 	
+   @FXML
+	private NumberAxis xAxis;
+	@FXML
+	private CategoryAxis yAxis;
+    
+    @FXML
+    private BarChart<String, Integer> barChart;
+
+
+	
 	@FXML
 	protected void backAction(ActionEvent event) {
 				ViewController viewcontroller = ViewController.getInstance();
 				viewcontroller.activate("Menu");
 	}
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		
@@ -89,6 +105,24 @@ public class PlayerStatsController implements Initializable{
 			avgWCardReveals.setText(player.getIncorrectReviles()+"/"+avgCardReviled);
 			avgDCardReveals.setText(player.getDeathCards()+"/"+avgCardReviled);
 			avgWinRate.setText(player.getGamesWon()+"/"+player.getNumGames());
+			
+			xAxis.setLabel("Number of Games");
+			xAxis.setTickLabelFill(Color.web("#FFFFFF"));
+//			xAxis.setTickLabelRotation(90);
+			yAxis.setLabel("Performance");
+			
+			XYChart.Series<String, Integer> series1 = new XYChart.Series<String, Integer>();
+			series1.getData().add(new XYChart.Data("Won by Completion",50));
+			series1.getData().add(new XYChart.Data("Won Death Card Reveal",20));
+			
+			
+			XYChart.Series<String, Integer> series2 = new XYChart.Series<String, Integer>();
+			series2.getData().add(new XYChart.Data("Won by Completion",60));
+			series2.getData().add(new XYChart.Data("Won Death Card Reveal",30));
+			barChart.getData().addAll(series1, series2);
+			
+			
+			
 			
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
