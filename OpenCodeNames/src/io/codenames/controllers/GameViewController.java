@@ -34,6 +34,7 @@ import javafx.animation.Animation;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
+import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
 public class GameViewController implements Initializable {
@@ -48,12 +49,15 @@ public class GameViewController implements Initializable {
     String gameID;
     String playerName;
 
+
     @FXML
     private AnchorPane gameBoard;
 
 	@FXML
 	private JFXButton chatSend;
-	
+
+	@FXML
+    private VBox messageBoard;
 	@FXML
 	private Label redScore;
 	
@@ -77,6 +81,35 @@ public class GameViewController implements Initializable {
 		return (turn!=team);
 	}
 
+	protected void addChatMessage(String chat,int team,int type){
+
+	    Label chatMessage = new Label(chat);
+	    String teamString="";
+	    String typeString="";
+	    switch (team){
+            case(0):
+                teamString = "red-";
+                break;
+            case(1):
+                teamString = "blue-";
+                break;
+            default:
+                break;
+        }
+        switch (type){
+            case(0):
+                typeString = "player";
+                break;
+            case(1):
+                typeString = "spymaster";
+                break;
+            default:
+                typeString = "gameMessage";
+                break;
+        }
+        chatMessage.getStyleClass().add(teamString+typeString);
+        messageBoard.getChildren().add(chatMessage);
+    }
 	protected void timeOver() {
 
 	}

@@ -62,7 +62,8 @@ public class ClientCommandInvoker  extends UnicastRemoteObject implements Client
 
 
     public boolean reciveMessageBroadCast(String Message,String playerName,int team) throws RemoteException {
-        return false;
+        this.gameScreen.addChatMessage(playerName+" :"+Message,team,0);
+        return true;
     }
 
    
@@ -82,11 +83,13 @@ public class ClientCommandInvoker  extends UnicastRemoteObject implements Client
 
 
     public boolean reciveGameMessage(String message) throws RemoteException {
-        return false;
+        this.gameScreen.addChatMessage("Game Message :"+message,3,3);
+        return true;
     }
 
    
     public boolean reciveHint(String hint,String playerName,int team) throws RemoteException {
+        this.gameScreen.addChatMessage(playerName+" :"+hint,team,0);
         return false;
     }
 
