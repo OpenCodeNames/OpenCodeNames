@@ -174,24 +174,32 @@ public class GameViewController implements Initializable {
 	protected void gameWon(int wonBy, boolean byDeathCard){
 	    String message;
 	    String title;
-
+        String by;
 	    if(team==wonBy){
-	        if(byDeathCard)
-	            title = "You Lost";
-	        else
+	        if(byDeathCard){
+                title = "You Lost";
+                by = "Your Team";
+            }else{
                 title = "You Won";
+                by = "Opponent";
+            }
+
 
         }else{
-            if(byDeathCard)
+            if(byDeathCard){
                 title = "You Won";
-            else
+                by = "Opponent";
+            }else{
                 title = "You Lost";
+                by = "Your Team";
+            }
+
         }
         String reason;
         if(byDeathCard)
-            reason = " By "+(wonBy==team?"Opponent Team":"Your Team")+" clicking on";
+            reason = " By "+by+" clicking on";
         else
-            reason = " By "+(wonBy==team?"Opponent Team":"Your Team")+" clearing the board";
+            reason = " By "+by+" clearing the board";
 
         message = title+reason;
 	    this.gameOver(message,false,title);
