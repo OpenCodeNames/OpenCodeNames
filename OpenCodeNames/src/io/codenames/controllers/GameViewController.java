@@ -175,7 +175,7 @@ public class GameViewController implements Initializable {
 	    String message;
 	    String title;
 
-	    if(team==wonBy){
+	    if(team==wonBy && !byDeathCard){
             title = "You Won";
 
         }else{
