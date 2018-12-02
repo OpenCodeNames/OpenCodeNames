@@ -43,7 +43,15 @@ public interface GamesHandlerInterface extends Remote{
 	
 	int getAvgGamesWon() throws RemoteException;
 
-	int getTeamOfPlayerInGame(String gameID, String playerName) throws RemoteException;
+	int getRedWonByDeathCard() throws RemoteException;
+
+	int getRedWonByCompletion() throws RemoteException;
+
+    int getBlueWonByDeathCard() throws RemoteException;
+
+    int getBlueWonByCompletion() throws RemoteException;
+
+    int getTeamOfPlayerInGame(String gameID, String playerName) throws RemoteException;
 
     int getRoleOfPlayerInGame(String gameID, String playerName) throws RemoteException;
 

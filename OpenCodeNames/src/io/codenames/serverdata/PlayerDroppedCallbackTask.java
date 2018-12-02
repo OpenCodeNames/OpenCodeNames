@@ -4,11 +4,11 @@ import java.rmi.RemoteException;
 import java.util.Map;
 import java.util.TimerTask;
 
-public class TurnPassedCallbackTask extends TimerTask {
+public class PlayerDroppedCallbackTask extends TimerTask {
     Map<String, PlayerProxy> players;
 
 
-    public TurnPassedCallbackTask( Map<String, PlayerProxy> players) {
+    public PlayerDroppedCallbackTask( Map<String, PlayerProxy> players) {
         this.players = players;
     }
 
@@ -17,10 +17,9 @@ public class TurnPassedCallbackTask extends TimerTask {
         for (Map.Entry<String,PlayerProxy> entry : players.entrySet() ) {
             try {
                 PlayerProxy player = entry.getValue();
-                player.getClientCallBackInterface().turnPassed();
+                player.getClientCallBackInterface().playerDropped();
             } catch (RemoteException e) {
-            	new java.util.Timer().schedule(new PlayerDroppedCallbackTask(players),20);
-            	break;
+                e.printStackTrace();
             }
         }
     }

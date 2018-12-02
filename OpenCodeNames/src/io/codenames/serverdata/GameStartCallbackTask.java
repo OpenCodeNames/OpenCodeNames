@@ -20,7 +20,8 @@ public class GameStartCallbackTask extends TimerTask {
                 PlayerProxy player = entry.getValue();
                 player.getClientCallBackInterface().startGame();
             } catch (RemoteException e) {
-                e.printStackTrace();
+            	new java.util.Timer().schedule(new PlayerDroppedCallbackTask(players),20);
+            	break;
             }
         }
     }

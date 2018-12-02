@@ -30,7 +30,10 @@ public class GamesHandler extends UnicastRemoteObject implements GamesHandlerInt
     private int avgIncorrectReviles = 0;
     private int avgDeathCards = 0;
     private int avgGamesWon = 0;
-    
+    private int redWonByDeathCard = 0;
+    private int redWonByCompletion = 0;
+    private int blueWonByDeathCard = 0;
+    private int blueWonByCompletion = 0;
     
     /**
      *
@@ -210,9 +213,15 @@ public class GamesHandler extends UnicastRemoteObject implements GamesHandlerInt
     }
 
 
-    public boolean placeChatMessage(String gameName, String platerName, String message) throws RemoteException {
-        // TODO Auto-generated method stub
-        return false;
+    public boolean placeChatMessage(String gameID, String playerName, String message) throws RemoteException {
+        if(runningGames.containsKey(gameID)){
+            Game game = runningGames.get(gameID);
+            if(game.playerExists(playerName)){
+                return game.placeChatMessage(message,playerName);
+            }
+        }
+        System.out.println("getCardsArray: Game "+gameID+"Not Found");
+        return true;
     }
 
 
@@ -245,6 +254,62 @@ public class GamesHandler extends UnicastRemoteObject implements GamesHandlerInt
 	public int getAvgGamesWon() throws RemoteException {
 		return avgGamesWon;
 	}
+
+    public int getRedWonByDeathCard() throws RemoteException {
+        return this.redWonByDeathCard;
+    }
+
+    public int getRedWonByCompletion() throws RemoteException {
+        return this.redWonByCompletion;
+    }
+
+    public int getBlueWonByDeathCard() throws RemoteException {
+        return this.blueWonByDeathCard;
+    }
+
+    public int getBlueWonByCompletion() throws RemoteException {
+        return this.blueWonByCompletion;
+    }
+
+    public void addToAvgNumGames(int avgNumGames) {
+        this.avgNumGames += avgNumGames;
+    }
+
+    public void addToAvgCardsReviled(int avgCardsReviled) {
+        this.avgCardsReviled += avgCardsReviled;
+    }
+
+    public void addToAvgCorrectReviles(int avgCorrectReviles) {
+        this.avgCorrectReviles += avgCorrectReviles;
+    }
+
+    public void addToAvgIncorrectReviles(int avgIncorrectReviles) {
+        this.avgIncorrectReviles += avgIncorrectReviles;
+    }
+
+    public void addToAvgDeathCards(int avgDeathCards) {
+        this.avgDeathCards += avgDeathCards;
+    }
+
+    public void addToAvgGamesWon(int avgGamesWon) {
+        this.avgGamesWon += avgGamesWon;
+    }
+
+    public void addToRedWonByDeathCard(int redWonByDeathCard) {
+        this.redWonByDeathCard += redWonByDeathCard;
+    }
+
+    public void addToRedWonByCompletion(int redWonByCompletion) {
+        this.redWonByCompletion += redWonByCompletion;
+    }
+
+    public void addToBlueWonByDeathCard(int blueWonByDeathCard) {
+        this.blueWonByDeathCard += blueWonByDeathCard;
+    }
+
+    public void addToBlueWonByCompletion(int blueWonByCompletion) {
+        this.blueWonByCompletion += blueWonByCompletion;
+    }
 
     public void saveGameData(){
         FileOutputStream f = null;

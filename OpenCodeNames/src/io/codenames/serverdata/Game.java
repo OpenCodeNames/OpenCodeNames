@@ -24,8 +24,8 @@ public class Game  implements GameInterface, Serializable {
     private int team2SpyMasterIndex;
     private int turnCount=1;
     private int turn = 0;
-    private boolean gameOver;
-    private boolean gameStarted;
+    private boolean gameOver = false;
+    private boolean gameStarted = false;
 
     private CardFactory cardfactory= new CardFactory();
     private Map<String, PlayerProxy> players= new LinkedHashMap<String, PlayerProxy>();
@@ -126,8 +126,9 @@ public class Game  implements GameInterface, Serializable {
         return gameOver;
     }
 
-    protected void gameOver() {
-        this.gameOver = false;
+    protected void gameOver(boolean byDeathCard) {
+        new java.util.Timer().schedule(new WinLossCallbackTask(turn,byDeathCard,players),20);
+        this.gameOver = true;
     }
 
     public boolean isGameStarted() {
@@ -215,6 +216,15 @@ public class Game  implements GameInterface, Serializable {
             new java.util.Timer().schedule(new TurnPassedCallbackTask(players),20);
     }
 
+    public boolean placeChatMessage(String message, String playerName){
+        if(this.playerExists(playerName)){
+            PlayerProxy player = players.get(playerName);
+            boolean isSpyMaster = (player.getRole()==1);
+            new java.util.Timer().schedule(new MessageRecivedCallbackTask(message,isSpyMaster,playerName,player.getTeam(),players),20);
+            return true;
+        }
+        return false;
+    }
 
     protected boolean revealCard(int turnCount, String code, String playerName){
         if(this.playerExists(playerName) && this.turnMatches(turnCount, playerName) && cardfactory.revealCard(code)){
@@ -226,8 +236,11 @@ public class Game  implements GameInterface, Serializable {
                 new java.util.Timer().schedule(new CardRevealedCallbackTask(code,false,players),20);
             }else if(type == 3 ){
             	System.out.println("revealCard: gameID- "+this.getGameID()+" Ended Due to death card");
-                gameOver();
-                // TODO Auto-generated DeathCard Revealed Callback
+                incrimentTurnCount();
+                incrimentTurnCount();
+            	new java.util.Timer().schedule(new CardRevealedCallbackTask(code,false,players),20);
+                gameOver(true);
+
             }else{
             	System.out.println("revealCard: gameID- "+this.getGameID()+" continues with turn changed due to netural or oppornent card ");
                 passTurn(false);
@@ -261,7 +274,7 @@ public class Game  implements GameInterface, Serializable {
     }
     protected void chooseTeamOrder(){
         Random rn = new Random();
-        int team1 = rn.nextInt(2);
+        team1 = rn.nextInt(2);
         if(team1==0)
             team2=1;
         else
