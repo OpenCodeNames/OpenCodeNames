@@ -21,6 +21,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
@@ -55,6 +56,9 @@ public class GameViewController implements Initializable {
 
 	@FXML
 	private JFXButton chatSend;
+	
+	@FXML
+	private TextField messageTextBox;
 
 	@FXML
     private VBox messageBoard;
@@ -253,6 +257,17 @@ public class GameViewController implements Initializable {
                 e.printStackTrace();
             }
         }
+	}
+	
+	@FXML
+	protected void sendMessage(ActionEvent event) {
+		String messages = messageTextBox.getText();
+		try {
+			gamehandler.placeChatMessage(gameID, playerName, messages);
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 	@Override
