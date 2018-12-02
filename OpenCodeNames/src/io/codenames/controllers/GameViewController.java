@@ -47,6 +47,8 @@ public class GameViewController implements Initializable {
     int turn;
     int turnCount;
     int role;
+    int redScoreVal=0;
+    int blueScoreVal=0;
     String gameID;
     String playerName;
 
@@ -72,13 +74,9 @@ public class GameViewController implements Initializable {
 	private Label countDown;
 
 
-	protected boolean handleScores(int score, int team){
-		if(team == 0) {
-			redScore.setText(score+ "/8");
-		}else if(team == 1) {
-			blueScore.setText(score+ "/8");
-		}
-		return true;
+	protected void handleScores(){
+		redScore.setText(redScoreVal+ "/8");
+		blueScore.setText(blueScoreVal+ "/8");
 	}
 
 	protected boolean inputLocked() {
@@ -164,9 +162,11 @@ public class GameViewController implements Initializable {
             switch (type){
                 case 0:
                     btn.getStyleClass().add("card-Red");
+                    this.redScoreVal++;
                     break;
                 case 1:
                     btn.getStyleClass().add("card-Blue");
+                    this.blueScoreVal++;
                     break;
                 case 2:
                     btn.getStyleClass().add("card-Neutral");
@@ -176,6 +176,7 @@ public class GameViewController implements Initializable {
                     break;
                 default:
             }
+            handleScores();
         } catch (RemoteException e) {
             e.printStackTrace();
         }
