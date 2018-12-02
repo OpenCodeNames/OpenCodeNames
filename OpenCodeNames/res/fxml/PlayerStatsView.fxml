@@ -89,12 +89,12 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <BarChart layoutX="20.0" layoutY="35.0">
+                        <BarChart fx:id="barChart" layoutX="20.0" layoutY="35.0">
                           <xAxis>
-                            <CategoryAxis side="BOTTOM" />
+                            <CategoryAxis fx:id="yAxis" side="BOTTOM" tickLabelFill="WHITE" />
                           </xAxis>
                           <yAxis>
-                            <NumberAxis side="LEFT" />
+                            <NumberAxis side="LEFT" styleClass="xAxis" tickLabelFill="WHITE" fx:id="xAxis" />
                           </yAxis>
                         </BarChart>
                         <AnchorPane layoutX="532.0" layoutY="52.0" prefHeight="357.0" prefWidth="432.0" styleClass="PlayerProfile">
