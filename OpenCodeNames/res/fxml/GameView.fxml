@@ -20,7 +20,7 @@
          </effect></AnchorPane>
       <ScrollPane layoutX="729.0" layoutY="320.0" prefHeight="200.0" prefWidth="225.0">
          <content>
-            <VBox prefHeight="200.0" prefWidth="210.0">
+            <VBox fx:id="messageBoard" prefHeight="200.0" prefWidth="210.0">
                <children>
                   <Label layoutX="10.0" layoutY="10.0" prefHeight="47.0" prefWidth="206.0" text="This is a message for testing " textOverrun="CLIP" wrapText="true" VBox.vgrow="SOMETIMES">
                      <padding>
