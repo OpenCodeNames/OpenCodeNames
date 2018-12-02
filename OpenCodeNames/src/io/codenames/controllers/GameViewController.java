@@ -73,7 +73,9 @@ public class GameViewController implements Initializable {
 	
 	@FXML
 	private Label countDown;
-
+	
+	@FXML
+	private Label roleDisplay;
 
 	protected void handleScores(){
 		redScore.setText(redScoreVal+ "/8");
@@ -332,6 +334,29 @@ public class GameViewController implements Initializable {
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}
+		String teamString = "";
+		String typeString = "";
+		switch (team){
+	        case(0):
+	            teamString = "Red";
+	            break;
+	        case(1):
+	            teamString = "Blue";
+	            break;
+	        default:
+	            break;
+	    }
+	    switch (role){
+	        case(0):
+	            typeString = "player";
+	            break;
+	        case(1):
+	            typeString = "spymaster";
+	            break;
+	        default:
+	            break;
+	    }
+	    roleDisplay.setText(teamString+" "+typeString); 
 		startCountDown();
 	}
 	
