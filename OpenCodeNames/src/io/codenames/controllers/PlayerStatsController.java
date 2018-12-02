@@ -62,10 +62,8 @@ public class PlayerStatsController implements Initializable{
 	private Label avgDCardReveals;
 	
 	@FXML
-	private Label avgWinRate;
-	
-   @FXML
 	private NumberAxis xAxis;
+	
 	@FXML
 	private CategoryAxis yAxis;
     
@@ -107,7 +105,6 @@ public class PlayerStatsController implements Initializable{
 			avgCardReveals.setText(player.getCorrectReviles()+"/"+avgCardReviled);
 			avgWCardReveals.setText(player.getIncorrectReviles()+"/"+avgCardReviled);
 			avgDCardReveals.setText(player.getDeathCards()+"/"+avgCardReviled);
-			avgWinRate.setText(player.getGamesWon()+"/"+player.getNumGames());
 			
 			xAxis.setLabel("Number of Games");
 			xAxis.setTickLabelFill(Color.web("#FFFFFF"));
