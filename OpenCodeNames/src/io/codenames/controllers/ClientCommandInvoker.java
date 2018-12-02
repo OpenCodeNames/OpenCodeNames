@@ -81,12 +81,12 @@ public class ClientCommandInvoker  extends UnicastRemoteObject implements Client
     }
 
 
-    public boolean reciveGameMessage(String message) throws RemoteException {
+    public boolean reciveGameMessage(String message,String playerName) throws RemoteException {
         return false;
     }
 
    
-    public boolean reciveHint(String hint) throws RemoteException {
+    public boolean reciveHint(String hint,String playerName) throws RemoteException {
         return false;
     }
 

@@ -10,8 +10,8 @@ public interface ClientCommandInvokerInterface extends Remote {
     boolean reciveMessageBroadCast(String Message) throws RemoteException;
     boolean cardOpened(String code, boolean turnChange) throws RemoteException;
     boolean turnPassed() throws RemoteException;
-    boolean reciveGameMessage(String message) throws RemoteException;
-    boolean reciveHint(String hint) throws RemoteException;
+    boolean reciveGameMessage(String message,String playerName) throws RemoteException;
+    boolean reciveHint(String hint,String playerName) throws RemoteException;
     boolean playerDropped()throws RemoteException;
     void gameWinLossMessageReceive(int lastTurnBy, boolean wonByDeathCard) throws RemoteException;
 }
