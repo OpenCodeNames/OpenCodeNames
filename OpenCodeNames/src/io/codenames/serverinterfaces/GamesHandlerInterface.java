@@ -27,7 +27,7 @@ public interface GamesHandlerInterface extends Remote{
 
 	void passTurnInGame(String gameID, String playerName, int turnCount) throws RemoteException;
 
-	boolean placeChatMessage(String gameID, String platerName, String message) throws RemoteException;
+	boolean placeChatMessage(String gameID, String playerName, String message) throws RemoteException;
 
 	boolean placeHintMessage(String gameID, int turnCount, String playerName, String message) throws RemoteException;
 	
