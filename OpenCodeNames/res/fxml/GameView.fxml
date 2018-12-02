@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
@@ -81,5 +80,10 @@
             <DropShadow />
          </effect>
       </HBox>
+      <Label fx:id="roleDisplay" layoutX="730.0" layoutY="266.0" prefHeight="36.0" prefWidth="225.0" text="Label" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
