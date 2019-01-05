@@ -31,11 +31,17 @@ public class ClockEventHandler implements EventHandler<ActionEvent> {
 	}
 	@Override
 	public void handle(ActionEvent actionEvent) {
-		if(!stoped)
+		if(!stoped) {
 			count--;
-		if(count <=0) {
-			this.gameview.timeOver();
-			this.stopClock();
+			if(count == 0) {
+				this.stopClock();
+			}
+		}
+		else {
+			if(count == 0) {
+				this.gameview.timeOver();	
+			}
+			
 		}
 		countDown.setText("0:"+count);
 	}
