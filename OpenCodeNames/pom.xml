@@ -49,7 +49,7 @@
         <dependency>
             <groupId>com.oracle.java</groupId>
             <artifactId>jre</artifactId>
-            <version>1.8.0_131</version>
+            <version>1.8.0_65</version>
             <classifier>win32</classifier>
             <type>tgz</type>
         </dependency>
@@ -131,7 +131,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>com.newmatik.App</mainClass>
+                            <mainClass>io.codenames.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -164,15 +164,16 @@
                                 ${project.build.directory}/${jar.final.name}-${project.version}-jar-with-dependencies.jar
                             </jar>
                             <errTitle>${jar.final.name}-Gui</errTitle>
-                            <classPath>
-                                <mainClass>${javafx.main.class}</mainClass>
-                            </classPath>
+                            
                             <icon>${project.build.directory}/classes/Icons/Windows-Icon.ico</icon>
                             <jre>
                                 <path>win32/java</path>
                                 <!--<minVersion>1.8</minVersion>-->
                                 <!--<maxVersion>1.8.0_181</maxVersion>-->
-                                <jdkPreference></jdkPreference>
+                                <jdkPreference>preferJre</jdkPreference>
+                                <opts>
+							        <opt>-cp io.codenames.Main</opt>
+							    </opts>
                                 <bundledJre64Bit>false</bundledJre64Bit>
                                 <runtimeBits>32</runtimeBits>
                             </jre>

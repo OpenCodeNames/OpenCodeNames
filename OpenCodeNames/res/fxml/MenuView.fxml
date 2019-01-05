@@ -6,7 +6,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" styleClass="MainPane" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.codenames.controllers.MenuViewController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" styleClass="MainPane" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.codenames.controllers.MenuViewController">
    <children>
       <JFXButton focusTraversable="false" layoutX="9.0" layoutY="167.0" onAction="#joinGameAction" prefHeight="65.0" prefWidth="325.0" styleClass="mainMenuButton" text="Join Game" />
       <Separator layoutX="338.0" layoutY="63.0" orientation="VERTICAL" prefHeight="506.0" prefWidth="0.0" />
