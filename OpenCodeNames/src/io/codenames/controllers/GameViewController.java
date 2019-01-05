@@ -206,6 +206,7 @@ public class GameViewController implements Initializable {
 	
 	protected void gameOver(String message,boolean isError,String messageTitle) {
 		int paneType;
+		this.gameClock.startClock();
 		if(isError){
 			paneType = JOptionPane.ERROR_MESSAGE;
 		}else {
@@ -233,7 +234,7 @@ public class GameViewController implements Initializable {
                 by = "Your Team";
             }else{
                 title = "You Won";
-                by = "Opponent";
+                by = "Your Team";
             }
 
 
@@ -243,13 +244,13 @@ public class GameViewController implements Initializable {
                 by = "Opponent";
             }else{
                 title = "You Lost";
-                by = "Your Team";
+                by = "Opponent";
             }
 
         }
         String reason;
         if(byDeathCard)
-            reason = " By "+by+" clicking on";
+            reason = " By "+by+" clicking on Death Card";
         else
             reason = " By "+by+" clearing the board";
 
@@ -259,7 +260,8 @@ public class GameViewController implements Initializable {
 	
 	
 	private boolean spyMasterLock() {
-		return (role==1);
+		//return (role==1);
+		return false;
 	}
 	
 	protected void handleCardClick(MouseEvent event){
