@@ -85,6 +85,7 @@ public class PlayerStatsController implements Initializable{
 		try{
 			this.pref = Preferences.userNodeForPackage(io.codenames.Main.class);
 			playerhandler = (PlayersHandlerInterface) Naming.lookup("rmi://"+pref.get("rmiUri", "localhost")+"/PlayersHandler");
+			gamehandler = (GamesHandlerInterface) Naming.lookup("rmi://"+pref.get("rmiUri", "localhost")+"/GamesHandler");
 		}catch (Exception e){
 			System.out.println(e.getMessage());
 		}
@@ -100,11 +101,11 @@ public class PlayerStatsController implements Initializable{
 			deathCards.setText(player.getDeathCards()+"/"+cardReviled);
 			winRate.setText(player.getGamesWon()+"/"+player.getNumGames());
 			
-			int avgCardReviled = 0;
+			int avgCardReviled = gamehandler.getAvgCardsReviled();
 			
-			avgCardReveals.setText(player.getCorrectReviles()+"/"+avgCardReviled);
-			avgWCardReveals.setText(player.getIncorrectReviles()+"/"+avgCardReviled);
-			avgDCardReveals.setText(player.getDeathCards()+"/"+avgCardReviled);
+			avgCardReveals.setText(gamehandler.getAvgCardsReviled()+"");
+			avgWCardReveals.setText(gamehandler.getAvgCorrectReviles()+"/"+avgCardReviled);
+			avgDCardReveals.setText(gamehandler.getAvgDeathCardReviles()+"/"+avgCardReviled);
 			
 			xAxis.setLabel("Number of Games");
 			xAxis.setTickLabelFill(Color.web("#FFFFFF"));
