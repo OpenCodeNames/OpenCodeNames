@@ -65,7 +65,12 @@ public class UserRegistrationViewController implements Initializable  {
 	@FXML 
 	protected void backAction(ActionEvent event) {
 				ViewController viewcontroller = ViewController.getInstance();
-				viewcontroller.activate("Menu");
+				try {
+					viewcontroller.addScreen("LoginView", FXMLLoader.load(getClass().getResource("/fxml/LoginView.fxml")));
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				viewcontroller.activate("LoginView");
 	}
 	
 	@Override
