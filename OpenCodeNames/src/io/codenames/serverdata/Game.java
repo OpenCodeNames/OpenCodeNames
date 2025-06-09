@@ -153,13 +153,12 @@ public class Game  implements GameInterface, Serializable {
 
     protected boolean removePlayer(PlayerProxy player){
         String name = player.getName();
-        if(seatsAvailable>0 && playerExists(name)){
-            this.players.remove(name,player);
+        if(playerExists(name)){
+            this.players.remove(name);
             setSeatsAvailable(seatsAvailable+1);
             return true;
-        }else{
-            return false;
         }
+        return false;
 
     }
 
